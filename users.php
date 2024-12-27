@@ -85,7 +85,7 @@
             </div>
             <!-- main-panel ends -->
         </div>
-        <!-- page-body-wrapper ends -->
+        <!-- page-body-wrapper endss -->
     </div>
     <?php
         require_once('partials/footer-links.php');  
