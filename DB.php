@@ -23,14 +23,15 @@ class MyDB{
         if($result->num_rows > 0){
             while($row = mysqli_fetch_assoc($result)){
                 $data[] = $row;
+                
             }
             return $data;
         }
         else{
             return [];
         }
+        
     }
-
     public function debug($record){
         echo "<pre>";
         print_r($record);
@@ -38,8 +39,31 @@ class MyDB{
         exit();
     }
 
+    public function signUp(){
+       
+        if(($_SERVER['REQUEST_METHOD'] == 'POST')){
+            $sName = $_POST['s-name'];
+            $sEmail = $_POST['s-email'];
+            $sPassword = $_POST['s-password'];
+            $sCpassword = $_POST['s-cpassword'];
+
+            
+            if($sPassword == $sCpassword){
+                $sql = "INSERT INTO `usersaccount` (`name`, `email`, `password`) VALUES ('$sName', '$sEmail', '$sPassword')";
+                $result = (mysqli_query($this->conn , $sql));
+
+                return $accountCreated = true;
+            }
+            else{
+                return $accountCreated = false;
+            }
+            
+        }
+        
+        
+    }
+
 }
 
 $obj = new MyDB();
-
 ?>

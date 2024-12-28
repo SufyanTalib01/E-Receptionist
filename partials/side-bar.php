@@ -26,5 +26,6 @@
                 <i class="mdi mdi-account menu-icon"></i>
               </a>
             </li>
+            
           </ul>
         </nav>

@@ -130,14 +130,14 @@
                 <h6 class="p-3 mb-0 text-center">See all notifications</h6>
               </div>
             </li>
-            <button type="button" class="btn btn-primary btn-sm">Login</button>
-            <button type="button" class="btn btn-primary btn-sm mx-2">Signup</button>
+            <a href="/login.php"><button type="button" class="btn btn-primary btn-sm">Login</button></a>
+            <a href="/signup.php"><button type="button" class="btn btn-primary btn-sm mx-2">Sign up</button></a>
             
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
             <span class="mdi mdi-menu"></span>
           </button>
         </div>
-
+  
         
 </nav>
