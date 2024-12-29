@@ -98,7 +98,7 @@
                 require_once('partials/footer.php');  
                 ?>
 
-                <!-- partial -->
+                <!-- partiall -->
             </div>
             <!-- main-panel ends -->
         </div>
