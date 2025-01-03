@@ -1,114 +1,113 @@
 <?php 
-  require_once('DB.php'); 
-  
-  $users = $obj->getUsers();
+    require_once('DB.php'); 
 
-  $signUp = $obj->signUp();
-  
-  $module = 'Sign up';
-
+    $users = $obj->getUsers();
+    
+    $module = 'Sign up';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <title><?php echo TITLE ?></title>
-    <?php
-      require_once('partials/head-links.php');
+    <!-- BEGIN :: HEAD  -->
+
+
+    <head>
+        <title>
+            <?php
+                echo SIGN_UP 
+            ?>
+        </title>
+        <!-- HEAD LINKS -->
+        <?php
+            require_once('partials/head-links.php');
+        ?>
+    </head>
+
+    <?php 
+        if(isset($messageExists)){?>
+            <script>
+                let msg = "<?php echo $messageExists ?>";
+                alert(msg);
+            </script> <?php
+        }
     ?>
 
-    <style>
-    table.dataTable th.dt-type-numeric,
-    table.dataTable th.dt-type-date,
-    table.dataTable td.dt-type-numeric,
-    table.dataTable td.dt-type-date {
-        text-align: left !important;
-    }
+    <body style="background-color: #F2EDF3;">
 
-    .page-body-wrapper{
-      min-height: calc(100vh) !important;
-    }
-    .main-panel{
-      width: calc(100%) !important;
-    }
-    
-    </style>
-</head>
+        <div class="container-scroller">
+            <div class="container-fluid page-body-wrapper justify-content-center">
+                <div class="main-panel">
+                    <div class="content-wrapper">
 
-<body style="background-color: #F2EDF3;">
-
-    <div class="container-scroller">
-
-
-        <!-- partial:partials/_navbar.html -->
-
-
-
-        <!-- partial -->
-        
-        <div class="container-fluid page-body-wrapper justify-content-center">
-            <!-- partial:partials/_sidebar.html -->
-
-            <!-- partial -->
-            <div class="main-panel">
-              
-                <div class="content-wrapper">
-
-                          <div class="container w-50">
-                          <?php
-                    require_once('partials/page-header.php');  
-                  ?>
-                          </div>
-                    <!-- body heree  -->
-
-
-                    <div class="container w-50">
-                    <form action="/signup.php" method="POST">
-                    <div class="form-group">
-                            <label for="s-name">Name</label>
-                            <input type="text" class="form-control" name="s-name" id="s-name"
-                                placeholder="Name">
+                        <div class="container w-50">
+                            <!-- PAGE HEADER  -->
+                            <?php
+                                require_once('partials/page-header.php');  
+                            ?>
                         </div>
 
-                        <div class="form-group">
-                            <label for="s-email">Email address</label>
-                            <input type="email" name="s-email" class="form-control" id="s-email"
-                                aria-describedby="emailHelp" placeholder="Enter email">
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                                else.</small>
+                        <!-- BEGIN :: BODY  -->
+                        <div class="container w-50">
+                            <!-- BEGIN :: FORM -->
+                            <form action="route.php" method="POST">
+                                <input type="hidden" class="form-control" name="action" id="name" placeholder="Please enter your name" value="signup">
+
+                                <!-- name -->
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input required  type="text" class="form-control" name="name" id="name" placeholder="Name">
+                                </div>
+
+                                <!-- email -->
+                                <div class="form-group">
+                                    <label for="email">Email address</label>
+                                    <input required type="email" class="form-control" name="email" id="email"
+                                        placeholder="Please enter your email">
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        We'll never share your email with anyone else.
+                                    </small>
+                                </div>
+
+                                <!-- password -->
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input required type="password" class="form-control" name="password" id="password"
+                                        placeholder="Please enter your password">
+                                </div>
+
+                                <!-- confirm password -->
+                                <div class="form-group">
+                                    <label for="confirm_password">Confirm Password</label>
+                                    <input required type="password" class="form-control" name="confirm_password"
+                                        id="confirm_password" placeholder="Please enter same password">
+                                </div>
+
+                                <!-- submit -->
+                                <button type="submit" class="btn btn-primary">Submit</button>
+
+                                <!-- login path -->
+                                <p class="mt-2">
+                                    Have you already account?
+                                    <a href="/login.php">
+                                        Login
+                                    </a>
+                                </p>
+                            </form>
+                            <!-- END :: FORM -->
                         </div>
-                        <div class="form-group">
-                            <label for="s-password">Password</label>
-                            <input type="password" class="form-control" name="s-password" id="s-password"
-                                placeholder="Password">
-                        </div>
-                        <div class="form-group">
-                            <label for="s-cpassword">Confirm Password</label>
-                            <input type="password" class="form-control" name="s-cpassword" id="s-cpassword"
-                                placeholder="Confirm Password">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <p class="mt-2">Have you already account? <a href="/login.php">Login</a></p>
-                    </form>
+                        <!-- END :: BODY -->
                     </div>
-
+                        <!-- Footer  -->
+                        <?php
+                            require_once('partials/footer.php');
+                        ?>
                 </div>
-
-                <?php
-                require_once('partials/footer.php');  
-                ?>
-
-                <!-- partialll -->
             </div>
-            <!-- main-panel ends -->
         </div>
-        
-        <!-- page-body-wrapper ends -->
-    </div>
-    <?php
-        require_once('partials/footer-links.php');  
-      ?>
-
-</body>
-
+        <!-- Footer Links  -->
+        <?php
+            require_once('partials/footer-links.php');  
+        ?>
+    </body>
 </html>

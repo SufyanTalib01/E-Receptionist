@@ -15,7 +15,19 @@
 <!-- endinject -->
 <!-- Layout styles -->
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/commom-style.css">
 <!-- End layout styles -->
 <link rel="shortcut icon" href="assets/images/favicon.png" />
 
 <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+
+
+
+<?php 
+    $messageExists = null;
+    if(isset($_SESSION['message'])){
+        $messageExists = $_SESSION['message'];
+        unset($_SESSION['message']);
+    }
+?>
+

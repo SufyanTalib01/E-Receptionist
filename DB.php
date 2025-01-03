@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once('config.php');
 
@@ -18,7 +19,7 @@ class MyDB{
 
     public function getUsers(){
         
-        $sql = "SELECT * FROM receipts ";
+        $sql = "SELECT * FROM users ";
         $result =(mysqli_query($this->conn, $sql));
         if($result->num_rows > 0){
             while($row = mysqli_fetch_assoc($result)){
@@ -33,34 +34,28 @@ class MyDB{
         
     }
     public function debug($record){
+
         echo "<pre>";
         print_r($record);
         echo "</pre>";
         exit();
+
     }
 
-    public function signUp(){
-       
-        if(($_SERVER['REQUEST_METHOD'] == 'POST')){
-            $sName = $_POST['s-name'];
-            $sEmail = $_POST['s-email'];
-            $sPassword = $_POST['s-password'];
-            $sCpassword = $_POST['s-cpassword'];
+    public function signUp($records){
 
-            
-            if($sPassword == $sCpassword){
-                $sql = "INSERT INTO `usersaccount` (`name`, `email`, `password`) VALUES ('$sName', '$sEmail', '$sPassword')";
-                $result = (mysqli_query($this->conn , $sql));
+        // EXTRACT FORM FIELDS 
+        extract($records);
 
-                return $accountCreated = true;
-            }
-            else{
-                return $accountCreated = false;
-            }
-            
+        // INSERT DATA
+        $sql = "INSERT INTO `usersaccount` (`name`, `email`, `password`) VALUES ('$name', '$email', '$password')";
+        $result = (mysqli_query($this->conn , $sql));
+        if($result == 1){
+            return true;
         }
         
-        
+        return false;
+
     }
 
 }

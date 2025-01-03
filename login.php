@@ -6,34 +6,35 @@
   $module = 'Login';
 
 ?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title><?php echo TITLE ?></title>
+    <title><?php echo LOGIN ?></title>
     <?php
       require_once('partials/head-links.php');
     ?>
-
-    <style>
-    table.dataTable th.dt-type-numeric,
-    table.dataTable th.dt-type-date,
-    table.dataTable td.dt-type-numeric,
-    table.dataTable td.dt-type-date {
-        text-align: left !important;
-    }
-
-    .page-body-wrapper {
-        min-height: calc(100vh) !important;
-    }
-
-    .main-panel {
-        width: calc(100%) !important;
-    }
-    </style>
 </head>
 
+
+<?php 
+
+if(isset($messageExists)) { ?>
+<script>
+    let msg = "<?php echo $messageExists; ?>";
+    alert(msg);
+</script>
+
+<?php 
+}
+?>
 <body>
+
 
     <div class="container-scroller">
 
@@ -49,8 +50,10 @@
 
             <!-- partial -->
             <div class="main-panel">
-                <div class="content-wrapper">
 
+
+                <div class="content-wrapper">
+                
                     <div class="container w-50">
                         <?php
                     require_once('partials/page-header.php');  
