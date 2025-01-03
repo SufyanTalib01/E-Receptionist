@@ -3,9 +3,12 @@
   
   $users = $obj->getUsers();
 
+
   $module = 'Dashboard';
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,12 +18,11 @@
       require_once('partials/head-links.php');
     ?>
 
-    <style>
-        table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date, table.dataTable td.dt-type-numeric, table.dataTable td.dt-type-date{
-            text-align: left !important;
-        }
-    </style>
+    
 </head>
+
+
+
 
 <body>
   

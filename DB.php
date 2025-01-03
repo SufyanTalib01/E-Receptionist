@@ -48,14 +48,43 @@ class MyDB{
         extract($records);
 
         // INSERT DATA
+        $password = password_hash($password , PASSWORD_DEFAULT);
         $sql = "INSERT INTO `usersaccount` (`name`, `email`, `password`) VALUES ('$name', '$email', '$password')";
         $result = (mysqli_query($this->conn , $sql));
         if($result == 1){
             return true;
         }
-        
         return false;
+    }
 
+    public function db_email_verification($records){
+        extract($records);
+        $sql = "SELECT * FROM `usersaccount` WHERE email = '$email'";
+        $result = (mysqli_query($this->conn , $sql));
+        $num = mysqli_num_rows($result);
+        if($num >= 1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function db_login($records){
+        extract($records);
+        $sql = "SELECT * FROM `usersaccount` WHERE email = '$email' AND password = '$password'";
+        $result = mysqli_query($this->conn , $sql);
+        $num = mysqli_num_rows($result);
+        if($num >= 1){
+            while($row = mysqli_fetch_assoc($result)){
+                $pass = $row['password'];
+                if(password_verify($password , $row['password'])){
+                    return true;
+                }
+            }
+        }else{
+            return false;
+        }
     }
 
 }

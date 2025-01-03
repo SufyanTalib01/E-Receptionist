@@ -1,4 +1,11 @@
 
+<?php 
+  $loggedIn = false;
+  if(isset($_SESSION['loggedin'])){
+    $loggedIn = true;
+  }
+?>
+
 <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
           <a class="navbar-brand brand-logo" href="index.html"><img src="assets/images/logo.svg" alt="logo" /></a>
@@ -130,8 +137,17 @@
                 <h6 class="p-3 mb-0 text-center">See all notifications</h6>
               </div>
             </li>
+
+            <!-- LOGIN AND SIGNUP  -->
+            <?php if(!$loggedIn){?>
             <a href="/login.php"><button type="button" class="btn btn-primary btn-sm">Login</button></a>
             <a href="/signup.php"><button type="button" class="btn btn-primary btn-sm mx-2">Sign up</button></a>
+            <?php } ?>
+            
+            <!-- SIGNUP  -->
+            <?php if($loggedIn){?>
+            <a href="/logout.php"><button type="button" class="btn btn-primary btn-sm">Logout</button></a>
+            <?php } ?>
             
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
