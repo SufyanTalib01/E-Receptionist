@@ -47,7 +47,7 @@ class MyDB{
         // EXTRACT FORM FIELDS 
         extract($records);
 
-        // INSERT DATA
+        // INSERT DATAA
         $password = password_hash($password , PASSWORD_DEFAULT);
         $sql = "INSERT INTO `usersaccount` (`name`, `email`, `password`) VALUES ('$name', '$email', '$password')";
         $result = (mysqli_query($this->conn , $sql));
