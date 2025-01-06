@@ -48,6 +48,10 @@
                 header('location: login.php');
             }
 
+        }else if($action == "forget"){
+
+            $forget = $obj->db_otp($_POST);
+
         }
 
 

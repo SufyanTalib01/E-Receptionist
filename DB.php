@@ -72,19 +72,37 @@ class MyDB{
 
     public function db_login($records){
         extract($records);
-        $sql = "SELECT * FROM `usersaccount` WHERE email = '$email' AND password = '$password'";
+        
+        $sql = "SELECT * FROM `usersaccount` WHERE email = '$email'";
         $result = mysqli_query($this->conn , $sql);
         $num = mysqli_num_rows($result);
         if($num >= 1){
             while($row = mysqli_fetch_assoc($result)){
-                $pass = $row['password'];
                 if(password_verify($password , $row['password'])){
                     return true;
+                }else{
+                   return false; 
                 }
             }
         }else{
             return false;
         }
+    }
+
+    public function db_otp($records){
+
+        extract($records);
+        $sql = "SELECT * FROM `usersaccount` WHERE email = '$email'";
+        $result = mysqli_query($this->conn , $sql);
+        $num = mysqli_num_rows($result);
+        if($num >= 1){
+            while($row = mysqli_fetch_assoc($result)){
+                echo $row['password'];
+            }
+        }else{
+            return false;
+        }
+        
     }
 
 }

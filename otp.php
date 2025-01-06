@@ -3,7 +3,7 @@
   
     $users = $obj->getUsers();
 
-    $module = 'Login';
+    $module = 'OTP';
 
 ?>
 
@@ -58,41 +58,22 @@
                     <!-- body here  -->
                     <div class="container w-50">
                         <!-- BEGIN :: FORM -->
-                        <form action="route.php" method="POST">
-                                <input type="hidden" class="form-control" name="action" id="action" placeholder="Please enter your name" value="login">
+                        <form action="otp.php" method="POST">
+                                <input type="hidden" class="form-control" name="action" id="action" placeholder="Please enter your name" value="forget">
 
                                 <!-- email -->
                                 <div class="form-group">
-                                    <label for="email">Email address</label>
+                                    <label for="email">OTP</label>
                                     <input required type="email" class="form-control" name="email" id="email"
-                                        placeholder="Please enter your email">
-                                    <small id="emailHelp" class="form-text text-muted">
-                                        We'll never share your email with anyone else.
-                                    </small>
+                                        placeholder="Please enter your OTP">
                                 </div>
 
-                                <!-- password -->
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input required type="password" class="form-control" name="password" id="password"
-                                        placeholder="Please enter your password">
-
-                                    <!-- FORGET PASSWORD  -->
-                                    <p class="mt-2">
-                                        <a  href="/forget-password.php">
-                                            Forgotten password?
-                                        </a>
-                                    </p>
-                                </div>
-
-                                
-                                
                                 <!-- submit -->
                                 <button type="submit" class="btn btn-primary">Submit</button>
 
                                 <!-- login path -->
                                 <p class="mt-2">
-                                    Don't have an account?
+                                    create a new account?
                                     <a href="/signup.php">
                                         Signup
                                     </a>
