@@ -58,13 +58,13 @@
                     <!-- body here  -->
                     <div class="container w-50">
                         <!-- BEGIN :: FORM -->
-                        <form action="otp.php" method="POST">
-                                <input type="hidden" class="form-control" name="action" id="action" placeholder="Please enter your name" value="forget">
+                        <form action="route.php" method="POST">
+                                <input type="hidden" class="form-control" name="action" id="action" placeholder="Please enter your name" value="otp">
 
                                 <!-- email -->
                                 <div class="form-group">
-                                    <label for="email">OTP</label>
-                                    <input required type="email" class="form-control" name="email" id="email"
+                                    <label for="otp">OTP</label>
+                                    <input required type="text" class="form-control" name="otp" id="otp"
                                         placeholder="Please enter your OTP">
                                 </div>
 

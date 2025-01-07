@@ -89,10 +89,9 @@ class MyDB{
         }
     }
 
-    public function db_otp($records){
+    public function db_get_user_email($records){
         extract($records);
 
-        $randOtp = rand(000000 , 99999);
         $sql = "SELECT * FROM `usersaccount` WHERE email = '$email'";
         $result = mysqli_query($this->conn , $sql);
         $num = mysqli_num_rows($result);
@@ -107,6 +106,13 @@ class MyDB{
         }else{
             return false;
         }
+        
+    }
+
+    public function db_new_password($records){
+
+        extract($records);
+
         
     }
 
