@@ -90,14 +90,19 @@ class MyDB{
     }
 
     public function db_otp($records){
-
         extract($records);
+
+        $randOtp = rand(000000 , 99999);
         $sql = "SELECT * FROM `usersaccount` WHERE email = '$email'";
         $result = mysqli_query($this->conn , $sql);
         $num = mysqli_num_rows($result);
         if($num >= 1){
             while($row = mysqli_fetch_assoc($result)){
-                echo $row['password'];
+                if($email == $row['email']){
+                    return true;
+                }else{
+                    return false;
+                }
             }
         }else{
             return false;

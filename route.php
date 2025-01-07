@@ -1,5 +1,10 @@
 
 <?php 
+
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
     require_once('DB.php'); 
 
     if(($_SERVER['REQUEST_METHOD'] == 'POST')){
@@ -48,13 +53,52 @@
                 header('location: login.php');
             }
 
+
+        // FORGET PASSWORD 
         }else if($action == "forget"){
 
-            $forget = $obj->db_otp($_POST);
+            $forgetPass = $obj->db_otp($_POST);
+            if($forgetPass){
+
+            require 'PHPMailer/SMTP.php';
+            require 'PHPMailer/PHPMailer.php';
+            require 'PHPMailer/Exception.php';
+
+            $mail = new PHPMailer(true);
+
+            try {
+                
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = 'sufyantalib125@gmail.com';                     //SMTP username
+                $mail->Password   = 'evmsvobdgqlhxzgs';                               //SMTP password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+                //Recipients
+                $mail->setFrom('sufyantalib125@gmail.com', 'doctor_app');
+                $mail->addAddress('littleboyy162@gmail.com', 'doctor_app_user');     //Add a recipient
+
+            
+
+                //Content
+                $mail->isHTML(true);                                  //Set email format to HTML
+                $mail->Subject = 'Here is the OTP subject';
+                $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+
+                $mail->send();
+                $_SESSION['message'] = 'OTP sent. Please Check your email';
+                header('location: otp.php');
+            } catch (Exception $e) {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+                }
+            }else{
+                $_SESSION['message'] = 'Invalid Email';
+                header('location: forget-password.php');
+            }
 
         }
-
-
-
-    }
+        
 ?>
