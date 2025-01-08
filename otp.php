@@ -5,6 +5,12 @@
 
     $module = 'OTP';
 
+    $email = isset($_GET['email']) ? $_GET['email'] : '';
+
+    // $obj->debug($email);
+
+    // if email is not set, then redirect to the forgot password page.
+
 ?>
 
 
@@ -41,6 +47,10 @@
 }
 ?>
 
+<?php 
+    
+?>
+
 <body>
 
 
@@ -62,6 +72,11 @@
                                 <input type="hidden" class="form-control" name="action" id="action" placeholder="Please enter your name" value="otp">
 
                                 <!-- email -->
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input required type="text" class="form-control" name="email" id="email" value="<?php echo $email?>"
+                                        placeholder="Email">
+                                </div>
                                 <div class="form-group">
                                     <label for="otp">OTP</label>
                                     <input required type="text" class="form-control" name="otp" id="otp"

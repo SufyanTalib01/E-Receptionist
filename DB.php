@@ -56,7 +56,7 @@ class MyDB{
         }
         return false;
     }
-
+    // FOR SIGNUP 
     public function db_email_verification($records){
         extract($records);
         $sql = "SELECT * FROM `usersaccount` WHERE email = '$email'";
@@ -89,6 +89,9 @@ class MyDB{
         }
     }
 
+    
+
+    // IS EMAIL AVAILABLE IN DATABASE DURING FORGET PASSWORD 
     public function db_get_user_email($records){
         extract($records);
 
@@ -109,6 +112,46 @@ class MyDB{
         
     }
 
+    // OTP SAVE IN DATABASE
+    public function db_save_user_otp($otp, $records){
+        extract($records);
+        // save the otp on this email
+        $sql = "UPDATE `usersaccount` SET `otp` = '$otp' WHERE `email` = '$email'";
+        $result = mysqli_query($this->conn , $sql);
+        if($result){
+            return true;
+        }else{
+            return true;
+        }
+        
+    }
+
+    public function db_otp_email_check($records){
+
+        extract($records);
+
+
+
+    }
+
+    public function db_verify_otp($records){
+        extract($records);
+        $sql = "SELECT `otp` FROM `usersaccount` WHERE `email` = '$email'";
+        $result = mysqli_query($this->conn , $sql);
+        if($result){
+            while($row = mysqli_fetch_assoc($result)){
+                if($otp == $row['otp']){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        }else{
+            return false;
+        }
+    }
+
+    
     public function db_new_password($records){
 
         extract($records);

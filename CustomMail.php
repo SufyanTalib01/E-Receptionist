@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 require_once('config.php');
 require 'PHPMailer/SMTP.php';
@@ -15,9 +14,8 @@ use PHPMailer\PHPMailer\Exception;
 
 class CustomMail{
 
-    public function sendOTPMail($records){
+    public function cm_send_otp_mail($otp, $records){
         $mail = new PHPMailer(true);
-        $otp = rand(00000 , 99999);
 
         try {
             

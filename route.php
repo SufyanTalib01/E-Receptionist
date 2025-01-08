@@ -57,28 +57,50 @@
             $isEmailExist = $obj->db_get_user_email($_POST);
             if($isEmailExist){
 
-                $mail->sendOTPMail($_POST);
-
+                // generate rand number for OTP
+                $otp = rand(00000 , 99999);
+                
                 // send otp via email
-                // save otp to this user table
+                $mail->cm_send_otp_mail($otp, $_POST);
 
-                // return success message
-            
-            }else{
+                // save otp to this user table
+                $isSaved = $obj->db_save_user_otp($otp, $_POST);
+
+
+                if($isSaved){
+                    
+                    // redirect to otp page;
+                    header("location:otp.php?email=".$_POST['email']);
+
+                }else{
+                    // redirect to forget password page
                 $_SESSION['message'] = 'Invalid Email';
                 header('location: forget-password.php');
-            }
+                }
+                
+                }else{
+                $_SESSION['message'] = 'Invalid Email';
+                header('location: forget-password.php');
+                }
 
                 // OTP_VERIFICATION 
             }else if($action == 'otp'){
                 $otp = $_POST['otp'];
-                if($_SESSION['otp'] == $otp){
-                    $_SESSION['message'] = 'Enter Your New Password';
-                    header('location: new-password.php');
-                }else{
-                    $_SESSION['message'] = 'Incorrect OTP';
-                    header('location: otp.php');
-                }
+
+                // verify the password and confirm - password must be same
+
+                $isOtpCorrrect = $obj->db_verify_otp($_POST);
+                // select * from users where otp = $otp 
+
+                // if yes'
+                    // update password and otp = null
+                    // redirect to the login page
+                // if no
+                    // echo  message
+                    // redirect otp page
+
+
+                return true;
 
             }else if($action == 'newpassword'){
                 $newPassword = $obj->db_new_password($_POST);
