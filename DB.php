@@ -49,7 +49,7 @@ class MyDB{
 
         // INSERT DATAA
         $password = password_hash($password , PASSWORD_DEFAULT);
-        $sql = "INSERT INTO `usersaccount` (`name`, `email`, `password`) VALUES ('$name', '$email', '$password')";
+        $sql = "INSERT INTO `users` (`name`, `email`, `password`) VALUES ('$name', '$email', '$password')";
         $result = (mysqli_query($this->conn , $sql));
         if($result == 1){
             return true;
@@ -59,7 +59,7 @@ class MyDB{
     // FOR SIGNUP 
     public function db_email_verification($records){
         extract($records);
-        $sql = "SELECT * FROM `usersaccount` WHERE email = '$email'";
+        $sql = "SELECT * FROM `users` WHERE email = '$email'";
         $result = (mysqli_query($this->conn , $sql));
         $num = mysqli_num_rows($result);
         if($num >= 1){
@@ -73,7 +73,7 @@ class MyDB{
     public function db_login($records){
         extract($records);
         
-        $sql = "SELECT * FROM `usersaccount` WHERE email = '$email'";
+        $sql = "SELECT * FROM `users` WHERE email = '$email'";
         $result = mysqli_query($this->conn , $sql);
         $num = mysqli_num_rows($result);
         if($num >= 1){
@@ -95,7 +95,7 @@ class MyDB{
     public function db_get_user_email($records){
         extract($records);
 
-        $sql = "SELECT * FROM `usersaccount` WHERE email = '$email'";
+        $sql = "SELECT * FROM `users` WHERE email = '$email'";
         $result = mysqli_query($this->conn , $sql);
         $num = mysqli_num_rows($result);
         if($num >= 1){
@@ -116,7 +116,7 @@ class MyDB{
     public function db_save_user_otp($otp, $records){
         extract($records);
         // save the otp on this email
-        $sql = "UPDATE `usersaccount` SET `otp` = '$otp' WHERE `email` = '$email'";
+        $sql = "UPDATE `users` SET `otp` = '$otp' WHERE `email` = '$email'";
         $result = mysqli_query($this->conn , $sql);
         if($result){
             return true;
@@ -126,17 +126,10 @@ class MyDB{
         
     }
 
-    public function db_otp_email_check($records){
-
-        extract($records);
-
-
-
-    }
-
+    // CHECK OTP IS CORRECT 
     public function db_verify_otp($records){
         extract($records);
-        $sql = "SELECT `otp` FROM `usersaccount` WHERE `email` = '$email'";
+        $sql = "SELECT `otp` FROM `users` WHERE `email` = '$email'";
         $result = mysqli_query($this->conn , $sql);
         if($result){
             while($row = mysqli_fetch_assoc($result)){
@@ -151,15 +144,76 @@ class MyDB{
         }
     }
 
-    
+    // FORGET NEW PASSWORD 
     public function db_new_password($records){
+        extract($records);
+        if($password == $cpassword){
+            $password = password_hash($password , PASSWORD_DEFAULT);
+            $sql = "UPDATE `users` SET `password` = '$password', `otp` = NULL WHERE `email` = '$email'";
+            $result = mysqli_query($this->conn , $sql);
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
 
+    }
+    // ADD USER 
+    public function db_add_user($records){
         extract($records);
 
+        $sql = "INSERT INTO `users` (`name` , `email`) VALUES ('$name', '$email')";
+        $result = mysqli_query($this->conn , $sql);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    // DELETE USER
+    public function db_delete_user($records){
+        extract($records);
+
+        $sql = "DELETE FROM `users` WHERE `users`.`sno` = $delete_serial_num";
+        $result = mysqli_query($this->conn , $sql);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    // EDIT USER 
+    public function db_edit_user($records){
+        extract($records);
+
+        $sql = "UPDATE users SET name = '$name', email = '$email' WHERE sno = '$edit_serial_num'";
+            $result = mysqli_query($this->conn , $sql);
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+
+        // $sql = "SELECT * FROM `users` WHERE email = '$email'";
+        // $result = mysqli_query($this->conn , $sql);
+        // $num = mysqli_num_rows($result);
+        // if($num >= 1){
+        //     return true;
+        // }else{
+            
+        // }
         
     }
 
+    
 }
 
 $obj = new MyDB();
 ?>
+;

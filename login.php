@@ -1,4 +1,5 @@
 <?php 
+
     require_once('DB.php'); 
   
     $users = $obj->getUsers();

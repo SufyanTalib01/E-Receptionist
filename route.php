@@ -84,28 +84,82 @@
                 }
 
                 // OTP_VERIFICATION 
-            }else if($action == 'otp'){
+        }else if($action == 'otp'){
+
                 $otp = $_POST['otp'];
 
                 // verify the password and confirm - password must be same
 
                 $isOtpCorrrect = $obj->db_verify_otp($_POST);
-                // select * from users where otp = $otp 
 
-                // if yes'
-                    // update password and otp = null
-                    // redirect to the login page
-                // if no
-                    // echo  message
-                    // redirect otp page
+                if($isOtpCorrrect){
+                    $_SESSION['message'] = 'OTP is Correct';
+                    header("location:new-password.php?email=".$_POST['email']);
+                }else{
+                    $_SESSION['message'] = 'Incorrect OTP';
+                    header("location:otp.php?email=".$_POST['email']);
+                }
 
+        }else if($action == 'newpassword'){
+            $isPasswordchanged = $obj->db_new_password($_POST);
 
-                return true;
-
-            }else if($action == 'newpassword'){
-                $newPassword = $obj->db_new_password($_POST);
+            if($isPasswordchanged){
+                $_SESSION['message'] = 'Your password has been changed. Please Log in';
+                header("location:login.php");
+            }else{
+                $_SESSION['message'] = 'Password and Confirm password is not same';
+                header("location:new-password.php?email=".$_POST['email']);
             }
 
+            // ADD USER 
+        }else if($action == 'adduser'){
+            $password = $_POST['password'];
+            $confirmPassword = $_POST['confirm_password'];
+            $dbEmailVerificaition = $obj->db_email_verification($_POST);
+            if($dbEmailVerificaition){
+                $_SESSION['message'] = "Email Already Existed";
+                header('location: add-user.php');
+            }
+            else{
+                if($password == $confirmPassword){
+                    $flag = $obj->signUp($_POST);
+    
+                    if($flag){
+                        $_SESSION['message'] = 'User Added';
+                        header('location: users.php');
+                    }else{
+                        $_SESSION['message'] = 'Invalid Credentials';
+                        header('location: add-user.php');
+                    }
+                }
+                else{
+                    $_SESSION['message'] = 'Invalid Credentials';
+                    header('location: add-user.php');
+                }
+            }
+        }else if($action == 'delete_user'){
+            $deleteUser = $obj->db_delete_user($_POST);
+
+            if($deleteUser){
+                $_SESSION['message'] = 'User Deleted';
+                header('location: users.php');
+            }else{
+                header('location: users.php');
+            }
+
+        }else if($action == 'edit_user'){
+            $editUser = $obj->db_edit_user($_POST);
+            
+            if($editUser){
+                $_SESSION['message'] = 'User Edited';
+                header('location: users.php');
+            }else{
+                $_SESSION['message'] = 'Invalid Credentials';
+                header('location: users.php');
+            }
+        }
+        
+        
         
 
     }

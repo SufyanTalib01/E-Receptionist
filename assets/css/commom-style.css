@@ -12,3 +12,7 @@ table.dataTable th.dt-type-numeric,
         .main-panel {
             width: calc(100%) !important;
         }
+
+        .form-control-sm{
+            border-radius: 0 !important;
+        }

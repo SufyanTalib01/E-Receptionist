@@ -5,6 +5,7 @@
 
     $module = 'New Password';
 
+    $email = isset($_GET['email']) ? $_GET['email'] : '';
 ?>
 
 
@@ -41,6 +42,7 @@ alert(msg);
 }
 ?>
 
+
 <body>
 
 
@@ -59,18 +61,25 @@ alert(msg);
                     <div class="container w-50">
                         <!-- BEGIN :: FORM -->
                         <form action="/route.php" method="POST">
+                            <!-- ACTION  -->
                             <input type="hidden" class="form-control" name="action" id="action"
                                 placeholder="Please enter your name" value="newpassword">
 
-                            <!-- email -->
+                                <!-- HIDDEN EMAIL  -->
+                            <input type="hidden" class="form-control" name="email" id="action"
+                                placeholder="Please enter your name" value="<?php echo $email ?>">
+                            
+                            <!-- password -->
                             <div class="form-group">
                                 <label for="new_password">Enter your new password</label>
-                                <input required type="passowrd" class="form-control" name="new_password" id="new_password"
+                                <input required type="password" class="form-control" name="password" id="password"
                                     placeholder="Please enter your New Password">
                             </div>
+
+                            <!-- confirm password -->
                             <div class="form-group">
-                                <label for="new_password">Confirm password</label>
-                                <input required type="password" class="form-control" name="new_password" id="new_password"
+                                <label for="cpassword">Confirm password</label>
+                                <input required type="password" class="form-control" name="cpassword" id="cpassword"
                                     placeholder="Please enter your confirm password">
                             </div>
 

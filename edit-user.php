@@ -1,15 +1,10 @@
 <?php 
+
     require_once('DB.php'); 
   
     $users = $obj->getUsers();
 
-    $module = 'OTP';
-
-    $email = isset($_GET['email']) ? $_GET['email'] : '';
-
-    // $obj->debug($email);
-
-    // if email is not set, then redirect to the forgot password page.
+    $module = 'Edit User';
 
 ?>
 
@@ -23,7 +18,7 @@
     <head>
         <title>
             <?php
-                echo LOGIN 
+                echo EDITUSER 
             ?>
         </title>
 
@@ -47,10 +42,6 @@
 }
 ?>
 
-<?php 
-    
-?>
-
 <body>
 
 
@@ -69,29 +60,34 @@
                     <div class="container w-50">
                         <!-- BEGIN :: FORM -->
                         <form action="route.php" method="POST">
-                                <input type="hidden" class="form-control" name="action" id="action" placeholder="Please enter your name" value="otp">
+                                <input type="hidden" class="form-control" name="action" id="action" placeholder="Please enter your name" value="edit_user">
 
-                                <!-- email -->
+                                <!-- HIDDEN ID -->
                                 <div class="form-group">
-                                    <input type="hidden" class="form-control" name="email" id="email" value="<?php echo $email?>"
-                                        placeholder="Email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="otp">OTP</label>
-                                    <input required type="text" class="form-control" name="otp" id="otp"
-                                        placeholder="Please enter your OTP">
+                                    <input required type="hidden" class="form-control" name="edit_serial_num" id="name" value="<?php echo $_POST['delete_serial_num'] ?>"
+                                    placeholder="Name">
                                 </div>
 
+                                <!-- name  -->
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input required type="text" class="form-control" name="name" id="name" value="<?php echo $_POST['user_name'] ?>"
+                                    placeholder="Name">
+                                </div>
+
+                                <!-- password -->
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input required readonly type="email" class="form-control" name="email" id="email" value="<?php echo $_POST['user_email'] ?>"
+                                        placeholder="email">
+                                </div>
+
+                                
+                                
                                 <!-- submit -->
                                 <button type="submit" class="btn btn-primary">Submit</button>
 
-                                <!-- login path -->
-                                <p class="mt-2">
-                                    create a new account?
-                                    <a href="/signup.php">
-                                        Signup
-                                    </a>
-                                </p>
+                                
                             </form>
                             <!-- END :: FORM -->
                     </div>
