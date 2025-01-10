@@ -22,7 +22,7 @@
                     $flag = $obj->signUp($_POST);
     
                     if($flag){
-                        $_SESSION['message'] = 'Data Saved';
+                        $_SESSION['message'] = 'Account created! please login first';
                         header('location: login.php');
                     }else{
                         $_SESSION['message'] = 'Data Not Saved';

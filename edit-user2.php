@@ -1,58 +1,62 @@
 <?php 
-  require_once('DB.php'); 
-  
-  $users = $obj->getUsers();
-  $module = 'Edit';
 
+    require_once('DB.php'); 
+  
+    $users = $obj->getUsers();
+
+    $module = 'Edit User';
 
 ?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <title><?php echo TITLE ?></title>
-    <?php
-      require_once('partials/head-links.php');
-    ?>
+    <head>
+        <title>
+            <?php
+                echo EDITUSER 
+            ?>
+        </title>
 
+        <!--HEADER-LINKS -->
+        <?php
+            require_once('partials/head-links.php');
+        ?>
+    </head>
 
-</head>
 
 <?php 
 
     if(isset($messageExists)) { ?>
+        
+        <script>
+            let msg = "<?php echo $messageExists; ?>";
+            alert(msg);
+        </script>
 
-<script>
-let msg = "<?php echo $messageExists; ?>";
-alert(msg);
-</script>
-
-<?php 
+    <?php 
 }
 ?>
 
 <body>
-    <div class="container-scroller">
 
-        <!-- partial:partials/_navbar.html -->
-        <?php
-        require_once('partials/nav-bar.php');
-      ?>
-        <!-- partial -->
-        <div class="container-fluid page-body-wrapper">
-            <!-- partial:partials/_sidebar.html -->
-            <?php
-          require_once('partials/side-bar.php');  
-        ?>
-            <!-- partial -->
+
+    <div class="container-scroller">
+        <div class="container-fluid page-body-wrapper justify-content-center">
             <div class="main-panel">
                 <div class="content-wrapper">
+                
+                    <div class="container w-50">
+                        <?php
+                            require_once('partials/page-header.php');  
+                        ?>
+                    </div>
 
-                    <?php
-              require_once('partials/page-header.php');  
-            ?>
                     <!-- body here  -->
-                    <!-- BEGIN :: BODY  -->
                     <div class="container w-50">
                         <!-- BEGIN :: FORM -->
                         <form action="route.php" method="POST">
@@ -81,26 +85,24 @@ alert(msg);
                                 
                                 
                                 <!-- submit -->
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
 
                                 
-                        </form>
+                            </form>
                             <!-- END :: FORM -->
                     </div>
-                    <!-- END :: BODY -->
-                    <!-- body end  -->
-                
-                <!-- partial:partials/_footer.html -->
-                <?php
-            require_once('partials/footer.php');  
-          ?>
+                </div>
 
-                <!-- partial -->
+                <!-- FOOTER -->
+                <?php
+                    require_once('partials/footer.php');  
+                ?>
+
             </div>
-            <!-- main-panel ends -->
         </div>
-        <!-- page-body-wrapper endss -->
     </div>
+    
+    <!-- FOOTER LINKS  -->
     <?php
         require_once('partials/footer-links.php');  
     ?>

@@ -91,7 +91,7 @@ class MyDB{
 
     
 
-    // IS EMAIL AVAILABLE IN DATABASE DURING FORGET PASSWORD 
+    // IS EMAIL AVAILABLE IN DATABASE FOR FORGET PASSWORD 
     public function db_get_user_email($records){
         extract($records);
 
@@ -216,4 +216,3 @@ class MyDB{
 
 $obj = new MyDB();
 ?>
-;

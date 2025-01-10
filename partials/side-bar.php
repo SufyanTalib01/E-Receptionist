@@ -33,10 +33,10 @@
               <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="/add-user.php">create user</a>
+                    <a class="nav-link" href="/add-user.php">Create User</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/users.php">List all</a>
+                    <a class="nav-link" href="/users.php">List All</a>
                   </li>
                   <li class="nav-item">
                     <!-- <a class="nav-link" href="pages/ui-features/typography.html">Typography</a> -->

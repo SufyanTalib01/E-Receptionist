@@ -2,7 +2,7 @@
   require_once('DB.php'); 
   
   $users = $obj->getUsers();
-  $module = 'Users';
+  $module = 'Add User';
 
 
 ?>
@@ -51,95 +51,107 @@ alert(msg);
                     <?php
               require_once('partials/page-header.php');  
             ?>
+
                     <!-- body here  -->
                     <!-- BEGIN :: BODY  -->
-                    <div class="container w-50">
-                        <!-- BEGIN :: FORM -->
-                        <form action="route.php" method="POST">
-                            <input type="hidden" class="form-control" name="action" id="name"
-                                placeholder="Please enter your name" value="adduser">
-
-                            <!-- name -->
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input required type="text" class="form-control" name="name" id="name"
-                                    placeholder="enter name">
+                    <div class="container">
+                        <div class="card">
+                            <div class="card-header p-3">
+                                Create a new user
                             </div>
 
-                            <!-- email -->
-                            <div class="form-group">
-                                <label for="email">Email address</label>
-                                <input required type="email" class="form-control" name="email" id="email"
-                                    placeholder="enter email">
-                            </div>
+                            <!-- BEGIN :: FORM -->
+                            <form action="route.php" method="POST" class="m-4">
+                                <input type="hidden" class="form-control" name="action" id="name"
+                                    placeholder="Please enter your name" value="adduser">
 
-                            <!-- password  -->
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input required type="password" class="form-control" name="password" id="password"
-                                    placeholder="enter password">
-                            </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="name">Name</label>
+                                            <input required type="text" class="form-control" name="name" id="name"
+                                                placeholder="enter name">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <!-- email -->
+                                        <div class="form-group">
+                                            <label for="email">Email address</label>
+                                            <input required type="email" class="form-control" name="email" id="email"
+                                                placeholder="enter email">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <!-- password  -->
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input required type="password" class="form-control" name="password"
+                                                id="password" placeholder="enter password">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <!-- confirm password -->
+                                        <div class="form-group">
+                                            <label for="confirm_password">Confirm Password</label>
+                                            <input required type="password" class="form-control" name="confirm_password"
+                                                id="confirm_password" id="confirm_password"
+                                                placeholder="Please enter same password">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <!-- SELECT ROLE  -->
+                                        <div class="form-group">
+                                            <label for="">Role</label>
+                                            <!-- roles selected -->
+                                            <select required class="form-control form-control-sm"
+                                                style="border-radius: 0">
+                                                <option selected disabled>Select Role</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
-                            <!-- confirm password -->
-                            <div class="form-group">
-                                <label for="confirm_password">Confirm Password</label>
-                                <input required type="password" class="form-control" name="confirm_password" id="confirm_password"
-                                    id="confirm_password" placeholder="Please enter same password">
-                            </div>
-                            
+                                </div>
+                                <!-- name -->
 
-                            
-                            <div class="form-group">
-                                <label for="">Role</label>
-                                <!-- roles selected -->
-                                <select class="form-control form-control-sm" style="border-radius: 0">
-                                    <option selected>Select Role</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
 
-                            <!-- <input required type="password" class="form-control" name="confirm_password"id="confirm_password" placeholder="Please enter same password"> -->
 
-                            <!-- submit -->
-                            <button type="submit" class="btn btn-primary">Submit</button>
 
-                        </form>
+
+
+
+
+
+
+                                <!-- <input required type="password" class="form-control" name="confirm_password"id="confirm_password" placeholder="Please enter same password"> -->
+
+                                <!-- submit -->
+                                <button type="submit" class="btn btn-primary">Submit</button>
+
+                            </form>
+                        </div>
                         <!-- END :: FORM -->
                     </div>
                     <!-- END :: BODY -->
                     <!-- body end  -->
-                
-                <!-- partial:partials/_footer.html -->
-                <?php
+
+                    <!-- partial:partials/_footer.html -->
+                    <?php
             require_once('partials/footer.php');  
           ?>
 
-                <!-- partial -->
+                    <!-- partial -->
+                </div>
+                <!-- main-panel ends -->
             </div>
-            <!-- main-panel ends -->
+            <!-- page-body-wrapper endss -->
         </div>
-        <!-- page-body-wrapper endss -->
-    </div>
-    <?php
+        <?php
         require_once('partials/footer-links.php');  
     ?>
 
-    <script>
-    let deleteUser = document.getElementsByClassName('delete');
-    Array.from(deleteUser).forEach((element) => {
-        element.addEventListener("click", (e) => {
-            e.preventDefault();
-            let confirmation = confirm("Are you sure you want to delete this?");
-            if (confirmation) {
-                e.target.closest('form').submit();
-            } else {
-                console.log("Action canceled by the user.");
-            }
-        })
-    });
-    </script>
 </body>
 
 </html>
