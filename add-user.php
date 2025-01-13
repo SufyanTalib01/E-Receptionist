@@ -2,7 +2,7 @@
   require_once('DB.php'); 
   
   $users = $obj->getUsers();
-  $module = 'Add User';
+  $module = 'Create User';
 
 
 ?>
@@ -104,28 +104,17 @@ alert(msg);
                                             <label for="">Role</label>
                                             <!-- roles selected -->
                                             <select required class="form-control form-control-sm"
-                                                style="border-radius: 0">
-                                                <option selected disabled>Select Role</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
+                                                style="border-radius: 0" name="role" id="roles">
+                                                <option selected disabled value="">Select Role</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="moderator">Moderator</option>
+                                                <option value="user">User</option>
+                                                <option value="guest">Guest</option>
                                             </select>
                                         </div>
                                     </div>
 
                                 </div>
-                                <!-- name -->
-
-
-
-
-
-
-
-
-
-
-                                <!-- <input required type="password" class="form-control" name="confirm_password"id="confirm_password" placeholder="Please enter same password"> -->
 
                                 <!-- submit -->
                                 <button type="submit" class="btn btn-primary">Submit</button>

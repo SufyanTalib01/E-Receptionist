@@ -20,7 +20,7 @@
             else{
                 if($password == $confirmPassword){
                     $flag = $obj->signUp($_POST);
-    
+
                     if($flag){
                         $_SESSION['message'] = 'Account created! please login first';
                         header('location: login.php');
@@ -28,8 +28,7 @@
                         $_SESSION['message'] = 'Data Not Saved';
                         header('location: signup.php');
                     }
-                }
-                else{
+                }else{
                     $_SESSION['message'] = 'Password and Confirm Password is not same';
                     header('location: signup.php');
                 }
@@ -115,27 +114,30 @@
         }else if($action == 'adduser'){
             $password = $_POST['password'];
             $confirmPassword = $_POST['confirm_password'];
-            $dbEmailVerificaition = $obj->db_email_verification($_POST);
-            if($dbEmailVerificaition){
-                $_SESSION['message'] = "Email Already Existed";
-                header('location: add-user.php');
-            }
-            else{
-                if($password == $confirmPassword){
-                    $flag = $obj->signUp($_POST);
-    
-                    if($flag){
-                        $_SESSION['message'] = 'User Added';
-                        header('location: users.php');
-                    }else{
+            
+                $dbEmailVerificaition = $obj->db_email_verification($_POST);
+                if($dbEmailVerificaition){
+                    $_SESSION['message'] = "Email Already Existed";
+                    header('location: add-user.php');
+                }
+                else{
+                    if($password == $confirmPassword){
+                        $flag = $obj->db_add_new_user($_POST);
+        
+                        if($flag){
+                            $_SESSION['message'] = 'User Added';
+                            header('location: users.php');
+                        }else{
+                            $_SESSION['message'] = 'Invalid Credentials';
+                            header('location: add-user.php');
+                        }
+                    }
+                    else{
                         $_SESSION['message'] = 'Invalid Credentials';
                         header('location: add-user.php');
                     }
-                }
-                else{
-                    $_SESSION['message'] = 'Invalid Credentials';
-                    header('location: add-user.php');
-                }
+                
+            
             }
         }else if($action == 'delete_user'){
             $deleteUser = $obj->db_delete_user($_POST);
@@ -148,17 +150,29 @@
             }
 
         }else if($action == 'edit_user'){
-            $editUser = $obj->db_edit_user($_POST);
-            
-            if($editUser){
-                $_SESSION['message'] = 'User Edited';
+            extract($_POST);
+            $isEmailExist = $obj->db_is_email_already($_POST);
+
+            if($isEmailExist){
+                $_SESSION['message'] = 'Already Email Exist';
                 header('location: users.php');
             }else{
-                $_SESSION['message'] = 'Invalid Credentials';
-                header('location: users.php');
+                if($password == $confirm_password){
+                    $editUser = $obj->db_edit_user($_POST);
+
+                    if($editUser){
+                        $_SESSION['message'] = 'User Edited';
+                        header('location: users.php');
+                    }else{
+                        $_SESSION['message'] = 'Invalid Credentials';
+                        header('location: users.php');
+                    }
+                }else{
+                    $_SESSION['message'] = 'Passoword not Same';
+                    header('location: users.php');
+                }
             }
         }
-        
         
         
 

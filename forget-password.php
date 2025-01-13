@@ -56,9 +56,19 @@ alert(msg);
                     </div>
 
                     <!-- body here  -->
+
                     <div class="container w-50">
-                        <!-- BEGIN :: FORM -->
-                        <form action="/route.php" method="POST">
+                        <div class="card">
+                            <div class="card-header p-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>Forget Password</span>
+                                </div>
+                            </div>
+
+
+                            <div class="container py-3">
+                                <!-- BEGIN :: FORM -->
+                                <form action="/route.php" method="POST">
                             <input type="hidden" class="form-control" name="action" id="action"
                                 placeholder="Please enter your name" value="forget">
 
@@ -83,8 +93,12 @@ alert(msg);
                                 </a>
                             </p>
                         </form>
-                        <!-- END :: FORM -->
+                            <!-- END :: FORM -->
+                            </div>
+
+                        </div>
                     </div>
+                    
                 </div>
 
                 <!-- FOOTER -->

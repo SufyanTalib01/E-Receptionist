@@ -58,7 +58,16 @@
 
                     <!-- body here  -->
                     <div class="container w-50">
-                        <!-- BEGIN :: FORM -->
+                        <div class="card">
+                            <div class="card-header p-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>Login Form</span>
+                                </div>
+                            </div>
+
+
+                            <div class="container py-3">
+                                <!-- BEGIN :: FORM -->
                         <form action="route.php" method="POST">
                                 <input type="hidden" class="form-control" name="action" id="action" placeholder="Please enter your name" value="login">
 
@@ -100,7 +109,13 @@
                                 </p>
                             </form>
                             <!-- END :: FORM -->
+                            </div>
+
+                        </div>
                     </div>
+
+
+                    
                 </div>
 
                 <!-- FOOTER -->

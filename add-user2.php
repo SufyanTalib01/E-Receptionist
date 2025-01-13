@@ -15,8 +15,8 @@
 <head>
     <title>
         <?php
-                echo ADDUSER 
-            ?>
+            echo ADDUSER 
+        ?>
     </title>
     <!-- HEAD LINKS -->
     <?php
@@ -26,12 +26,13 @@
 
 <?php 
         if(isset($messageExists)){?>
-<script>
-let msg = "<?php echo $messageExists ?>";
-alert(msg);
-</script> <?php
-        }
-    ?>
+    <script>
+        let msg = "<?php echo $messageExists ?>";
+        alert(msg);
+    </script> 
+<?php
+    }
+?>
 
 <body style="background-color: #F2EDF3;">
 

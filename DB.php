@@ -19,7 +19,7 @@ class MyDB{
 
     public function getUsers(){
         
-        $sql = "SELECT * FROM users ";
+        $sql = "SELECT * FROM users WHERE deleted_at IS NULL";
         $result =(mysqli_query($this->conn, $sql));
         if($result->num_rows > 0){
             while($row = mysqli_fetch_assoc($result)){
@@ -47,9 +47,11 @@ class MyDB{
         // EXTRACT FORM FIELDS 
         extract($records);
 
+        $name = ucwords(strtolower($name));
+
         // INSERT DATAA
         $password = password_hash($password , PASSWORD_DEFAULT);
-        $sql = "INSERT INTO `users` (`name`, `email`, `password`) VALUES ('$name', '$email', '$password')";
+        $sql = "INSERT INTO `users` (`name`, `email`, `password` , `role`) VALUES ('$name', '$email', '$password' , '$role')";
         $result = (mysqli_query($this->conn , $sql));
         if($result == 1){
             return true;
@@ -161,24 +163,28 @@ class MyDB{
         }
 
     }
+    
     // ADD USER 
-    public function db_add_user($records){
+    public function db_add_new_user($records){
+
+        // EXTRACT FORM FIELDS 
         extract($records);
 
-        $sql = "INSERT INTO `users` (`name` , `email`) VALUES ('$name', '$email')";
-        $result = mysqli_query($this->conn , $sql);
-        if($result){
-            return true;
-        }else{
-            return false;
-        }
-    }
+        $name = ucwords(strtolower($name));
 
+        // INSERT DATAA
+        $password = password_hash($password , PASSWORD_DEFAULT);
+        $sql = "INSERT INTO `users` (`name`, `email`, `password` , `role`) VALUES ('$name', '$email', '$password' , '$role')";
+        $result = (mysqli_query($this->conn , $sql));
+        if($result == 1){
+            return true;
+        }
+        return false;
+    }
     // DELETE USER
     public function db_delete_user($records){
         extract($records);
-
-        $sql = "DELETE FROM `users` WHERE `users`.`sno` = $delete_serial_num";
+        $sql = "UPDATE users SET deleted_at = CURRENT_TIMESTAMP WHERE sno = $delete_serial_num";
         $result = mysqli_query($this->conn , $sql);
         if($result){
             return true;
@@ -188,27 +194,34 @@ class MyDB{
 
     }
 
-    // EDIT USER 
+
+    // CHECK EMAIL IS ALREADY WHEN EDIT USER EXCEPT ALREADY EMAIL IN EDIT FORM 
+    public function db_is_email_already($records){
+        extract($records);
+
+        $sql = "SELECT * FROM `users` WHERE email = '$email' AND sno != '$edit_serial_num'";
+        $result = (mysqli_query($this->conn , $sql));
+        $num = mysqli_num_rows($result);
+        if($num >= 1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
+    // EDIT USER
     public function db_edit_user($records){
         extract($records);
 
-        $sql = "UPDATE users SET name = '$name', email = '$email' WHERE sno = '$edit_serial_num'";
+        $sql = "UPDATE users SET name = '$name', email = '$email' , role = '$role' WHERE sno = '$edit_serial_num'";
             $result = mysqli_query($this->conn , $sql);
             if($result){
                 return true;
             }else{
                 return false;
             }
-
-        // $sql = "SELECT * FROM `users` WHERE email = '$email'";
-        // $result = mysqli_query($this->conn , $sql);
-        // $num = mysqli_num_rows($result);
-        // if($num >= 1){
-        //     return true;
-        // }else{
-            
-        // }
-        
     }
 
     

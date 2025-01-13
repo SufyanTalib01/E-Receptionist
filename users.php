@@ -36,34 +36,30 @@ alert(msg);
 
         <!-- partial:partials/_navbar.html -->
         <?php
-        require_once('partials/nav-bar.php');
-      ?>
+            require_once('partials/nav-bar.php');
+        ?>
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_sidebar.html -->
-            <?php
-          require_once('partials/side-bar.php');  
-        ?>
+                <?php
+                    require_once('partials/side-bar.php');  
+                ?>
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
 
                     <?php
-              require_once('partials/page-header.php');  
-            ?>
+                    require_once('partials/page-header.php');  
+                    ?>
                     <!-- body here  -->
 
                     <!-- Table  -->
                     <div class="container">
                         <div class="card">
                             <div class="card-header p-3">
-                                <div class="row">
-                                    <div class="col">
-                                        List
-                                    </div>
-                                    <div class="col">
-                                        <button class="btn btn-primary">Add user</button>
-                                    </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>List</span>
+                                    <a href="/add-user.php"><button class="btn btn-primary">Add user</button></a>
                                 </div>
                             </div>
 
@@ -72,10 +68,11 @@ alert(msg);
                                 <table class="table" id="myTable">
                                     <thead>
                                         <tr>
-                                            <th scope="col">sno</th>
-                                            <th scope="col">Name</th>
+                                            <th width="5%" scope="col">#</th>
+                                            <th scope="col">Full Name</th>
                                             <th scope="col">Email</th>
-                                            <th scope="col">Action</th>
+                                            <th scope="col">Role</th>
+                                            <th  width="5%" scope="col">Action</th>
 
                                         </tr>
                                     </thead>
@@ -88,8 +85,9 @@ alert(msg);
                                             ?>
                                         <tr>
                                             <th scope="row"> <?php echo $sno++ ?> </th>
-                                            <td> <?php echo $user['name'] ?> </td>
+                                            <td> <?php echo  $user['name'] ?> <span class="badge badge-primary">New</span> </td>
                                             <td> <?php echo $user['email'] ?> </td>
+                                            <td> <?php echo $user['role'] ?> </td>
                                             <td>
                                                 <div class="btn-toolbar" role="toolbar"
                                                     aria-label="Toolbar with button groups">
@@ -99,6 +97,7 @@ alert(msg);
                                                             <input type="hidden" name="delete_serial_num" value="<?php echo $user['sno'] ?>">
                                                             <input type="hidden" name="user_name"value="<?php echo $user['name'] ?>">
                                                             <input type="hidden" name="user_email"value="<?php echo $user['email'] ?>">
+                                                            <input type="hidden" name="role" value="<?php echo $user['role'] ?>">
                                                             <button class="btn btn-primary btn-sm btn-info"type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
                                                         </form>
                                                         <form id="delete_user_form" action="route.php" method="post">
@@ -108,27 +107,7 @@ alert(msg);
                                                         </form>
                                                     </div>
                                                 </div>
-                                                <!-- <div class="row">
-                                            <div class="col p-0">
-                                                <form action="edit-user.php" method="post">
-                                                    <input type="hidden" name="action" value="edit_user">
-                                                    <input type="hidden" name="delete_serial_num"
-                                                    value="<?php echo $user['sno'] ?>">
-                                                    <input type="hidden" name="user_name" value="<?php echo $user['name'] ?>">
-                                                    <input type="hidden" name="user_email" value="<?php echo $user['email'] ?>">
-                                                    <button class="btn btn-primary btn-sm btn-info" type="submit">Edit</button>
-                                                </form>
-                                            </div>
-                                            <div class="col p-0">
-                                                <form id="delete_user_form" action="route.php" method="post">
-                                                    <input type="hidden" name="action" value="delete_user">
-                                                    <input type="hidden" name="delete_serial_num"
-                                                    value="<?php echo $user['sno'] ?>">
-                                                    <button class="delete btn btn-primary btn-sm btn-danger"
-                                                        type="submit">Delete</button>
-                                                </form>
-                                            </div>
-                                        </div> -->
+                                                
                                             </td>
                                         </tr>
                                         <?php }

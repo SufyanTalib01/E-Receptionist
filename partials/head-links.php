@@ -22,10 +22,6 @@
 <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
 
 
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 
 <?php 
     $messageExists = null;
@@ -33,5 +29,16 @@
         $messageExists = $_SESSION['message'];
         unset($_SESSION['message']);
     }
+
+$current_page = basename($_SERVER['PHP_SELF']);
+
+$excluded_pages = ['login.php', 'signup.php', 'forget-password.php', 'otp.php', 'new-password.php'];
+
+if (!in_array($current_page, $excluded_pages)) {
+    if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+        header("Location: login.php");
+        exit;
+    }
+}
 ?>
 
