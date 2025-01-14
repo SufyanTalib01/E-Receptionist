@@ -56,7 +56,7 @@ alert(msg);
                     <div class="container">
                         <div class="card">
                             <div class="card-header p-3">
-                                Create a new user
+                                Edit User
                             </div>
 
                             <!-- BEGIN :: FORM -->
@@ -117,6 +117,14 @@ alert(msg);
                                                 <option value="user" <?php echo ($_POST['role'] == "user") ? "Selected" : " " ?>>User</option>
                                                 <option value="guest" <?php echo ($_POST['role'] == "guest") ? "Selected" : " " ?>>Guest</option>
                                             </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 d-flex justify-content-center align-items-center">
+                                        <div class="bg-secondary">
+                                        <div class="w-50 m-3">
+                                        <input type="checkbox" checked data-toggle="toggle">
+                                        </div>
                                         </div>
                                     </div>
 

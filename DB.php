@@ -214,14 +214,26 @@ class MyDB{
     // EDIT USER
     public function db_edit_user($records){
         extract($records);
-
-        $sql = "UPDATE users SET name = '$name', email = '$email' , role = '$role' WHERE sno = '$edit_serial_num'";
+        
+        if(empty($password)){
+            $sql = "UPDATE users SET name = '$name', email = '$email' , role = '$role' WHERE sno = '$edit_serial_num'";
             $result = mysqli_query($this->conn , $sql);
             if($result){
                 return true;
             }else{
                 return false;
             }
+        }else{
+            $password = password_hash($password , PASSWORD_DEFAULT);
+            $sql = "UPDATE users SET name = '$name', email = '$email' , password = '$password' , role = '$role' WHERE sno = '$edit_serial_num'";
+            $result = mysqli_query($this->conn , $sql);
+            if($result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
     }
 
     

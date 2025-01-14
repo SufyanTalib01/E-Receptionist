@@ -71,6 +71,7 @@ alert(msg);
                                             <th width="5%" scope="col">#</th>
                                             <th scope="col">Full Name</th>
                                             <th scope="col">Email</th>
+                                            <th scope="col">Status</th>
                                             <th scope="col">Role</th>
                                             <th  width="5%" scope="col">Action</th>
 
@@ -85,8 +86,9 @@ alert(msg);
                                             ?>
                                         <tr>
                                             <th scope="row"> <?php echo $sno++ ?> </th>
-                                            <td> <?php echo  $user['name'] ?> <span class="badge badge-primary">New</span> </td>
+                                            <td> <?php echo  $user['name'] ?>  </td>
                                             <td> <?php echo $user['email'] ?> </td>
+                                            <td><span class="badge badge-secondary">Active</span></td>
                                             <td> <?php echo $user['role'] ?> </td>
                                             <td>
                                                 <div class="btn-toolbar" role="toolbar"

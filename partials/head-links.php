@@ -21,6 +21,9 @@
 
 <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
 
+<!-- TOGGLE BUTTON CSS  -->
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
 
 
 <?php 
