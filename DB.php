@@ -91,8 +91,6 @@ class MyDB{
         }
     }
 
-    
-
     // IS EMAIL AVAILABLE IN DATABASE FOR FORGET PASSWORD 
     public function db_get_user_email($records){
         extract($records);
@@ -173,8 +171,10 @@ class MyDB{
         $name = ucwords(strtolower($name));
 
         // INSERT DATAA
+        
+        
         $password = password_hash($password , PASSWORD_DEFAULT);
-        $sql = "INSERT INTO `users` (`name`, `email`, `password` , `role`) VALUES ('$name', '$email', '$password' , '$role')";
+        $sql = "INSERT INTO `users` (`name`, `email`, `password` , `role` , `is_active`) VALUES ('$name', '$email', '$password' , '$role' , '1')";
         $result = (mysqli_query($this->conn , $sql));
         if($result == 1){
             return true;
@@ -198,6 +198,7 @@ class MyDB{
     // CHECK EMAIL IS ALREADY WHEN EDIT USER EXCEPT ALREADY EMAIL IN EDIT FORM 
     public function db_is_email_already($records){
         extract($records);
+        
 
         $sql = "SELECT * FROM `users` WHERE email = '$email' AND sno != '$edit_serial_num'";
         $result = (mysqli_query($this->conn , $sql));
@@ -214,9 +215,15 @@ class MyDB{
     // EDIT USER
     public function db_edit_user($records){
         extract($records);
+
+        if(isset($is_active)){
+            $is_active = 1;
+        }else{
+            $is_active = 0;
+        }
         
         if(empty($password)){
-            $sql = "UPDATE users SET name = '$name', email = '$email' , role = '$role' WHERE sno = '$edit_serial_num'";
+            $sql = "UPDATE users SET name = '$name', email = '$email' , role = '$role' , is_active = '$is_active' WHERE sno = '$edit_serial_num'";
             $result = mysqli_query($this->conn , $sql);
             if($result){
                 return true;
@@ -225,7 +232,7 @@ class MyDB{
             }
         }else{
             $password = password_hash($password , PASSWORD_DEFAULT);
-            $sql = "UPDATE users SET name = '$name', email = '$email' , password = '$password' , role = '$role' WHERE sno = '$edit_serial_num'";
+            $sql = "UPDATE users SET name = '$name', email = '$email' , password = '$password' , role = '$role' , is_active = '$is_active' WHERE sno = '$edit_serial_num'";
             $result = mysqli_query($this->conn , $sql);
             if($result){
                 return true;
@@ -234,6 +241,20 @@ class MyDB{
             }
         }
 
+    }
+
+    // CALL DATA BY USING ID 
+    public function db_get_data_by_id($records){
+        
+        
+        $sql = "SELECT * FROM users WHERE sno = $records";
+        $result =(mysqli_query($this->conn, $sql));
+        $num = mysqli_num_rows($result);
+        if($num > 0){
+            return mysqli_fetch_assoc($result);
+        }else{
+            return NULL;
+        }
     }
 
     

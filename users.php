@@ -1,8 +1,11 @@
 <?php 
   require_once('DB.php'); 
   
+//   $id = $_GET['id'];
   $users = $obj->getUsers();
+//   $getUserData = $obj->db_get_data_by_id();
   $module = 'Users';
+
 
 
 ?>
@@ -85,23 +88,30 @@ alert(msg);
                                         foreach ($users as $user){
                                             ?>
                                         <tr>
+                                            <!-- sno  -->
                                             <th scope="row"> <?php echo $sno++ ?> </th>
+                                            <!-- name  -->
                                             <td> <?php echo  $user['name'] ?>  </td>
+                                            <!-- email  -->
                                             <td> <?php echo $user['email'] ?> </td>
-                                            <td><span class="badge badge-secondary">Active</span></td>
+                                            <!-- is_active  -->
+                                            <td><span class="badge <?php echo ($user['is_active'] == 1) ? "badge-primary" : "badge-secondary" ?>"><?php echo ($user['is_active'] == 1) ? "active" : "inactive" ?></span></td>
+                                            <!-- role  -->
                                             <td> <?php echo $user['role'] ?> </td>
+
+                                            <!-- edit button  -->
                                             <td>
                                                 <div class="btn-toolbar" role="toolbar"
                                                     aria-label="Toolbar with button groups">
                                                     <div class="btn-group mr-2" role="group" aria-label="First group">
-                                                        <form action="edit-user.php" method="post">
+                                                        <form action="edit-user.php?id=<?php echo $user['sno'] ?>" method="post">
+                                                            <!-- edit ID  -->
                                                             <input type="hidden" name="action" value="edit_user">
-                                                            <input type="hidden" name="delete_serial_num" value="<?php echo $user['sno'] ?>">
-                                                            <input type="hidden" name="user_name"value="<?php echo $user['name'] ?>">
-                                                            <input type="hidden" name="user_email"value="<?php echo $user['email'] ?>">
-                                                            <input type="hidden" name="role" value="<?php echo $user['role'] ?>">
+                                                            
                                                             <button class="btn btn-primary btn-sm btn-info"type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
                                                         </form>
+
+                                                        <!-- delete button  -->
                                                         <form id="delete_user_form" action="route.php" method="post">
                                                             <input type="hidden" name="action" value="delete_user">
                                                             <input type="hidden" name="delete_serial_num"value="<?php echo $user['sno'] ?>">

@@ -155,7 +155,7 @@
 
             if($isEmailExist){
                 $_SESSION['message'] = 'Already Email Exist';
-                header('location: users.php');
+                header('location: edit-user.php?id='.$_POST['edit_serial_num']);
             }else{
                 if($password == $confirm_password){
                     $editUser = $obj->db_edit_user($_POST);

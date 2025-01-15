@@ -3,6 +3,11 @@
   
   $users = $obj->getUsers();
   $module = 'Edit';
+  
+  $id = $_GET['id'];
+  $getDataById = $obj->db_get_data_by_id($id);
+
+
 
 
 ?>
@@ -14,6 +19,7 @@
     <?php
       require_once('partials/head-links.php');
     ?>
+
 
 
 </head>
@@ -62,44 +68,43 @@ alert(msg);
                             <!-- BEGIN :: FORM -->
                             <form action="route.php" method="POST" class="m-4">
                                 <input type="hidden" class="form-control" name="action" id="action"
-                                placeholder="Please enter your name" value="edit_user">
+                                    placeholder="Please enter your name" value="edit_user">
 
                                 <!-- HIDDEN ID -->
-                                    <div class="form-group">
-                                        <input required type="hidden" class="form-control" name="edit_serial_num"
-                                            id="name" value="<?php echo $_POST['delete_serial_num'] ?>"
-                                            placeholder="Name">
-                                    </div>
+                                <div class="form-group">
+                                    <input  type="hidden" class="form-control" name="edit_serial_num" id="name"
+                                        value="<?php echo $getDataById['sno'] ?>" placeholder="Name">
+                                </div>
 
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             <label for="name">Name</label>
                                             <input required type="text" class="form-control" name="name" id="name"
-                                            value="<?php echo $_POST['user_name'] ?>" placeholder="Name">
+                                                value="<?php echo $getDataById['name'] ?>" placeholder="Name">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <!-- email -->
                                         <div class="form-group">
                                             <label for="email">Email address</label>
-                                            <input required  type="email" class="form-control" name="email"
-                                            id="email" value="<?php echo $_POST['user_email'] ?>" placeholder="email">
+                                            <input required type="email" class="form-control" name="email" id="email"
+                                                value="<?php echo $getDataById['email'] ?>" placeholder="email">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <!-- password  -->
                                         <div class="form-group">
                                             <label for="password">Password</label>
-                                            <input  type="password" class="form-control" name="password" value=""
-                                                id="password" placeholder="enter password"> 
+                                            <input type="password" class="form-control" name="password" value=""
+                                                id="password" placeholder="enter password">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <!-- confirm password -->
                                         <div class="form-group">
                                             <label for="confirm_password">Confirm Password</label>
-                                            <input  type="password" class="form-control" name="confirm_password"
+                                            <input type="password" class="form-control" name="confirm_password"
                                                 id="confirm_password" id="confirm_password"
                                                 placeholder="Please enter same password">
                                         </div>
@@ -112,21 +117,46 @@ alert(msg);
                                             <select required class="form-control form-control-sm"
                                                 style="border-radius: 0" name="role" id="role">
                                                 <option disabled value="">Select Role</option>
-                                                <option value="admin" <?php echo ($_POST['role'] == "admin") ? "Selected" : " " ?> >Admin</option>
-                                                <option value="moderator" <?php echo ($_POST['role'] == "moderator") ? "Selected" : " " ?>>Moderator</option>
-                                                <option value="user" <?php echo ($_POST['role'] == "user") ? "Selected" : " " ?>>User</option>
-                                                <option value="guest" <?php echo ($_POST['role'] == "guest") ? "Selected" : " " ?>>Guest</option>
+                                                <option value="admin"
+                                                    <?php echo ($getDataById['role'] == "admin") ? "Selected" : " " ?>>Admin
+                                                </option>
+                                                <option value="moderator"
+                                                    <?php echo ($getDataById['role'] == "moderator") ? "Selected" : " " ?>>
+                                                    Moderator</option>
+                                                <option value="user"
+                                                    <?php echo ($getDataById['role'] == "user") ? "Selected" : " " ?>>User
+                                                </option>
+                                                <option value="guest"
+                                                    <?php echo ($getDataById['role'] == "guest") ? "Selected" : " " ?>>Guest
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <!--  Active button  -->
+                                        
+                                        <div class="form-group">
+                                            <div>
+                                                <label for="">Status</label>
+                                            </div>
 
-                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 d-flex justify-content-center align-items-center">
-                                        <div class="bg-secondary">
-                                        <div class="w-50 m-3">
-                                        <input type="checkbox" checked data-toggle="toggle">
-                                        </div>
+                                            <div class="bg-secondary d-inline-block p-0 rounded-1">
+                                                <input type="checkbox" name="is_active" data-toggle="toggle"
+                                                    <?php echo ($getDataById['is_active'] == 1) ? "checked" : " " ?>>
+                                            </div>
                                         </div>
                                     </div>
+
+
+                                    <!-- <input  id="toggleSwitch" type="checkbox" checked> -->
+
+
+                                    <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 d-flex justify-content-center align-items-center">
+                                        <div class="bg-secondary">
+                                        <input type="checkbox" checked data-toggle="toggle"></button>
+                                        </div>
+                                        </div>
+                                    </div> -->
 
                                 </div>
 
@@ -154,6 +184,15 @@ alert(msg);
         <?php
         require_once('partials/footer-links.php');  
     ?>
+
+        <script>
+        $(document).ready(function() {
+            $('#toggleSwitch').bootstrapToggle({
+                on: 'Active',
+                off: 'Inactive'
+            });
+        });
+        </script>
 
 </body>
 
