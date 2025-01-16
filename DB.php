@@ -42,6 +42,44 @@ class MyDB{
 
     }
 
+    public function db_form_validation($records){
+        extract($records);
+
+        
+
+        function test_input($data){
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+
+        $name = test_input($name);
+        $email = test_input($email);
+        $password = test_input($password);
+
+        $invalidFormInput = "";
+
+        if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
+            $invalidFormInput = "Only letters and white space allowed in name.";
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $invalidFormInput = "Invalid email format.";
+        }
+
+        // if (!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/", $password)) {
+        //     $invalidFormInput = "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.";
+        // }
+
+        if(empty($invalidFormInput)){
+            return true;
+        }else{
+            $_SESSION['invalid_form_input'] = $invalidFormInput;
+            return false;
+        }
+    }
+
     public function signUp($records){
 
         // EXTRACT FORM FIELDS 
@@ -51,7 +89,7 @@ class MyDB{
 
         // INSERT DATAA
         $password = password_hash($password , PASSWORD_DEFAULT);
-        $sql = "INSERT INTO `users` (`name`, `email`, `password` , `role`) VALUES ('$name', '$email', '$password' , '$role')";
+        $sql = "INSERT INTO `users` (`name`, `email`, `password` , `role` , is_active) VALUES ('$name', '$email', '$password' , 'User' , '1')";
         $result = (mysqli_query($this->conn , $sql));
         if($result == 1){
             return true;

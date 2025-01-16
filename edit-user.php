@@ -20,18 +20,29 @@
       require_once('partials/head-links.php');
     ?>
 
+    <style>
+        .toggle.btn.btn-primary {
+        width: 150px !important; /* Set your desired width */
+        height: 42px !important;
+    }
+    .toggle.btn.btn-default.off {
+        width: 150px !important; /* Set your desired width */
+        height: 42px !important;
 
+    }
 
+    
+    </style>
 </head>
 
 <?php 
 
     if(isset($messageExists)) { ?>
 
-<script>
-let msg = "<?php echo $messageExists; ?>";
-alert(msg);
-</script>
+    <script>
+    let msg = "<?php echo $messageExists; ?>";
+    alert(msg);
+    </script>
 
 <?php 
 }
@@ -117,17 +128,17 @@ alert(msg);
                                             <select required class="form-control form-control-sm"
                                                 style="border-radius: 0" name="role" id="role">
                                                 <option disabled value="">Select Role</option>
-                                                <option value="admin"
-                                                    <?php echo ($getDataById['role'] == "admin") ? "Selected" : " " ?>>Admin
+                                                <option value="Admin"
+                                                    <?php echo ($getDataById['role'] == "Admin") ? "Selected" : " " ?>>Admin
                                                 </option>
-                                                <option value="moderator"
-                                                    <?php echo ($getDataById['role'] == "moderator") ? "Selected" : " " ?>>
+                                                <option value="Moderator"
+                                                    <?php echo ($getDataById['role'] == "Moderator") ? "Selected" : " " ?>>
                                                     Moderator</option>
-                                                <option value="user"
-                                                    <?php echo ($getDataById['role'] == "user") ? "Selected" : " " ?>>User
+                                                <option value="User"
+                                                    <?php echo ($getDataById['role'] == "User") ? "Selected" : " " ?>>User
                                                 </option>
-                                                <option value="guest"
-                                                    <?php echo ($getDataById['role'] == "guest") ? "Selected" : " " ?>>Guest
+                                                <option value="Guest"
+                                                    <?php echo ($getDataById['role'] == "Guest") ? "Selected" : " " ?>>Guest
                                                 </option>
                                             </select>
                                         </div>
@@ -141,14 +152,14 @@ alert(msg);
                                             </div>
 
                                             <div class="bg-secondary d-inline-block p-0 rounded-1">
-                                                <input type="checkbox" name="is_active" data-toggle="toggle"
+                                                <input  class="active_btn" type="checkbox" name="is_active" data-toggle="toggle"
                                                     <?php echo ($getDataById['is_active'] == 1) ? "checked" : " " ?>>
                                             </div>
                                         </div>
                                     </div>
 
 
-                                    <!-- <input  id="toggleSwitch" type="checkbox" checked> -->
+                                    
 
 
                                     <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 d-flex justify-content-center align-items-center">
@@ -185,14 +196,7 @@ alert(msg);
         require_once('partials/footer-links.php');  
     ?>
 
-        <script>
-        $(document).ready(function() {
-            $('#toggleSwitch').bootstrapToggle({
-                on: 'Active',
-                off: 'Inactive'
-            });
-        });
-        </script>
+        
 
 </body>
 

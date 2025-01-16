@@ -106,10 +106,10 @@ alert(msg);
                                             <select required class="form-control form-control-sm"
                                                 style="border-radius: 0" name="role" id="roles">
                                                 <option selected disabled value="">Select Role</option>
-                                                <option value="admin">Admin</option>
-                                                <option value="moderator">Moderator</option>
-                                                <option value="user">User</option>
-                                                <option value="guest">Guest</option>
+                                                <option value="Admin">Admin</option>
+                                                <option value="Moderator">Moderator</option>
+                                                <option value="User">User</option>
+                                                <option value="Guest">Guest</option>
                                             </select>
                                         </div>
                                     </div>

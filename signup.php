@@ -94,16 +94,7 @@ alert(msg);
                                             id="confirm_password" placeholder="Please enter same password">
                                     </div>
 
-                                    <!-- SELECT ROLE  -->
-                                    <div class="form-group">
-                                            <label for="">Role</label>
-                                            <!-- role selected -->
-                                            <select required class="form-control form-control-sm"
-                                                style="border-radius: 0" name="role" id="role">
-                                                <option selected  value="user">user</option>
-                                            </select>
-                                        </div>
-
+                                    
                                     <!-- submit -->
                                     <button type="submit" class="btn btn-primary">Submit</button>
 

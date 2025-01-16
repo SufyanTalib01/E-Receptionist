@@ -10,33 +10,46 @@
         
         // SIGNUP 
         if($action == "signup"){
+
             $password = $_POST['password'];
             $confirmPassword = $_POST['confirm_password'];
-            $dbEmailVerificaition = $obj->db_email_verification($_POST);
-            if($dbEmailVerificaition){
-                $_SESSION['message'] = "Email Already Existed";
-                header('location: signup.php');
-            }
-            else{
-                if($password == $confirmPassword){
-                    $flag = $obj->signUp($_POST);
-
-                    if($flag){
-                        $_SESSION['message'] = 'Account created! please login first';
-                        header('location: login.php');
-                    }else{
-                        $_SESSION['message'] = 'Data Not Saved';
-                        header('location: signup.php');
-                    }
-                }else{
-                    $_SESSION['message'] = 'Password and Confirm Password is not same';
+            $is_form_valid = $obj->db_form_validation($_POST);
+            
+            if($is_form_valid){
+                $dbEmailVerificaition = $obj->db_email_verification($_POST);
+                if($dbEmailVerificaition){
+                    $_SESSION['message'] = "Email Already Existed";
                     header('location: signup.php');
                 }
+                else{
+                    if(strlen($password) >= 8){
+                        if($password == $confirmPassword){
+                            $flag = $obj->signUp($_POST);
+        
+                            if($flag){
+                                $_SESSION['message'] = 'Account created! please login first';
+                                header('location: login.php');
+                            }else{
+                                $_SESSION['message'] = 'Data Not Saved';
+                                header('location: signup.php');
+                            }
+                        }else{
+                            $_SESSION['message'] = 'Password and Confirm Password is not same';
+                            header('location: signup.php');
+                        }
+                    }else{
+                        $_SESSION['message'] = 'Password should be greater than 8 character';
+                        header('location: signup.php');
+                    }
+                }
+            }else{
+                $_SESSION['message'] = $_SESSION['invalid_form_input'];
+                header('location: signup.php');
             }
 
                 
             
-            // LOGIN 
+        // LOGIN 
         }else if($action == "login"){
 
             $login = $obj->db_login($_POST);
@@ -52,7 +65,6 @@
 
         // FORGET PASSWORD 
         }else if($action == "forget"){
-
             $isEmailExist = $obj->db_get_user_email($_POST);
             if($isEmailExist){
 
@@ -83,6 +95,7 @@
                 }
 
                 // OTP_VERIFICATION 
+        // OTP VERIFICATION 
         }else if($action == 'otp'){
 
                 $otp = $_POST['otp'];
@@ -99,6 +112,7 @@
                     header("location:otp.php?email=".$_POST['email']);
                 }
 
+        // GENERATE NEW PASSWORD 
         }else if($action == 'newpassword'){
             $isPasswordchanged = $obj->db_new_password($_POST);
 
@@ -110,36 +124,49 @@
                 header("location:new-password.php?email=".$_POST['email']);
             }
 
-            // ADD USER 
+        // ADD USER 
         }else if($action == 'adduser'){
             $password = $_POST['password'];
             $confirmPassword = $_POST['confirm_password'];
-            
+
+            $is_form_valid = $obj->db_form_validation($_POST);
+            if($is_form_valid){
                 $dbEmailVerificaition = $obj->db_email_verification($_POST);
                 if($dbEmailVerificaition){
                     $_SESSION['message'] = "Email Already Existed";
                     header('location: add-user.php');
                 }
                 else{
-                    if($password == $confirmPassword){
-                        $flag = $obj->db_add_new_user($_POST);
-        
-                        if($flag){
-                            $_SESSION['message'] = 'User Added';
-                            header('location: users.php');
+                    if(strlen($password) >= 8){
+                        if($password == $confirmPassword){
+                            $flag = $obj->db_add_new_user($_POST);
+            
+                            if($flag){
+                                $_SESSION['message'] = 'User Added';
+                                header('location: users.php');
+                            }else{
+                                $_SESSION['message'] = 'Invalid Credentials';
+                                header('location: add-user.php');
+                            }
                         }else{
                             $_SESSION['message'] = 'Invalid Credentials';
                             header('location: add-user.php');
                         }
-                    }
-                    else{
-                        $_SESSION['message'] = 'Invalid Credentials';
+                    }else{
+                        $_SESSION['message'] = 'Password must be 8 characters';
                         header('location: add-user.php');
                     }
-                
-            
+                }
+            }else{
+                $_SESSION['message'] = $_SESSION['invalid_form_input'];
+                header('location: add-user.php');
             }
+            
+                
+                
+        // DELETE USER 
         }else if($action == 'delete_user'){
+
             $deleteUser = $obj->db_delete_user($_POST);
 
             if($deleteUser){
@@ -148,34 +175,61 @@
             }else{
                 header('location: users.php');
             }
-
+        // EDIT USER 
         }else if($action == 'edit_user'){
             extract($_POST);
-            $isEmailExist = $obj->db_is_email_already($_POST);
 
-            if($isEmailExist){
-                $_SESSION['message'] = 'Already Email Exist';
-                header('location: edit-user.php?id='.$_POST['edit_serial_num']);
-            }else{
-                if($password == $confirm_password){
-                    $editUser = $obj->db_edit_user($_POST);
+            $is_form_valid = $obj->db_form_validation($_POST);
 
-                    if($editUser){
-                        $_SESSION['message'] = 'User Edited';
-                        header('location: users.php');
-                    }else{
-                        $_SESSION['message'] = 'Invalid Credentials';
-                        header('location: users.php');
-                    }
+            if($is_form_valid){
+                $isEmailExist = $obj->db_is_email_already($_POST);
+                if($isEmailExist){
+                    $_SESSION['message'] = 'Already Email Exist';
+                    header('location: edit-user.php?id='.$_POST['edit_serial_num']);
                 }else{
-                    $_SESSION['message'] = 'Passoword not Same';
-                    header('location: users.php');
-                }
+                        if(!empty($password)){
+                            if(strlen($password) >= 8){
+                                if($password == $confirm_password){
+                                    $editUser = $obj->db_edit_user($_POST);
+                                    
+                                    if($editUser){
+                                        $_SESSION['message'] = 'User Edited';
+                                        header('location: users.php');
+                                    }else{
+                                        $_SESSION['message'] = 'Invalid Credentials';
+                                        header('location: edit-user.php?id='.$_POST['edit_serial_num']);
+                                    }
+                                }else{
+                                    $_SESSION['message'] = 'Passoword not Same';
+                                    header('location: edit-user.php?id='.$_POST['edit_serial_num']);
+                                }
+                            }else{
+                                $_SESSION['message'] = 'Password must be 8 characters';
+                                header('location: edit-user.php?id='.$_POST['edit_serial_num']);
+                            }
+                        }else{
+                                $editUser = $obj->db_edit_user($_POST);
+            
+                                if($editUser){
+                                    $_SESSION['message'] = 'User Edited';
+                                    header('location: users.php');
+                                }else{
+                                    $_SESSION['message'] = 'Invalid Credentials';
+                                    header('location: edit-user.php?id='.$_POST['edit_serial_num']);
+                                }
+                        }
+                    }
+            }else{
+                $_SESSION['message'] = $_SESSION['invalid_form_input'];
+                header('location: edit-user.php?id='.$_POST['edit_serial_num']);
             }
         }
         
         
 
     }
-        
+
+    
+
 ?>
+
