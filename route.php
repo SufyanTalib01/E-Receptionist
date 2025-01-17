@@ -185,7 +185,8 @@
                 $isEmailExist = $obj->db_is_email_already($_POST);
                 if($isEmailExist){
                     $_SESSION['message'] = 'Already Email Exist';
-                    header('location: edit-user.php?id='.$_POST['edit_serial_num']);
+                    // header('location: edit-user.php?id='.$_POST['edit_serial_num']);
+                    header('Location: ' . $_SERVER['HTTP_REFERER']);
                 }else{
                         if(!empty($password)){
                             if(strlen($password) >= 8){
@@ -197,6 +198,7 @@
                                         header('location: users.php');
                                     }else{
                                         $_SESSION['message'] = 'Invalid Credentials';
+                                        $_SESSION['form_data'] = $_POST;
                                         header('location: edit-user.php?id='.$_POST['edit_serial_num']);
                                     }
                                 }else{
@@ -205,6 +207,7 @@
                                 }
                             }else{
                                 $_SESSION['message'] = 'Password must be 8 characters';
+                                $_SESSION['form_data'] = $_POST;
                                 header('location: edit-user.php?id='.$_POST['edit_serial_num']);
                             }
                         }else{
@@ -215,12 +218,14 @@
                                     header('location: users.php');
                                 }else{
                                     $_SESSION['message'] = 'Invalid Credentials';
+                                    $_SESSION['form_data'] = $_POST;
                                     header('location: edit-user.php?id='.$_POST['edit_serial_num']);
                                 }
                         }
                     }
             }else{
                 $_SESSION['message'] = $_SESSION['invalid_form_input'];
+                $_SESSION['form_data'] = $_POST;
                 header('location: edit-user.php?id='.$_POST['edit_serial_num']);
             }
         }

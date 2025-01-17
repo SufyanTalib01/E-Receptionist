@@ -79,7 +79,7 @@ class MyDB{
             return false;
         }
     }
-
+    // SIGN UP 
     public function signUp($records){
 
         // EXTRACT FORM FIELDS 
@@ -294,6 +294,8 @@ class MyDB{
             return NULL;
         }
     }
+
+   
 
     
 }
