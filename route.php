@@ -129,6 +129,7 @@
             $password = $_POST['password'];
             $confirmPassword = $_POST['confirm_password'];
 
+            
             $is_form_valid = $obj->db_form_validation($_POST);
             if($is_form_valid){
                 $dbEmailVerificaition = $obj->db_email_verification($_POST);
@@ -145,7 +146,11 @@
                                 $_SESSION['message'] = 'User Added';
                                 header('location: users.php');
                             }else{
-                                $_SESSION['message'] = 'Invalid Credentials';
+                                if(isset($_SESSION['error'])){
+                                    $_SESSION['message'] = $_SESSION['error'];
+                                }else{
+                                    $_SESSION['invalid Credentials'];
+                                }
                                 header('location: add-user.php');
                             }
                         }else{

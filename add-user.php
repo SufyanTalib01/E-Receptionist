@@ -36,19 +36,19 @@ alert(msg);
 
         <!-- partial:partials/_navbar.html -->
         <?php
-        require_once('partials/nav-bar.php');
-      ?>
+            require_once('partials/nav-bar.php');
+        ?>
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_sidebar.html -->
-            <?php
+        <?php
           require_once('partials/side-bar.php');  
         ?>
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
 
-                    <?php
+            <?php
               require_once('partials/page-header.php');  
             ?>
 
@@ -61,7 +61,7 @@ alert(msg);
                             </div>
 
                             <!-- BEGIN :: FORM -->
-                            <form action="route.php" method="POST" class="m-4">
+                            <form action="route.php" method="POST" class="m-4" enctype="multipart/form-data">
                                 <input type="hidden" class="form-control" name="action" id="name"
                                     placeholder="Please enter your name" value="adduser">
 
@@ -69,33 +69,28 @@ alert(msg);
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             <label for="name">Name</label>
-                                            <input required type="text" class="form-control" name="name" id="name"
-                                                placeholder="enter name">
+                                            <input required type="text" class="form-control" name="name" id="name" placeholder="enter name">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <!-- email -->
                                         <div class="form-group">
                                             <label for="email">Email address</label>
-                                            <input required type="email" class="form-control" name="email" id="email"
-                                                placeholder="enter email">
+                                            <input required type="email" class="form-control" name="email" id="email" placeholder="enter email">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <!-- password  -->
                                         <div class="form-group">
                                             <label for="password">Password</label>
-                                            <input required type="password" class="form-control" name="password"
-                                                id="password" placeholder="enter password">
+                                            <input required type="password" class="form-control" name="password" id="password" placeholder="enter password">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <!-- confirm password -->
                                         <div class="form-group">
                                             <label for="confirm_password">Confirm Password</label>
-                                            <input required type="password" class="form-control" name="confirm_password"
-                                                id="confirm_password" id="confirm_password"
-                                                placeholder="Please enter same password">
+                                            <input required type="password" class="form-control" name="confirm_password" id="confirm_password" id="confirm_password" placeholder="Please enter same password">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -103,14 +98,20 @@ alert(msg);
                                         <div class="form-group">
                                             <label for="">Role</label>
                                             <!-- roles selected -->
-                                            <select required class="form-control form-control-sm"
-                                                style="border-radius: 0" name="role" id="roles">
+                                            <select required class="form-control form-control-sm" style="border-radius: 0" name="role" id="roles">
                                                 <option selected disabled value="">Select Role</option>
                                                 <option value="Admin">Admin</option>
                                                 <option value="Moderator">Moderator</option>
                                                 <option value="User">User</option>
                                                 <option value="Guest">Guest</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <!-- Profile Picture -->
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="image">Upload Profile Picture</label>
+                                            <input  type="file" accept="image/jpeg, image/png, image/gif" class="form-control" name="image" id="image">
                                         </div>
                                     </div>
 
@@ -133,19 +134,17 @@ alert(msg);
                     <!-- body end  -->
 
                     <!-- partial:partials/_footer.html -->
-                    <?php
-            require_once('partials/footer.php');  
-          ?>
-
-                    <!-- partial -->
-                </div>
+            <?php
+                require_once('partials/footer.php');  
+            ?>
+            </div>
                 <!-- main-panel ends -->
             </div>
             <!-- page-body-wrapper endss -->
         </div>
         <?php
-        require_once('partials/footer-links.php');  
-    ?>
+            require_once('partials/footer-links.php');  
+        ?>
 
 </body>
 

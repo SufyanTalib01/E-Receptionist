@@ -119,6 +119,7 @@ class MyDB{
         if($num >= 1){
             while($row = mysqli_fetch_assoc($result)){
                 if(password_verify($password , $row['password'])){
+                    $_SESSION['profilePicture'] = $row['profile_picture'];
                     return true;
                 }else{
                    return false; 
@@ -208,16 +209,52 @@ class MyDB{
 
         $name = ucwords(strtolower($name));
 
-        // INSERT DATAA
-        
-        
-        $password = password_hash($password , PASSWORD_DEFAULT);
-        $sql = "INSERT INTO `users` (`name`, `email`, `password` , `role` , `is_active`) VALUES ('$name', '$email', '$password' , '$role' , '1')";
-        $result = (mysqli_query($this->conn , $sql));
-        if($result == 1){
-            return true;
+        if(!empty($_FILES['image']['name'])){
+
+            $image_name = $_FILES['image']['name'];
+            $image_name = substr($image_name , -10);
+            $image_name = rand(00000,99999).$image_name;
+
+            $image_size = $_FILES['image']['size'];
+            $image_tmp = $_FILES['image']['tmp_name'];
+            $image_type = $_FILES['image']['type'];
+
+            if($image_size > 1 * 1024 * 1024){
+                $_SESSION['error'] = 'File size exceeds 1MB limit!';
+                return false;
+            }else{
+                $uploadImages = move_uploaded_file($image_tmp , 'upload-images/'.$image_name);
+                
+                if($uploadImages){
+                    $password = password_hash($password , PASSWORD_DEFAULT);
+                    $sql = "INSERT INTO `users` (`name`, `email`, `password` , `role` , `is_active` , `profile_picture`) VALUES ('$name', '$email', '$password' , '$role' , '1' , '$image_name')";
+                    
+                    $result = (mysqli_query($this->conn , $sql));
+                    if($result == 1){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else{
+                    return false;
+                }
+
+            }
+        }else{
+            
+            // INSERT DATA
+            $password = password_hash($password , PASSWORD_DEFAULT);
+            $sql = "INSERT INTO `users` (`name`, `email`, `password` , `role` , `is_active`) VALUES ('$name', '$email', '$password' , '$role' , '1')";
+            $result = (mysqli_query($this->conn , $sql));
+            if($result == 1){
+                $_SESSION['error'] = 'User Added Successfully';
+                return true;
+            }else{
+                $_SESSION['error'] = 'Invalid Credentials';
+                return false;}
         }
-        return false;
+
+            
     }
     // DELETE USER
     public function db_delete_user($records){
@@ -259,6 +296,8 @@ class MyDB{
         }else{
             $is_active = 0;
         }
+
+        
         
         if(empty($password)){
             $sql = "UPDATE users SET name = '$name', email = '$email' , role = '$role' , is_active = '$is_active' WHERE sno = '$edit_serial_num'";
@@ -283,8 +322,7 @@ class MyDB{
 
     // CALL DATA BY USING ID 
     public function db_get_data_by_id($records){
-        
-        
+    
         $sql = "SELECT * FROM users WHERE sno = $records";
         $result =(mysqli_query($this->conn, $sql));
         $num = mysqli_num_rows($result);
@@ -294,10 +332,6 @@ class MyDB{
             return NULL;
         }
     }
-
-   
-
-    
 }
 
 $obj = new MyDB();

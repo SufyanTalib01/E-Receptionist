@@ -100,7 +100,7 @@ if(isset($_SESSION['form_data']['role'])){
                             </div>
 
                             <!-- BEGIN :: FORM -->
-                            <form action="route.php" method="POST" class="m-4">
+                            <form action="route.php" method="POST" class="m-4" enctype="multipart/form-data">
                                 <input type="hidden" class="form-control" name="action" id="action"
                                     placeholder="Please enter your name" value="edit_user">
 
@@ -157,20 +157,30 @@ if(isset($_SESSION['form_data']['role'])){
                                                 <option value="Guest" <?php echo (!empty($role) ? ($role == 'Guest' ? 'selected' : '') : (isset($getDataById['role']) && $getDataById['role'] == 'Guest' ? 'selected' : '')); ?> >Guest</option>
                                             </select>
                                         </div>
-                                    </div>  
+                                    </div>
+                                    <!-- Profile Picture -->
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <!--  Active button  -->
-                                        
+                                        <div class="form-group">
+                                            <label for="image">Update Profile Picture</label>
+                                            <input  type="file" accept="image/jpeg, image/png, image/gif" class="form-control" name="image" id="image">
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- PROFILE IMAGE  -->
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <img width="180" src="upload-images/<?php echo isset($getDataById['profile_picture']) ? $getDataById['profile_picture'] : 'user.jpg' ?>" class="img-thumbnail">
+                                        </div>
+                                    </div>  
+                                    
+                                    <!-- Active button  -->
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             <div>
                                                 <label for="">Status</label>
                                             </div>
-
                                             <div class="bg-secondary d-inline-block p-0 rounded-1">
-
-                                                <input  class="active_btn" type="checkbox" name="is_active" data-toggle="toggle"
-                                                    <?php echo ($getDataById['is_active'] == 1) ? "checked" : " " ?>>
-
+                                                <input  class="active_btn" type="checkbox" name="is_active" data-toggle="toggle" <?php echo ($getDataById['is_active'] == 1) ? "checked" : " " ?>>
                                             </div>
                                         </div>
                                     </div>
