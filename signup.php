@@ -24,14 +24,7 @@
         ?>
 </head>
 
-<?php 
-        if(isset($messageExists)){?>
-<script>
-let msg = "<?php echo $messageExists ?>";
-alert(msg);
-</script> <?php
-        }
-    ?>
+    
 
 <body style="background-color: #F2EDF3;">
 
@@ -65,16 +58,17 @@ alert(msg);
 
                                     <!-- name -->
                                     <div class="form-group">
-                                        <label for="name">Name</label>
+                                        <label for="name">Full Name<span class="text-danger">*</span></label>
+                                        <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter your first and last name."></i>
                                         <input required type="text" class="form-control" name="name" id="name"
-                                            placeholder="Name">
+                                            placeholder="John Doe">
                                     </div>
 
                                     <!-- email -->
                                     <div class="form-group">
-                                        <label for="email">Email address</label>
-                                        <input required type="email" class="form-control" name="email" id="email"
-                                            placeholder="Please enter your email">
+                                        <label for="email">Email address<span class="text-danger">*</span></label>
+                                        <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter your email address"></i>
+                                        <input required type="email" class="form-control" name="email" id="email" placeholder="example@gmail.com">
                                         <small id="emailHelp" class="form-text text-muted">
                                             We'll never share your email with anyone else.
                                         </small>
@@ -82,21 +76,21 @@ alert(msg);
 
                                     <!-- password -->
                                     <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input required type="password" class="form-control" name="password"
-                                            id="password" placeholder="Please enter your password">
+                                        <label for="password">Password<span class="text-danger">*</span></label>
+                                        <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter your password"></i>
+                                        <input required type="password" class="form-control" name="password" id="password" placeholder="password">
                                     </div>
 
                                     <!-- confirm password -->
                                     <div class="form-group">
-                                        <label for="confirm_password">Confirm Password</label>
-                                        <input required type="password" class="form-control" name="confirm_password"
-                                            id="confirm_password" placeholder="Please enter same password">
+                                        <label for="confirm_password">Confirm Password<span class="text-danger">*</span></label>
+                                        <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter same password again"></i>
+                                        <input required type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="confirm password">
                                     </div>
 
                                     
                                     <!-- submit -->
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" id="submit" class="btn btn-primary">Submit</button>
 
                                     <!-- login path -->
                                     <p class="mt-2">
@@ -117,15 +111,21 @@ alert(msg);
                 </div>
                 <!-- Footer  -->
                 <?php
-                            require_once('partials/footer.php');
-                        ?>
+                    require_once('partials/footer.php');
+                ?>
             </div>
         </div>
     </div>
     <!-- Footer Links  -->
     <?php
-            require_once('partials/footer-links.php');  
-        ?>
+        require_once('partials/footer-links.php');  
+    ?>
+
+
+
+<?php 
+    require_once 'components/tostify-msg.php';
+?>
 </body>
 
 </html>

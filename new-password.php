@@ -29,18 +29,7 @@
 </head>
 
 
-<?php 
 
-    if(isset($messageExists)) { ?>
-
-<script>
-let msg = "<?php echo $messageExists; ?>";
-alert(msg);
-</script>
-
-<?php 
-}
-?>
 
 
 <body>
@@ -126,6 +115,9 @@ alert(msg);
     <?php
         require_once('partials/footer-links.php');  
     ?>
+<?php 
+    require_once 'components/tostify-msg.php';
+?>
 
 </body>
 

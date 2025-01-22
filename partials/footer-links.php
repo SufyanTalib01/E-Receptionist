@@ -32,4 +32,42 @@
    <!-- TOGGLE BUTTON JS  -->
    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
-    
+   <!-- jQuery -->
+   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+
+<!-- toaster  -->
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>          
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+<script src="assets/js/common.js"></script>
+
+
+<!-- tooltip i icon  -->
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+
+<!-- Tostify message  -->
+<?php if(isset($messageExists)){ ?>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        toastr.options.timeOut = 1500; // 1.5s
+        <?php if($messageExists == 'account deleted'){ ?>
+        toastr.error('<?php echo $messageExists ?>');
+    <?php }else if($messageExists == 'Account created! please login' || $messageExists ==  'User Added' || $messageExists ==  'User Edited'){ ?>  
+        toastr.success('<?php echo $messageExists ?>');
+    <?php }
+    else{ ?>
+        toastr.info('<?php echo $messageExists ?>');
+        <?php } ?>
+    });
+    </script>
+<?php } ?>

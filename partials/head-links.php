@@ -24,6 +24,7 @@
 <!-- TOGGLE BUTTON CSS  -->
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
 
 
 <?php 
@@ -43,5 +44,7 @@ if (!in_array($current_page, $excluded_pages)) {
         exit;
     }
 }
+
+
 ?>
 

@@ -29,18 +29,7 @@
     </head>
 
 
-<?php 
 
-    if(isset($messageExists)) { ?>
-        
-        <script>
-            let msg = "<?php echo $messageExists; ?>";
-            alert(msg);
-        </script>
-
-    <?php 
-}
-?>
 
 <body>
 
@@ -73,17 +62,19 @@
 
                                 <!-- email -->
                                 <div class="form-group">
-                                    <label for="email">Email address</label>
-                                    <input required type="email" class="form-control" name="email" id="email"
-                                        placeholder="Please enter your email">
-                                    <small id="emailHelp" class="form-text text-muted">
-                                        We'll never share your email with anyone else.
-                                    </small>
-                                </div>
+                                    <label for="email">Email address<span class="text-danger">*</span></label>
+                                    <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter your email address"></i>
+                                        <input required type="email" class="form-control" name="email" id="email"
+                                            placeholder="Please enter your email">
+                                        <small id="emailHelp" class="form-text text-muted">
+                                            We'll never share your email with anyone else.
+                                        </small>
+                                    </div>
 
                                 <!-- password -->
                                 <div class="form-group">
-                                    <label for="password">Password</label>
+                                    <label for="password">Password<span class="text-danger">*</span></label>
+                                    <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter your password"></i>
                                     <input required type="password" class="form-control" name="password" id="password"
                                         placeholder="Please enter your password">
 
@@ -131,7 +122,16 @@
     <?php
         require_once('partials/footer-links.php');  
     ?>
+<!-- tooltip i icon  -->
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 
+    <?php 
+        require_once 'components/tostify-msg.php';
+    ?>
 </body>
 
 </html>

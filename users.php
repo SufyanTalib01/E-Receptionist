@@ -21,18 +21,7 @@
 
 </head>
 
-<?php 
 
-    if(isset($messageExists)) { ?>
-
-<script>
-let msg = "<?php echo $messageExists; ?>";
-alert(msg);
-</script>
-
-<?php 
-}
-?>
 
 <body>
     <div class="container-scroller">
@@ -62,7 +51,7 @@ alert(msg);
                             <div class="card-header p-3">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span>List</span>
-                                    <a href="/add-user.php"><button class="btn btn-primary">Add user</button></a>
+                                    <a href="/add-user.php"><button class="btn btn-primary btn-sm">Add <i  class="fa-solid fa-plus fs-6"></i></button></a>
                                 </div>
                             </div>
 
@@ -165,6 +154,10 @@ alert(msg);
         })
     });
     </script>
+
+<?php 
+    require_once 'components/tostify-msg.php';
+?>
 </body>
 
 </html>

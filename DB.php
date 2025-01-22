@@ -120,6 +120,8 @@ class MyDB{
             while($row = mysqli_fetch_assoc($result)){
                 if(password_verify($password , $row['password'])){
                     $_SESSION['profilePicture'] = $row['profile_picture'];
+                    $_SESSION['name'] = $row['name'];
+                    $_SESSION['role'] = $row['role'];
                     return true;
                 }else{
                    return false; 
@@ -291,6 +293,7 @@ class MyDB{
     public function db_edit_user($records){
         extract($records);
 
+        
         if(isset($is_active)){
             $is_active = 1;
         }else{
@@ -298,26 +301,75 @@ class MyDB{
         }
 
         
-        
-        if(empty($password)){
-            $sql = "UPDATE users SET name = '$name', email = '$email' , role = '$role' , is_active = '$is_active' WHERE sno = '$edit_serial_num'";
-            $result = mysqli_query($this->conn , $sql);
-            if($result){
-                return true;
-            }else{
+        if(!empty($_FILES['image']['name'])){
+
+            
+
+            $image_name = $_FILES['image']['name'];
+            $image_name = substr($image_name , -10);
+            $image_name = rand(00000,99999).$image_name;
+
+            $image_size = $_FILES['image']['size'];
+            $image_tmp = $_FILES['image']['tmp_name'];
+            $image_type = $_FILES['image']['type'];
+
+            if($image_size > 1 * 1024 * 1024){
+                $_SESSION['error'] = 'File size exceeds 1MB limit!';
                 return false;
+            }else{
+                if ($old_image && file_exists("upload-images/" . $old_image)) {
+                    unlink("upload-images/" . $old_image); // Delete the old image
+                }
+                $uploadImages = move_uploaded_file($image_tmp , 'upload-images/'.$image_name);
+                if($uploadImages){
+                    if(empty($password)){
+                        $sql = "UPDATE users SET name = '$name', email = '$email' , role = '$role' , is_active = '$is_active' , profile_picture = '$image_name' WHERE sno = '$edit_serial_num'";
+                        $result = mysqli_query($this->conn , $sql);
+                        if($result){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }else{
+                        $password = password_hash($password , PASSWORD_DEFAULT);
+
+                        $sql = "UPDATE users SET name = '$name', email = '$email' , password = '$password' , role = '$role' , is_active = '$is_active' , profile_picture = '$image_name' WHERE sno = '$edit_serial_num'";
+                        $result = mysqli_query($this->conn , $sql);
+                        if($result){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }
+                }else{
+                    return false;
+                }
+
             }
         }else{
-            $password = password_hash($password , PASSWORD_DEFAULT);
-            $sql = "UPDATE users SET name = '$name', email = '$email' , password = '$password' , role = '$role' , is_active = '$is_active' WHERE sno = '$edit_serial_num'";
-            $result = mysqli_query($this->conn , $sql);
-            if($result){
-                return true;
+
+
+            if(empty($password)){
+                $sql = "UPDATE users SET name = '$name', email = '$email' , role = '$role' , is_active = '$is_active' WHERE sno = '$edit_serial_num'";
+                $result = mysqli_query($this->conn , $sql);
+                if($result){
+                    return true;
+                }else{
+                    return false;
+                }
             }else{
-                return false;
+                $password = password_hash($password , PASSWORD_DEFAULT);
+                $sql = "UPDATE users SET name = '$name', email = '$email' , password = '$password' , role = '$role' , is_active = '$is_active' WHERE sno = '$edit_serial_num'";
+                $result = mysqli_query($this->conn , $sql);
+                if($result){
+                    return true;
+                }else{
+                    return false;
+                }
             }
         }
-
+        
+        
     }
 
     // CALL DATA BY USING ID 

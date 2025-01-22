@@ -58,18 +58,7 @@ if(isset($_SESSION['form_data']['role'])){
     </style>
 </head>
 
-<?php 
 
-    if(isset($messageExists)) { ?>
-
-    <script>
-    let msg = "<?php echo $messageExists; ?>";
-    alert(msg);
-    </script>
-
-<?php 
-}
-?>
 
 <body>
     <div class="container-scroller">
@@ -88,10 +77,9 @@ if(isset($_SESSION['form_data']['role'])){
             <div class="main-panel">
                 <div class="content-wrapper">
 
-                    <?php
-              require_once('partials/page-header.php');  
-            ?>
-                    <!-- body here  -->
+                <?php
+                     require_once('partials/page-header.php');  
+                ?>
                     <!-- BEGIN :: BODY  -->
                     <div class="container">
                         <div class="card">
@@ -110,10 +98,19 @@ if(isset($_SESSION['form_data']['role'])){
                                         value="<?php echo $getDataById['sno'] ?>" placeholder="Name">
                                 </div>
 
+                                <!-- old image name  -->
+                                <div class="form-group">
+                                    <input  type="hidden" class="form-control" name="old_image" id="name"
+                                        value="<?php echo $getDataById['profile_picture'] ?>" placeholder="Name">
+                                </div>
+
+
+
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
-                                            <label for="name">Name</label>
+                                            <label for="name">Name<span class="text-danger">*</span></label>
+                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter full name"></i>
                                             <input required type="text" class="form-control" name="name" id="name"
                                                 value="<?php echo isset($name) ? $name : $getDataById['name'] ?>" placeholder="Name">
                                         </div>
@@ -121,7 +118,8 @@ if(isset($_SESSION['form_data']['role'])){
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <!-- email -->
                                         <div class="form-group">
-                                            <label for="email">Email address</label>
+                                            <label for="email">Email address<span class="text-danger">*</span></label>
+                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter email address"></i>
                                             <input required type="email" class="form-control" name="email" id="email"
                                                 value="<?php echo isset($email) ? $email : $getDataById['email'] ?>" placeholder="email">
                                         </div>
@@ -130,6 +128,7 @@ if(isset($_SESSION['form_data']['role'])){
                                         <!-- password  -->
                                         <div class="form-group">
                                             <label for="password">Password</label>
+                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter password"></i>
                                             <input type="password" class="form-control" name="password" value="<?php echo isset($password) ? $password : ''?>"
                                                 id="password" placeholder="enter password">
                                         </div>
@@ -138,6 +137,7 @@ if(isset($_SESSION['form_data']['role'])){
                                         <!-- confirm password -->
                                         <div class="form-group">
                                             <label for="confirm_password">Confirm Password</label>
+                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter confirm password"></i>
                                             <input type="password" class="form-control" name="confirm_password" value="<?php echo isset($confirmPassword) ? $confirmPassword : ''?>"
                                                 id="confirm_password" id="confirm_password"
                                                 placeholder="Please enter same password">
@@ -146,7 +146,8 @@ if(isset($_SESSION['form_data']['role'])){
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <!-- SELECT ROLE  -->
                                         <div class="form-group">
-                                            <label for="">Role</label>
+                                            <label for="">Role<span class="text-danger">*</span></label>
+                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter role"></i>
                                             <!-- role selected -->
                                             <select required class="form-control form-control-sm"
                                                 style="border-radius: 0" name="role" id="role">
@@ -162,6 +163,7 @@ if(isset($_SESSION['form_data']['role'])){
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             <label for="image">Update Profile Picture</label>
+                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="update your profile picture"></i>
                                             <input  type="file" accept="image/jpeg, image/png, image/gif" class="form-control" name="image" id="image">
                                         </div>
                                     </div>
@@ -169,7 +171,7 @@ if(isset($_SESSION['form_data']['role'])){
                                     <!-- PROFILE IMAGE  -->
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
-                                            <img width="180" src="upload-images/<?php echo isset($getDataById['profile_picture']) ? $getDataById['profile_picture'] : 'user.jpg' ?>" class="img-thumbnail">
+                                            <img width="180" id='show_profile_image' src="upload-images/<?php echo isset($getDataById['profile_picture']) ? $getDataById['profile_picture'] : 'user.jpg' ?>" class="img-thumbnail">
                                         </div>
                                     </div>  
                                     
@@ -192,8 +194,8 @@ if(isset($_SESSION['form_data']['role'])){
 
                                 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                                     <div class="btn-group mr-2" role="group" aria-label="First group">
-                                        <button type="submit" class="btn btn-primary rounded-1">Submit</button>
-                                        <button type="button" onclick="window.location.href='users.php'" class="btn btn-secondary mx-2 rounded-1">Cacnel</button>
+                                        <button type="submit" class="btn btn-primary rounded-1 btn-sm">Submit</button>
+                                        <button type="button" onclick="window.location.href='users.php'" class="btn btn-secondary mx-2 rounded-1 btn-sm">Cacnel</button>
                                         
                                     </div>
                                 </div>
@@ -203,7 +205,6 @@ if(isset($_SESSION['form_data']['role'])){
                         <!-- END :: FORM -->
                     </div>
                     <!-- END :: BODY -->
-                    <!-- body end  -->
 
                     <!-- partial:partials/_footer.html -->
                     <?php
@@ -221,8 +222,12 @@ if(isset($_SESSION['form_data']['role'])){
     ?>
 
 <?php 
-unset($_SESSION['form_data']);
-?>     
+    unset($_SESSION['form_data']);
+
+    require_once 'components/tostify-msg.php';
+?>
+
+
 
 </body>
 

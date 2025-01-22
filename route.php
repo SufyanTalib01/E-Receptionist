@@ -27,7 +27,7 @@
                             $flag = $obj->signUp($_POST);
         
                             if($flag){
-                                $_SESSION['message'] = 'Account created! please login first';
+                                $_SESSION['message'] = 'Account created! please login';
                                 header('location: login.php');
                             }else{
                                 $_SESSION['message'] = 'Data Not Saved';
@@ -175,7 +175,7 @@
             $deleteUser = $obj->db_delete_user($_POST);
 
             if($deleteUser){
-                $_SESSION['message'] = 'User Deleted';
+                $_SESSION['message'] = 'account deleted';
                 header('location: users.php');
             }else{
                 header('location: users.php');
@@ -190,8 +190,9 @@
                 $isEmailExist = $obj->db_is_email_already($_POST);
                 if($isEmailExist){
                     $_SESSION['message'] = 'Already Email Exist';
-                    // header('location: edit-user.php?id='.$_POST['edit_serial_num']);
-                    header('Location: ' . $_SERVER['HTTP_REFERER']);
+                    $_SESSION['form_data'] = $_POST;
+                    header('location: edit-user.php?id='.$_POST['edit_serial_num']);
+                    // header('Location: ' . $_SERVER['HTTP_REFERER']);
                 }else{
                         if(!empty($password)){
                             if(strlen($password) >= 8){
