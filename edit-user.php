@@ -195,8 +195,7 @@ if(isset($_SESSION['form_data']['role'])){
                                 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                                     <div class="btn-group mr-2" role="group" aria-label="First group">
                                         <button type="submit" class="btn btn-primary rounded-1 btn-sm">Submit</button>
-                                        <button type="button" onclick="window.location.href='users.php'" class="btn btn-secondary mx-2 rounded-1 btn-sm">Cacnel</button>
-                                        
+                                        <button type="button" onclick="window.location.href='users.php'" class="btn btn-secondary mx-2 rounded-1 btn-sm">Cancel</button>
                                     </div>
                                 </div>
 

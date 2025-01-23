@@ -34,6 +34,7 @@
         unset($_SESSION['message']);
     }
 
+// check user login or not 
 $current_page = basename($_SERVER['PHP_SELF']);
 
 $excluded_pages = ['login.php', 'signup.php', 'forget-password.php', 'otp.php', 'new-password.php'];
@@ -45,6 +46,25 @@ if (!in_array($current_page, $excluded_pages)) {
     }
 }
 
+// specific access for specific role 
 
+if(isset($_SESSION['loggedin'])){
+    
+    $role = $_SESSION['role'];
+
+    $allowed_pages = [
+        'Admin'  => ['index.php', 'users.php', 'add-user.php' , 'edit-user.php'],
+        'Moderator' => ['index.php'],
+        'User' => ['index.php'],
+        'Guest' => ['index.php'],
+    ];
+
+    $role_current_page = basename($_SERVER['PHP_SELF']);
+
+    if (!in_array($role_current_page, $allowed_pages[$role])) {
+        header("Location: unauthorized.php"); 
+        exit();
+    }
+    }
 ?>
 

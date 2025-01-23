@@ -122,16 +122,6 @@
     <?php
         require_once('partials/footer-links.php');  
     ?>
-<!-- tooltip i icon  -->
-<script>
-    $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-</script>
 
-    <?php 
-        require_once 'components/tostify-msg.php';
-    ?>
-</body>
 
 </html>

@@ -56,6 +56,7 @@
             if($login){
                 session_start();
                 $_SESSION['loggedin'] = true;
+                $_SESSION['message'] = 'Login Successfully';
                 header('location: index.php');
             }else{
                 $_SESSION['message'] = 'Invalid Email or Password';

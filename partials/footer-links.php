@@ -62,7 +62,7 @@
         toastr.options.timeOut = 1500; // 1.5s
         <?php if($messageExists == 'account deleted'){ ?>
         toastr.error('<?php echo $messageExists ?>');
-    <?php }else if($messageExists == 'Account created! please login' || $messageExists ==  'User Added' || $messageExists ==  'User Edited'){ ?>  
+    <?php }else if($messageExists == 'Account created! please login' || $messageExists ==  'User Added' || $messageExists ==  'User Edited' || $messageExists == 'Login Successfully'){?>  
         toastr.success('<?php echo $messageExists ?>');
     <?php }
     else{ ?>
