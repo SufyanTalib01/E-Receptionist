@@ -347,8 +347,7 @@ class MyDB{
 
             }
         }else{
-
-
+            
             if(empty($password)){
                 $sql = "UPDATE users SET name = '$name', email = '$email' , role = '$role' , is_active = '$is_active' WHERE sno = '$edit_serial_num'";
                 $result = mysqli_query($this->conn , $sql);

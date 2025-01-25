@@ -116,7 +116,7 @@
             </div>
         </div>
     </div>
-    <!-- Footer Links  -->
+    <!-- Footer Linkss  -->
     <?php
         require_once('partials/footer-links.php');  
     ?>
