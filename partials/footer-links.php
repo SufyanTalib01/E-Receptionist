@@ -55,7 +55,7 @@
     });
 </script>
 
-<!-- Tostify messagee  -->
+<!-- Tostify messageee  -->
 <?php if(isset($messageExists)){ ?>
     <script type="text/javascript">
     $(document).ready(function() {
