@@ -235,6 +235,19 @@
                 $_SESSION['form_data'] = $_POST;
                 header('location: edit-user.php?id='.$_POST['edit_serial_num']);
             }
+
+        // Create Roles 
+        }else if($action == 'create_roles'){
+            $createNewRole = $obj->db_create_new_role($_POST);
+                if($createNewRole){
+                    $_SESSION['message'] = 'Role Created Successfully';
+                    header('location: create-roles.php');   
+                }else{
+                    ($_SESSION['message'] = $_SESSION['error']) ? $_SESSION['message'] = $_SESSION['error'] : $_SESSION['message'] = 'Role Not Create';
+                    header('location: create-roles.php');
+                }
+            // $rolePermissions = $obj->db_role_permissions($_POST);
+            
         }
         
         

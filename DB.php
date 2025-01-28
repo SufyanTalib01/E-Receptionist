@@ -33,6 +33,25 @@ class MyDB{
         }
         
     }
+
+    // GET PERMISSIONS DATA 
+    public function getPermissions(){
+        
+        $sql = "SELECT * FROM permissions";
+        $result =(mysqli_query($this->conn, $sql));
+        if($result->num_rows > 0){
+            while($row = mysqli_fetch_assoc($result)){
+                $data[] = $row;
+                
+            }
+            return $data;
+        }
+        else{
+            return [];
+        }
+        
+    }
+    // check error 
     public function debug($record){
 
         echo "<pre>";
@@ -41,7 +60,7 @@ class MyDB{
         exit();
 
     }
-
+    // Form Validation 
     public function db_form_validation($records){
         extract($records);
 
@@ -383,6 +402,62 @@ class MyDB{
             return NULL;
         }
     }
+
+    
+    // Create New Role 
+    public function db_create_new_role($records){
+        extract($records);
+
+        function test_input($data){
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+
+        $name = test_input($name);
+
+        $sql = "SELECT * FROM roles WHERE  `name` = '$name'";
+        $result = mysqli_query($this->conn , $sql);
+        $num = mysqli_num_rows($result);
+        if($num >= 1){
+            $_SESSION['error'] = 'Roles is Already Exist';
+            return false;
+            
+        }else{
+            $sql = "INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES (NULL, '$name', NOW(), NOW(), NOW())";
+        $result = mysqli_query($this->conn , $sql);
+
+        if($result){
+            
+            $roleId = mysqli_insert_id($this->conn);
+
+            if (!empty($is_active)) {
+                foreach ($_POST['is_active'] as $key => $value) {
+                    // echo "Permission ID $key: $value <br>";
+                    if($value == 'on'){
+                        $sql = "INSERT INTO `role_has_permission` (`role_id`, `permissions_id`) VALUES ('$roleId', '$key')";
+                        $result = mysqli_query($this->conn , $sql);
+                    }
+                }
+                if($result){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else {
+                return false;
+            }
+
+        }else{
+            return false;
+        }
+        }
+
+        
+    }
+    
+    
 }
 
 $obj = new MyDB();
