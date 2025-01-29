@@ -6,6 +6,8 @@
   
   $id = $_GET['id'];
   $getDataById = $obj->db_get_data_by_id($id);
+  $roles = $obj->db_getRoles();
+
 ?>
 
 <!-- RETAIN FORM DATA -->
@@ -25,7 +27,7 @@ if(isset($_SESSION['form_data']['confirm_password'])){
     $confirmPassword = $_SESSION['form_data']['confirm_password'];
 }
 if(isset($_SESSION['form_data']['role'])){
-    $role = $_SESSION['form_data']['role'];
+    $role_name = $_SESSION['form_data']['role'];
 }
 
 ?>
@@ -152,10 +154,11 @@ if(isset($_SESSION['form_data']['role'])){
                                             <select required class="form-control form-control-sm"
                                                 style="border-radius: 0" name="role" id="role">
                                                 <option disabled value="">Select Role</option>
-                                                <option value="Admin" <?php echo (!empty($role) ? ($role == 'Admin' ? 'selected' : '') : (isset($getDataById['role']) && $getDataById['role'] == 'Admin' ? 'selected' : '')); ?> >Admin</option>
-                                                <option value="Moderator" <?php echo (!empty($role) ? ($role == 'Moderator' ? 'selected' : '') : (isset($getDataById['role']) && $getDataById['role'] == 'Moderator' ? 'selected' : '')); ?> >Moderator</option>
-                                                <option value="User" <?php echo (!empty($role) ? ($role == 'User' ? 'selected' : '') : (isset($getDataById['role']) && $getDataById['role'] == 'User' ? 'selected' : '')); ?> >User</option>
-                                                <option value="Guest" <?php echo (!empty($role) ? ($role == 'Guest' ? 'selected' : '') : (isset($getDataById['role']) && $getDataById['role'] == 'Guest' ? 'selected' : '')); ?> >Guest</option>
+                                                <?php if(!empty($roles)){
+                                                    foreach ($roles as $role){ ?>
+                                                        <option value="<?php echo $role['id'] ?>" <?php echo (isset($getDataById['role_id']) && $getDataById['role_id'] == $role['id']) ? "Selected" : "" ?> > <?php echo $role['name'] ?></option>
+                                                  <?php  }
+                                                 }?>
                                             </select>
                                         </div>
                                     </div>

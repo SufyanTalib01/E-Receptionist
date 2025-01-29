@@ -2,9 +2,11 @@
   require_once('DB.php'); 
   
   $users = $obj->getUsers();
-  $module = 'Create Role';
+  $module = 'Edit Role Permission';
 
   $permissions = $obj->getPermissions();
+  $roles = $obj->db_getRoles();
+
 
 
 ?>
@@ -67,10 +69,19 @@
 
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <div class="form-group">
-                                            <label for="name">Role Name<span class="text-danger">*</span></label>
-                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter the name of the new role"></i>
-                                            <input required  type="text" class="form-control" name="name" id="name" placeholder="Editor">
+                                    <div class="form-group">
+                                            <label for="">Role<span class="text-danger">*</span></label>
+                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter roll"></i>
+                                            <!-- roles selected -->
+                                            <select required class="form-control form-control-sm" style="border-radius: 0" name="role" id="roles">
+                                                <option selected disabled value="">Select Role</option>
+                                                <?php if(!empty($roles)){
+                                                    foreach ($roles as $role){
+                                                    ?>
+                                                    <option value="<?php echo $role['id'] ?>"><?php echo $role['name'] ?></option>
+                                                  <?php  }  
+                                                }?>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

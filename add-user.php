@@ -4,6 +4,8 @@
   $users = $obj->getUsers();
   $module = 'Create User';
 
+  $roles = $obj->db_getRoles();
+
 
 ?>
 <!DOCTYPE html>
@@ -94,10 +96,12 @@
                                             <!-- roles selected -->
                                             <select required class="form-control form-control-sm" style="border-radius: 0" name="role" id="roles">
                                                 <option selected disabled value="">Select Role</option>
-                                                <option value="Admin">Admin</option>
-                                                <option value="Moderator">Moderator</option>
-                                                <option value="User">User</option>
-                                                <option value="Guest">Guest</option>
+                                                <?php if(!empty($roles)){
+                                                    foreach ($roles as $role){
+                                                    ?>
+                                                    <option value="<?php echo $role['id'] ?>"><?php echo $role['name'] ?></option>
+                                                  <?php  }  
+                                                }?>
                                             </select>
                                         </div>
                                     </div>

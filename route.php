@@ -127,6 +127,7 @@
 
         // ADD USER 
         }else if($action == 'adduser'){
+
             $password = $_POST['password'];
             $confirmPassword = $_POST['confirm_password'];
 

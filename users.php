@@ -3,6 +3,7 @@
   
 //   $id = $_GET['id'];
   $users = $obj->getUsers();
+  $roles = $obj->db_getRoles();
 //   $getUserData = $obj->db_get_data_by_id();
   $module = 'Users';
 
@@ -86,7 +87,10 @@
                                             <!-- is_active  -->
                                             <td><span class="badge <?php echo ($user['is_active'] == 1) ? "badge-primary" : "badge-secondary" ?>"><?php echo ($user['is_active'] == 1) ? "active" : "inactive" ?></span></td>
                                             <!-- role  -->
-                                            <td> <?php echo $user['role'] ?> </td>
+                                            <td> <?php if(!empty($roles)){
+                                                foreach ($roles as $role){
+                                                    echo ($role['id'] == $user['role_id']) ? $role['name'] : '';
+                                                 } } ?> </td>
 
                                             <!-- edit button  -->
                                             <td>

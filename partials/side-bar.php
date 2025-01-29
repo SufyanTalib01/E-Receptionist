@@ -27,7 +27,7 @@
 
             <!-- DROP DOWM MENU  -->
              <!-- create user  -->
-             <?php if($role == 'Admin'){ ?>
+             
               <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Users</span>
@@ -37,6 +37,9 @@
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
                     <a class="nav-link" href="/create-roles.php">Create Role</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/edit-roles-permission.php">Edit Role Permission</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="/add-user.php">Create User</a>
@@ -50,7 +53,7 @@
                 </ul>
               </div>
             </li>
-            <?php } ?>
+            
             
           </ul>
         </nav>

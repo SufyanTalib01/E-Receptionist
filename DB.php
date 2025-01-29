@@ -51,6 +51,23 @@ class MyDB{
         }
         
     }
+    // GET ROLES DATA 
+    public function db_getRoles(){
+        
+        $sql = "SELECT * FROM roles";
+        $result =(mysqli_query($this->conn, $sql));
+        if($result->num_rows > 0){
+            while($row = mysqli_fetch_assoc($result)){
+                $data[] = $row;
+                
+            }
+            return $data;
+        }
+        else{
+            return [];
+        }
+        
+    }
     // check error 
     public function debug($record){
 
@@ -248,7 +265,7 @@ class MyDB{
                 
                 if($uploadImages){
                     $password = password_hash($password , PASSWORD_DEFAULT);
-                    $sql = "INSERT INTO `users` (`name`, `email`, `password` , `role` , `is_active` , `profile_picture`) VALUES ('$name', '$email', '$password' , '$role' , '1' , '$image_name')";
+                    $sql = "INSERT INTO `users` (`name`, `email`, `password` , `role_id` , `is_active` , `profile_picture`) VALUES ('$name', '$email', '$password' , '$role' , '1' , '$image_name')";
                     
                     $result = (mysqli_query($this->conn , $sql));
                     if($result == 1){
@@ -265,7 +282,7 @@ class MyDB{
             
             // INSERT DATA
             $password = password_hash($password , PASSWORD_DEFAULT);
-            $sql = "INSERT INTO `users` (`name`, `email`, `password` , `role` , `is_active`) VALUES ('$name', '$email', '$password' , '$role' , '1')";
+            $sql = "INSERT INTO `users` (`name`, `email`, `password` , `role_id` , `is_active`) VALUES ('$name', '$email', '$password' , '$role' , '1')";
             $result = (mysqli_query($this->conn , $sql));
             if($result == 1){
                 $_SESSION['error'] = 'User Added Successfully';
@@ -342,7 +359,7 @@ class MyDB{
                 $uploadImages = move_uploaded_file($image_tmp , 'upload-images/'.$image_name);
                 if($uploadImages){
                     if(empty($password)){
-                        $sql = "UPDATE users SET name = '$name', email = '$email' , role = '$role' , is_active = '$is_active' , profile_picture = '$image_name' WHERE sno = '$edit_serial_num'";
+                        $sql = "UPDATE users SET name = '$name', email = '$email' , role_id = '$role' , is_active = '$is_active' , profile_picture = '$image_name' WHERE sno = '$edit_serial_num'";
                         $result = mysqli_query($this->conn , $sql);
                         if($result){
                             return true;
@@ -352,7 +369,7 @@ class MyDB{
                     }else{
                         $password = password_hash($password , PASSWORD_DEFAULT);
 
-                        $sql = "UPDATE users SET name = '$name', email = '$email' , password = '$password' , role = '$role' , is_active = '$is_active' , profile_picture = '$image_name' WHERE sno = '$edit_serial_num'";
+                        $sql = "UPDATE users SET name = '$name', email = '$email' , password = '$password' , role_id = '$role' , is_active = '$is_active' , profile_picture = '$image_name' WHERE sno = '$edit_serial_num'";
                         $result = mysqli_query($this->conn , $sql);
                         if($result){
                             return true;
@@ -368,7 +385,7 @@ class MyDB{
         }else{
             
             if(empty($password)){
-                $sql = "UPDATE users SET name = '$name', email = '$email' , role = '$role' , is_active = '$is_active' WHERE sno = '$edit_serial_num'";
+                $sql = "UPDATE users SET name = '$name', email = '$email' , role_id = '$role' , is_active = '$is_active' WHERE sno = '$edit_serial_num'";
                 $result = mysqli_query($this->conn , $sql);
                 if($result){
                     return true;
@@ -377,7 +394,7 @@ class MyDB{
                 }
             }else{
                 $password = password_hash($password , PASSWORD_DEFAULT);
-                $sql = "UPDATE users SET name = '$name', email = '$email' , password = '$password' , role = '$role' , is_active = '$is_active' WHERE sno = '$edit_serial_num'";
+                $sql = "UPDATE users SET name = '$name', email = '$email' , password = '$password' , role_id = '$role' , is_active = '$is_active' WHERE sno = '$edit_serial_num'";
                 $result = mysqli_query($this->conn , $sql);
                 if($result){
                     return true;
@@ -416,6 +433,8 @@ class MyDB{
         }
 
         $name = test_input($name);
+
+        $name = ucwords(strtolower($name));
 
         $sql = "SELECT * FROM roles WHERE  `name` = '$name'";
         $result = mysqli_query($this->conn , $sql);
