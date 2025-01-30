@@ -239,6 +239,7 @@
 
         // Create Roles 
         }else if($action == 'create_roles'){
+
             $createNewRole = $obj->db_create_new_role($_POST);
                 if($createNewRole){
                     $_SESSION['message'] = 'Role Created Successfully';
@@ -247,8 +248,28 @@
                     ($_SESSION['message'] = $_SESSION['error']) ? $_SESSION['message'] = $_SESSION['error'] : $_SESSION['message'] = 'Role Not Create';
                     header('location: create-roles.php');
                 }
-            // $rolePermissions = $obj->db_role_permissions($_POST);
             
+         
+        // Edit Roles and Roles Permission 
+        }else if($action == 'edit_role_permissions'){
+
+            $isRoleAlreadyExist = $obj->db_role_already_exist($_POST);
+
+            if($isRoleAlreadyExist){
+                $_SESSION['message'] = 'Roles is Already Exist';
+                $_SESSION['form_data'] = $_POST;
+                header('location: edit-role-permissions.php?id='.$_POST['roles_id']);
+            }else{
+                $isRoleEdited = $obj->db_edit_role_permission($_POST);
+
+                if($isRoleEdited){
+                    $_SESSION['message'] = 'Role Updated';
+                    header('location: list-role-permissions.php');
+                }
+            }
+            
+
+
         }
         
         

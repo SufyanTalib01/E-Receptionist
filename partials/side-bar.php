@@ -39,7 +39,7 @@
                     <a class="nav-link" href="/create-roles.php">Create Role</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/edit-roles-permission.php">Edit Role Permission</a>
+                    <a class="nav-link" href="/list-role-permissions.php">List Role Permission</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="/add-user.php">Create User</a>

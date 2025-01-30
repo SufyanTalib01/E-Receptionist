@@ -2,12 +2,36 @@
   require_once('DB.php'); 
   
   $users = $obj->getUsers();
-  $module = 'Edit Role Permission';
-
-  $permissions = $obj->getPermissions();
+  $module = 'Edit Role';
+  
+  $id = $_GET['id'];
+  $rolesDataById = $obj->db_get_roles_data_by_id($id);
   $roles = $obj->db_getRoles();
 
+  $permissions = $obj->getPermissions();
 
+
+?>
+
+<!-- RETAIN FORM DATA -->
+<?php 
+
+if(isset($_SESSION['form_data']['name'])){
+    $name = $_SESSION['form_data']['name'];
+}
+if(isset($_SESSION['form_data']['email'])){
+    $email = $_SESSION['form_data']['email'];
+}
+
+if(isset($_SESSION['form_data']['password'])){
+    $password = $_SESSION['form_data']['password'];
+}
+if(isset($_SESSION['form_data']['confirm_password'])){
+    $confirmPassword = $_SESSION['form_data']['confirm_password'];
+}
+if(isset($_SESSION['form_data']['role'])){
+    $role_name = $_SESSION['form_data']['role'];
+}
 
 ?>
 <!DOCTYPE html>
@@ -19,7 +43,7 @@
       require_once('partials/head-links.php');
     ?>
 
-<style>
+    <style>
         .toggle.btn.btn-primary {
         width: 130px !important; /* Set your desired width */
         height: 42px !important;
@@ -28,7 +52,15 @@
         width: 130px !important; /* Set your desired width */
         height: 42px !important;
     }
-</style>
+    .btn:hover, .ajax-upload-dragdrop .ajax-file-upload:hover{
+        
+    }
+    .form-group label{
+        margin-bottom: 0;
+    }
+
+    
+    </style>
 </head>
 
 
@@ -38,64 +70,56 @@
 
         <!-- partial:partials/_navbar.html -->
         <?php
-            require_once('partials/nav-bar.php');
-        ?>
+        require_once('partials/nav-bar.php');
+      ?>
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_sidebar.html -->
-        <?php
+            <?php
           require_once('partials/side-bar.php');  
         ?>
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
 
-            <?php
-              require_once('partials/page-header.php');  
-            ?>
-
-                    <!-- body here  -->
+                <?php
+                     require_once('partials/page-header.php');  
+                ?>
                     <!-- BEGIN :: BODY  -->
                     <div class="container">
                         <div class="card">
                             <div class="card-header p-3">
-                                Create a new Role
+                                Edit Role
                             </div>
 
                             <!-- BEGIN :: FORM -->
-                            <form action="route.php" method="POST" class="m-4">
-                                <input type="hidden" class="form-control" name="action" id="name"
-                                    placeholder="Please enter your name" value="create_roles">
+                            <form action="route.php" method="POST" class="m-4" enctype="multipart/form-data">
+                                <input type="hidden" class="form-control" name="action" id="action"
+                                    placeholder="Please enter your name" value="edit_role_permissions">
+
+                                <!-- HIDDEN ID -->
+                                <div class="form-group">
+                                    <input  type="hidden" class="form-control" name="roles_id" id="name"
+                                        value="<?php echo $rolesDataById['id'] ?>" placeholder="Name">
+                                </div>
+
+                                
+
+
 
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <div class="form-group">
-                                            <label for="">Role<span class="text-danger">*</span></label>
-                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter roll"></i>
-                                            <!-- roles selected -->
-                                            <select required class="form-control form-control-sm" style="border-radius: 0" name="role" id="roles">
-                                                <option selected disabled value="">Select Role</option>
-                                                <?php if(!empty($roles)){
-                                                    foreach ($roles as $role){
-                                                    ?>
-                                                    <option value="<?php echo $role['id'] ?>"><?php echo $role['name'] ?></option>
-                                                  <?php  }  
-                                                }?>
-                                            </select>
+                                        <div class="form-group">
+                                            <label for="name">Name<span class="text-danger">*</span></label>
+                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter full name"></i>
+                                            <input required type="text" class="form-control" name="name" id="name"
+                                                value="<?php echo isset($name) ? $name : $rolesDataById['name'] ?>" placeholder="Name">
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="container my-4">
-                                    <div class="card">
-                                        <div class="card-header p-3">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <span>Permissions</span>
-                                                
-                                            </div>
-                                        </div>
-
-
+                                    
+                                    
+                                    
+                                    <!-- edit roles permission  -->
                                         <div class="container">
                                             <table class="table">
                                                 <thead>
@@ -119,7 +143,9 @@
                                                         <!-- name  -->
                                                         <td> <?php echo  $permission['name'] ?>  </td>
                                                         <!-- Action  -->
-                                                        <td><!-- Active button  -->
+                                                        
+                                                        <!-- Active button  -->
+                                                        <td>
                                                             <div class="bg-secondary d-inline-block p-0 rounded-1">
                                                             <input  class="active_btn" type="hidden" name="is_active[<?php echo $id ?>]" value="off" data-toggle="toggle">
                                                             <input  class="active_btn" type="checkbox" name="is_active[<?php echo $id ?>]" data-toggle="toggle">
@@ -133,17 +159,15 @@
                                             </table>
                                         </div>
 
-                                    </div>
                                 </div>
 
-                                
-
                                 <!-- submit -->
+                                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
 
                                 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                                     <div class="btn-group mr-2" role="group" aria-label="First group">
                                         <button type="submit" class="btn btn-primary rounded-1 btn-sm">Submit</button>
-                                        <button type="button" onclick="window.history.back()" class="btn btn-secondary mx-2 rounded-1 btn-sm">Cancel</button>
+                                        <button type="button" onclick="window.location.href='list-role-permissions.php'" class="btn btn-secondary mx-2 rounded-1 btn-sm">Cancel</button>
                                     </div>
                                 </div>
 
@@ -151,23 +175,30 @@
                         </div>
                         <!-- END :: FORM -->
                     </div>
-
-                    
                     <!-- END :: BODY -->
-                    
 
-            <!-- partial:partials/_footer.html -->
-            <?php
-                require_once('partials/footer.php');  
-            ?>
-            </div>
+                    <!-- partial:partials/_footer.html -->
+                    <?php
+            require_once('partials/footer.php');  
+          ?>
+
+                    <!-- partial -->
+                </div>
                 <!-- main-panel ends -->
             </div>
             <!-- page-body-wrapper endss -->
         </div>
         <?php
-            require_once('partials/footer-links.php');  
-        ?>
+        require_once('partials/footer-links.php');  
+    ?>
+
+<?php 
+    unset($_SESSION['form_data']);
+
+    require_once 'components/tostify-msg.php';
+?>
+
+
 
 </body>
 

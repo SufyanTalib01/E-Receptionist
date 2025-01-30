@@ -444,7 +444,7 @@ class MyDB{
             return false;
             
         }else{
-            $sql = "INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES (NULL, '$name', NOW(), NOW(), NOW())";
+            $sql = "INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`) VALUES (NULL, '$name', NOW(), NOW())";
         $result = mysqli_query($this->conn , $sql);
 
         if($result){
@@ -472,11 +472,75 @@ class MyDB{
             return false;
         }
         }
-
-        
     }
+
+    // GET ROLES DATA BY ID 
+    public function db_get_roles_data_by_id($records){
+        
+        $sql = "SELECT * FROM roles WHERE id = $records";
+        $result =(mysqli_query($this->conn, $sql));
+        $num = mysqli_num_rows($result);
+        if($num > 0){
+            return mysqli_fetch_assoc($result);
+        }else{
+            return NULL;
+        }
+    }
+
+    // GET Role_has_permission DATA BY ID 
+    public function db_get_role_has_permission_data_by_id($records){
+        
+        $sql = "SELECT * FROM roles WHERE id = $records";
+        $result =(mysqli_query($this->conn, $sql));
+        $num = mysqli_num_rows($result);
+        if($num > 0){
+            return mysqli_fetch_assoc($result);
+        }else{
+            return NULL;
+        }
+    }
+
+    // check during edit role - role has already exist or not 
+    public function db_role_already_exist($records){
+
+        extract($records);
+        function test_input($data){
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+
+        $name = test_input($name);
+
+        $name = ucwords(strtolower($name));
+
+        $sql = "SELECT * FROM roles WHERE  `name` = '$name'";
+        $result = mysqli_query($this->conn , $sql);
+        $num = mysqli_num_rows($result);
+        if($num >= 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    // edit and update role permission 
+    public function db_edit_role_permission($records){
+        extract($records);
+
+        $sql = "UPDATE `roles` SET `name` = '$name', `updated_at` = NOW() WHERE `roles`.`id` = $roles_id";
+        $result = mysqli_query($this->conn , $sql);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     
-    
+
+
 }
 
 $obj = new MyDB();
