@@ -243,7 +243,7 @@
             $createNewRole = $obj->db_create_new_role($_POST);
                 if($createNewRole){
                     $_SESSION['message'] = 'Role Created Successfully';
-                    header('location: create-roles.php');   
+                    header('location: list-role-permissions.php');   
                 }else{
                     ($_SESSION['message'] = $_SESSION['error']) ? $_SESSION['message'] = $_SESSION['error'] : $_SESSION['message'] = 'Role Not Create';
                     header('location: create-roles.php');
@@ -252,7 +252,6 @@
          
         // Edit Roles and Roles Permission 
         }else if($action == 'edit_role_permissions'){
-
             $isRoleAlreadyExist = $obj->db_role_already_exist($_POST);
 
             if($isRoleAlreadyExist){

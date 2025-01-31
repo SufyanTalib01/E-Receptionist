@@ -6,6 +6,7 @@
   
   $id = $_GET['id'];
   $rolesDataById = $obj->db_get_roles_data_by_id($id);
+  $rolesHasPermissionDataById = $obj->db_get_role_has_permission_data_by_id($id);
   $roles = $obj->db_getRoles();
 
   $permissions = $obj->getPermissions();
@@ -147,10 +148,24 @@ if(isset($_SESSION['form_data']['role'])){
                                                         <!-- Active button  -->
                                                         <td>
                                                             <div class="bg-secondary d-inline-block p-0 rounded-1">
-                                                            <input  class="active_btn" type="hidden" name="is_active[<?php echo $id ?>]" value="off" data-toggle="toggle">
-                                                            <input  class="active_btn" type="checkbox" name="is_active[<?php echo $id ?>]" data-toggle="toggle">
-                                                        </div>  
-                                                </td>
+                                                                <input class="active_btn" type="hidden" name="is_active[<?php echo $id ?>]" value="off" data-toggle="toggle">
+                                                                <input class="active_btn" type="checkbox" name="is_active[<?php echo $id ?>]" data-toggle="toggle" 
+                                                                <?php 
+                                                                
+                                                                $isChecked = false;
+                                                                if (!empty($rolesHasPermissionDataById)) {
+                                                                    foreach ($rolesHasPermissionDataById as $roleHasPermission) {
+                                                                        if ($roleHasPermission['permissions_id'] == $id) {
+                                                                            $isChecked = true;
+                                                                            break; // Break loop once found
+                                                                        }
+                                                                    }
+                                                                }
+                                                                echo $isChecked ? "checked" : "";
+                                                                ?>>
+                                                            </div>  
+                                                        </td>
+                                                        
                                                     </tr>
                                                     <?php }
                                                     }

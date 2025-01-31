@@ -52,7 +52,7 @@
                             <div class="card-header p-3">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span>List</span>
-                                    <a href="/add-user.php"><button class="btn btn-primary btn-sm">Add <i  class="fa-solid fa-plus fs-6"></i></button></a>
+                                    <a href="/create-roles.php"><button class="btn btn-primary btn-sm">Add <i  class="fa-solid fa-plus fs-6"></i></button></a>
                                 </div>
                             </div>
 
@@ -87,8 +87,7 @@
                                                     aria-label="Toolbar with button groups">
                                                     <div class="btn-group mr-2" role="group" aria-label="First group">
                                                         <form action="edit-role-permissions.php?id=<?php echo $role['id'] ?>" method="post">
-                                                            <!-- edit ID  -->
-                                                            <input type="hidden" name="action" value="edit_user">
+                                                            
                                                             <button class="btn btn-primary btn-sm btn-info"type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
                                                         </form>
 

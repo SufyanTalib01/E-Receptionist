@@ -475,9 +475,9 @@ class MyDB{
     }
 
     // GET ROLES DATA BY ID 
-    public function db_get_roles_data_by_id($records){
-        
-        $sql = "SELECT * FROM roles WHERE id = $records";
+    public function db_get_roles_data_by_id($id){
+
+        $sql = "SELECT * FROM roles WHERE id = $id";
         $result =(mysqli_query($this->conn, $sql));
         $num = mysqli_num_rows($result);
         if($num > 0){
@@ -488,17 +488,24 @@ class MyDB{
     }
 
     // GET Role_has_permission DATA BY ID 
-    public function db_get_role_has_permission_data_by_id($records){
+    public function db_get_role_has_permission_data_by_id($id){
         
-        $sql = "SELECT * FROM roles WHERE id = $records";
+        $sql = "SELECT * FROM role_has_permission WHERE role_id = $id";
         $result =(mysqli_query($this->conn, $sql));
-        $num = mysqli_num_rows($result);
-        if($num > 0){
-            return mysqli_fetch_assoc($result);
-        }else{
-            return NULL;
+        if($result->num_rows > 0){
+            while($row = mysqli_fetch_assoc($result)){
+                $data[] = $row;
+                
+            }
+            return $data;
         }
+        else{
+            return [];
+        }
+
     }
+
+    
 
     // check during edit role - role has already exist or not 
     public function db_role_already_exist($records){
