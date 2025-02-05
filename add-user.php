@@ -1,30 +1,27 @@
 <?php 
   require_once('DB.php'); 
-  
   $users = $obj->getUsers();
   $module = 'Create User';
-
   $roles = $obj->db_getRoles();
-
-
+  $permission = 'create user';
+    $flag = $obj->db_has_user_permission($permission);
+    if($flag){
+    }else{
+        header('location: unauthorized.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title><?php echo TITLE ?></title>
     <?php
       require_once('partials/head-links.php');
     ?>
-
-
 </head>
-
 
 
 <body>
     <div class="container-scroller">
-
         <!-- partial:partials/_navbar.html -->
         <?php
             require_once('partials/nav-bar.php');
@@ -43,19 +40,17 @@
               require_once('partials/page-header.php');  
             ?>
 
-                    <!-- body here  -->
+                    
                     <!-- BEGIN :: BODY  -->
                     <div class="container">
                         <div class="card">
                             <div class="card-header p-3">
                                 Create a new user
                             </div>
-
                             <!-- BEGIN :: FORM -->
                             <form action="route.php" method="POST" class="m-4" enctype="multipart/form-data">
                                 <input type="hidden" class="form-control" name="action" id="name"
                                     placeholder="Please enter your name" value="adduser">
-
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
@@ -137,9 +132,9 @@
                         <!-- END :: FORM -->
                     </div>
                     <!-- END :: BODY -->
-                    <!-- body end  -->
+                    
 
-                    <!-- partial:partials/_footer.html -->
+            <!-- partial:partials/_footer.html -->
             <?php
                 require_once('partials/footer.php');  
             ?>
@@ -148,9 +143,9 @@
             </div>
             <!-- page-body-wrapper endss -->
         </div>
-        <?php
-            require_once('partials/footer-links.php');  
-        ?>
+<?php
+    require_once('partials/footer-links.php');  
+?>
 <?php 
     require_once 'components/tostify-msg.php';
 ?>

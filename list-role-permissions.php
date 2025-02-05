@@ -1,14 +1,15 @@
 <?php 
   require_once('DB.php'); 
-  
-//   $id = $_GET['id'];
   $users = $obj->getUsers();
   $roles = $obj->db_getRoles();
-//   $getUserData = $obj->db_get_data_by_id();
-  $module = 'Users';
+  $module = 'Roles';
 
-
-
+  $permission = 'list roles';
+    $flag = $obj->db_has_user_permission($permission);
+    if($flag){
+    }else{
+        header('location: unauthorized.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +52,7 @@
                         <div class="card">
                             <div class="card-header p-3">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <span>List</span>
+                                    <span>List Roles</span>
                                     <a href="/create-roles.php"><button class="btn btn-primary btn-sm">Add <i  class="fa-solid fa-plus fs-6"></i></button></a>
                                 </div>
                             </div>
@@ -93,8 +94,8 @@
 
                                                         <!-- delete button  -->
                                                         <form id="delete_user_form" action="route.php" method="post">
-                                                            <input type="hidden" name="action" value="delete_user">
-                                                            <input type="hidden" name="delete_serial_num"value="<?php echo $user['sno'] ?>">
+                                                            <input type="hidden" name="action" value="delete_role">
+                                                            <input type="hidden" name="delete"value="<?php echo $role['id'] ?>">
                                                             <button class="delete btn btn-primary btn-sm btn-danger mx-1"type="submit"><i class="fa-solid fa-trash"></i></button>
                                                         </form>
                                                     </div>

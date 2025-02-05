@@ -1,13 +1,14 @@
 <?php 
   require_once('DB.php'); 
-  
   $users = $obj->getUsers();
   $module = 'Create Role';
-
   $permissions = $obj->getPermissions();
-  
-
-
+  $permission = 'create role';
+    $flag = $obj->db_has_user_permission($permission);
+    if($flag){
+    }else{
+        header('location: unauthorized.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

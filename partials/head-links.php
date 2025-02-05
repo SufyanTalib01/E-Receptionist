@@ -46,6 +46,9 @@ if (!in_array($current_page, $excluded_pages)) {
     }
 }
 
+
+    
+
 // specific access for specific role 
 
 // if(isset($_SESSION['loggedin'])){

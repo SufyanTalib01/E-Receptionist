@@ -2,9 +2,9 @@
   require_once('DB.php'); 
   
   $users = $obj->getUsers();
-  $module = 'Edit';
+  $module = 'Manage Profile';
   
-  $id = $_GET['id'];
+  $id = $_SESSION['user_id'];
   $getDataById = $obj->db_get_data_by_id($id);
   $roles = $obj->db_getRoles();
 
@@ -86,13 +86,13 @@ if(isset($_SESSION['form_data']['role'])){
                     <div class="container">
                         <div class="card">
                             <div class="card-header p-3">
-                                Edit User
+                                Profile
                             </div>
 
                             <!-- BEGIN :: FORM -->
                             <form action="route.php" method="POST" class="m-4" enctype="multipart/form-data">
                                 <input type="hidden" class="form-control" name="action" id="action"
-                                    placeholder="Please enter your name" value="edit_user">
+                                    placeholder="Please enter your name" value="manage_profile">
 
                                 <!-- HIDDEN ID -->
                                 <div class="form-group">
@@ -111,7 +111,7 @@ if(isset($_SESSION['form_data']['role'])){
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
-                                            <label for="name">Name<span class="text-danger">*</span></label>
+                                            <label for="name">Full Name<span class="text-danger">*</span></label>
                                             <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter full name"></i>
                                             <input required type="text" class="form-control" name="name" id="name"
                                                 value="<?php echo isset($name) ? $name : $getDataById['name'] ?>" placeholder="Name">
@@ -126,42 +126,10 @@ if(isset($_SESSION['form_data']['role'])){
                                                 value="<?php echo isset($email) ? $email : $getDataById['email'] ?>" placeholder="email">
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <!-- password  -->
-                                        <div class="form-group">
-                                            <label for="password">Password</label>
-                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter password"></i>
-                                            <input type="password" class="form-control" name="password" value="<?php echo isset($password) ? $password : ''?>"
-                                                id="password" placeholder="enter password">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <!-- confirm password -->
-                                        <div class="form-group">
-                                            <label for="confirm_password">Confirm Password</label>
-                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter confirm password"></i>
-                                            <input type="password" class="form-control" name="confirm_password" value="<?php echo isset($confirmPassword) ? $confirmPassword : ''?>"
-                                                id="confirm_password" id="confirm_password"
-                                                placeholder="Please enter same password">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <!-- SELECT ROLE  -->
-                                        <div class="form-group">
-                                            <label for="">Role<span class="text-danger">*</span></label>
-                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter role"></i>
-                                            <!-- role selected -->
-                                            <select required class="form-control form-control-sm"
-                                                style="border-radius: 0" name="role" id="role">
-                                                <option disabled value="">Select Role</option>
-                                                <?php if(!empty($roles)){
-                                                    foreach ($roles as $role){ ?>
-                                                        <option value="<?php echo $role['id'] ?>" <?php echo (isset($getDataById['role_id']) && $getDataById['role_id'] == $role['id']) ? "Selected" : "" ?> > <?php echo $role['name'] ?></option>
-                                                  <?php  }
-                                                 }?>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    
+                                    
+                                    
+                                    
                                     <!-- Profile Picture -->
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
@@ -171,24 +139,16 @@ if(isset($_SESSION['form_data']['role'])){
                                         </div>
                                     </div>
                                     
+                                    
+                                    
+                                    
+
                                     <!-- PROFILE IMAGE  -->
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             <img width="180" id='show_profile_image' src="upload-images/<?php echo isset($getDataById['profile_picture']) ? $getDataById['profile_picture'] : 'user.jpg' ?>" class="img-thumbnail">
                                         </div>
                                     </div>  
-                                    
-                                    <!-- Active button  -->
-                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <div class="form-group">
-                                            <div>
-                                                <label for="">Status</label>
-                                            </div>
-                                            <div class="bg-secondary d-inline-block p-0 rounded-1">
-                                                <input  class="active_btn" type="checkbox" name="is_active" data-toggle="toggle" <?php echo ($getDataById['is_active'] == 1) ? "checked" : " " ?>>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                 </div>
 
@@ -198,7 +158,6 @@ if(isset($_SESSION['form_data']['role'])){
                                 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                                     <div class="btn-group mr-2" role="group" aria-label="First group">
                                         <button type="submit" class="btn btn-primary rounded-1 btn-sm">Submit</button>
-                                        <button type="button" onclick="window.location.href='users.php'" class="btn btn-secondary mx-2 rounded-1 btn-sm">Cancel</button>
                                     </div>
                                 </div>
 

@@ -264,11 +264,50 @@
                 if($isRoleEdited){
                     $_SESSION['message'] = 'Role Updated';
                     header('location: list-role-permissions.php');
+                }else{
+                    $_SESSION['message'] = 'Something went wrong please try again';
+                    header('location: edit-role-permissions.php?id='.$_POST['roles_id']);
                 }
             }
             
 
+        // DELETE ROLE 
+        }else if($action == 'delete_role'){
 
+            $deleteRole = $obj->db_delete_role($_POST);
+
+            if($deleteRole){
+                $_SESSION['message'] = 'Role deleted';
+                header('location: list-role-permissions.php');
+            }else{
+                $_SESSION['message'] = 'Role not deleted';
+                header('location: list-role-permissions.php');
+            }
+        // Manage Profile 
+        }else if($action == 'manage_profile'){
+            $isEmailExist = $obj->db_is_email_already($_POST);
+            if(!$isEmailExist){ 
+                $isFormCorrect = $obj->db_form_validation($_POST);
+                if($isFormCorrect){
+                    $upateData = $obj->db_manage_user($_POST);
+                    if($upateData){
+                        $_SESSION['message'] = 'Profile Updated';
+                        header('location: manage-profile.php');
+                    }else{
+                        $_SESSION['message'] = 'Invalid Crendentials';
+                        $_SESSION['form_data'] = $_POST;
+                        header('location: manage-profile.php');
+                    }
+                }else{
+                    $_SESSION['message'] = $_SESSION['invalid_form_input'];
+                    $_SESSION['form_data'] = $_POST;
+                    header('location: manage-profile.php');
+                }
+            }else{
+                $_SESSION['message'] = 'Email Already Exist';
+                $_SESSION['form_data'] = $_POST;
+                header('location: manage-profile.php');
+            }
         }
         
         

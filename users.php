@@ -1,14 +1,18 @@
 <?php 
-  require_once('DB.php'); 
-  
-//   $id = $_GET['id'];
-  $users = $obj->getUsers();
-  $roles = $obj->db_getRoles();
-//   $getUserData = $obj->db_get_data_by_id();
-  $module = 'Users';
+    require_once('DB.php'); 
 
+    $permission = 'list users';
+    $flag = $obj->db_has_user_permission($permission);
 
+    if($flag){
 
+    }else{
+        header('location: unauthorized.php');
+    }
+    
+    $users = $obj->getUsers();
+    $roles = $obj->db_getRoles();
+    $module = 'Users';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -97,7 +101,7 @@
                                                 <div class="btn-toolbar" role="toolbar"
                                                     aria-label="Toolbar with button groups">
                                                     <div class="btn-group mr-2" role="group" aria-label="First group">
-                                                        <form action="edit-user.php?id=<?php echo $user['sno'] ?>" method="post">
+                                                        <form action="edit-user.php?id=<?php echo $user['id'] ?>" method="post">
                                                             <!-- edit ID  -->
                                                             <input type="hidden" name="action" value="edit_user">
                                                             
@@ -107,7 +111,7 @@
                                                         <!-- delete button  -->
                                                         <form id="delete_user_form" action="route.php" method="post">
                                                             <input type="hidden" name="action" value="delete_user">
-                                                            <input type="hidden" name="delete_serial_num"value="<?php echo $user['sno'] ?>">
+                                                            <input type="hidden" name="delete_serial_num"value="<?php echo $user['id'] ?>">
                                                             <button class="delete btn btn-primary btn-sm btn-danger mx-1"type="submit"><i class="fa-solid fa-trash"></i></button>
                                                         </form>
                                                     </div>

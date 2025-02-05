@@ -112,7 +112,7 @@ if(isset($_SESSION['form_data']['role'])){
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             <label for="name">Name<span class="text-danger">*</span></label>
-                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter full name"></i>
+                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter role name"></i>
                                             <input required type="text" class="form-control" name="name" id="name"
                                                 value="<?php echo isset($name) ? $name : $rolesDataById['name'] ?>" placeholder="Name">
                                         </div>
