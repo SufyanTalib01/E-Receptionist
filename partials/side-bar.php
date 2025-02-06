@@ -48,6 +48,9 @@
                     <a class="nav-link" href="/users.php">List All</a>
                   </li>
                   <li class="nav-item">
+                    <a class="nav-link" href="/patients.php">Patients</a>
+                  </li>
+                  <li class="nav-item">
                     <!-- <a class="nav-link" href="pages/ui-features/typography.html">Typography</a> -->
                   </li>
                 </ul>

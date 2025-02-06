@@ -5,13 +5,14 @@
     $flag = $obj->db_has_user_permission($permission);
 
     if($flag){
+
     }else{
         header('location: unauthorized.php');
     }
+    $patients = $obj->db_patients_table_data();
     
-    $users = $obj->getUsers();
     $roles = $obj->db_getRoles();
-    $module = 'Users';
+    $module = 'Patients';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,9 +67,9 @@
                                         <tr>
                                             <th width="5%" scope="col">#</th>
                                             <th scope="col">Full Name</th>
-                                            <th scope="col">Email</th>
+                                            <th scope="col">Doctor Name</th>
+                                            <th scope="col">Doctor Fees</th>
                                             <th scope="col">Status</th>
-                                            <th scope="col">Role</th>
                                             <th  width="5%" scope="col">Action</th>
 
                                         </tr>
@@ -77,24 +78,21 @@
                                     <tbody>
                                         <?php 
                                     $sno = 1;
-                                    if(!empty($users)){
-                                        foreach ($users as $user){
+                                    if(!empty($patients)){
+                                        foreach ($patients as $patient){
                                             ?>
                                         <tr>
                                             <!-- sno  -->
                                             <th scope="row"> <?php echo $sno++ ?> </th>
                                             <!-- name  -->
-                                            <td> <?php echo  $user['name'] ?>  </td>
-                                            <!-- email  -->
-                                            <td> <?php echo $user['email'] ?> </td>
-                                            <!-- is_active  -->
-                                            <td><span class="badge <?php echo ($user['is_active'] == 1) ? "badge-primary" : "badge-secondary" ?>"><?php echo ($user['is_active'] == 1) ? "active" : "inactive" ?></span></td>
-                                            <!-- role  -->
-                                            <td> <?php if(!empty($roles)){
-                                                foreach ($roles as $role){
-                                                    echo ($role['id'] == $user['role_id']) ? $role['name'] : '';
-                                                 } } ?> </td>
-
+                                            <td> <?php echo  $patient['name'] ?>  </td>
+                                            <!-- doctor name  -->
+                                            <td> <?php echo $patient['doctor_name'] ?> </td>
+                                            <!-- Doctor Fees  -->
+                                            <td> <?php echo  $patient['fee'] ?> </td>
+                                            
+                                            <!-- status  -->
+                                            <td><span class="badge <?php echo ($patient['status'] == 1) ? "badge-primary" : "badge-secondary" ?>"><?php echo ($patient['status'] == 1) ? "Visit" : "Visited" ?></span></td>
                                             <!-- edit button  -->
                                             <td>
                                                 <div class="btn-toolbar" role="toolbar"
@@ -115,7 +113,6 @@
                                                         </form>
                                                     </div>
                                                 </div>
-                                                
                                             </td>
                                         </tr>
                                         <?php }

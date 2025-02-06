@@ -16,6 +16,8 @@ class MyDB{
 
         $this->conn = mysqli_connect($host, $username, $pass, $db) or die("Connection failed");
     }
+
+    // -------------------------TABLES ALL DATA-------------------------
     public function getUsers(){
         
         $sql = "SELECT * FROM users WHERE deleted_at IS NULL";
@@ -32,7 +34,7 @@ class MyDB{
         }
         
     }
-    // GET PERMISSIONS DATA 
+    // GET PERMISSIONS TABLE DATA 
     public function getPermissions(){
         
         $sql = "SELECT * FROM permissions";
@@ -49,6 +51,28 @@ class MyDB{
         }
         
     }
+    // GET PATIENTS TABLE DATA 
+    public function db_patients_table_data(){
+        $sql = "SELECT patients. * , 
+        patients.id AS patients_id,
+        doctors.name AS doctor_name,
+        doctors.fee
+        FROM patients
+        JOIN doctors ON doctors.id = patients.doctor_id";
+
+        $result =(mysqli_query($this->conn, $sql));
+        if($result->num_rows > 0){
+            while($row = mysqli_fetch_assoc($result)){
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else{
+            return [];
+        }
+        
+    }
+
     // check error 
     public function debug($record){
 
@@ -638,9 +662,6 @@ class MyDB{
                     return false;
                 }
         }
-    }
-    public function db_get_user_data($records){
-
     }
     // -------------------MANAGE PROFILE END--------------- 
 
