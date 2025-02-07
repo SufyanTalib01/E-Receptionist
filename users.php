@@ -30,7 +30,7 @@
 <body>
     <div class="container-scroller">
 
-        <!-- partial:partials/_navbar.html -->
+        <!-- partial:partials/_navbarr.html -->
         <?php
             require_once('partials/nav-bar.php');
         ?>
