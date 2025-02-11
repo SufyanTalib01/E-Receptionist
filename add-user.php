@@ -10,6 +10,27 @@
         header('location: unauthorized.php');
     }
 ?>
+<!-- RETAIN FORM DATAA -->
+<?php 
+
+if(isset($_SESSION['form_data']['name'])){
+    $name = $_SESSION['form_data']['name'];
+}
+if(isset($_SESSION['form_data']['email'])){
+    $email = $_SESSION['form_data']['email'];
+}
+
+if(isset($_SESSION['form_data']['password'])){
+    $password = $_SESSION['form_data']['password'];
+}
+if(isset($_SESSION['form_data']['confirm_password'])){
+    $confirmPassword = $_SESSION['form_data']['confirm_password'];
+}
+if(isset($_SESSION['form_data']['role'])){
+    $role_name = $_SESSION['form_data']['role'];
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,7 +77,7 @@
                                         <div class="form-group">
                                             <label for="name">Full Name<span class="text-danger">*</span></label>
                                             <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter full name"></i>
-                                            <input required type="text" class="form-control" name="name" id="name" placeholder="John Doe">
+                                            <input required type="text" class="form-control" name="name" id="name" placeholder="John Doe" value="<?php echo (isset($name)) ? $name : '' ?>">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -64,7 +85,7 @@
                                         <div class="form-group">
                                             <label for="email">Email address<span class="text-danger">*</span></label>
                                             <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter email address"></i>
-                                            <input required type="email" class="form-control" name="email" id="email" placeholder="example@gmail.com">
+                                            <input required type="email" class="form-control" name="email" id="email" placeholder="example@gmail.com" value="<?php echo (isset($email)) ? $email : '' ?>">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -72,7 +93,7 @@
                                         <div class="form-group">
                                             <label for="password">Password<span class="text-danger">*</span></label>
                                             <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter password"></i>
-                                            <input required type="password" class="form-control" name="password" id="password" placeholder="enter password">
+                                            <input required type="password" class="form-control" name="password" id="password" placeholder="enter password" value="<?php echo (isset($password)) ? $password : '' ?>">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -80,7 +101,7 @@
                                         <div class="form-group">
                                             <label for="confirm_password">Confirm Password<span class="text-danger">*</span></label>
                                             <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter confirm password"></i>
-                                            <input required type="password" class="form-control" name="confirm_password" id="confirm_password" id="confirm_password" placeholder="Please enter same password">
+                                            <input required type="password" class="form-control" name="confirm_password" id="confirm_password" id="confirm_password" placeholder="Please enter same password" value="<?php echo (isset($confirmPassword)) ? $confirmPassword : '' ?>">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">

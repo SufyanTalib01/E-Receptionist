@@ -5,14 +5,13 @@
     $flag = $obj->db_has_user_permission($permission);
 
     if($flag){
-
     }else{
         header('location: unauthorized.php');
     }
-    $patients = $obj->db_patients_table_data();
     
-    $roles = $obj->db_getRoles();
-    $module = 'Patients';
+    
+    $doctors = $obj->db_doctor_table_data();
+    $module = 'Doctors';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +30,7 @@
 <body>
     <div class="container-scroller">
 
-        <!-- partial:partials/_navbar.html -->
+        <!-- partial:partials/_navbarr.html -->
         <?php
             require_once('partials/nav-bar.php');
         ?>
@@ -56,7 +55,7 @@
                             <div class="card-header p-3">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span>List</span>
-                                    <a href="/add-patient.php"><button class="btn btn-primary btn-sm">Add <i  class="fa-solid fa-plus fs-6"></i></button></a>
+                                    <a href="/add-doctors.php"><button class="btn btn-primary btn-sm">Add <i  class="fa-solid fa-plus fs-6"></i></button></a>
                                 </div>
                             </div>
 
@@ -66,12 +65,9 @@
                                     <thead>
                                         <tr>
                                             <th width="5%" scope="col">#</th>
-                                            <th scope="col">Full Name</th>
-                                            <th scope="col">Father Name</th>
                                             <th scope="col">Doctor Name</th>
-                                            <th scope="col">Doctor Fees</th>
-                                            <th scope="col">Created By</th>
-                                            <th scope="col">Status</th>
+                                            <th scope="col">Doctor fee</th>
+                                            
                                             <th  width="5%" scope="col">Action</th>
 
                                         </tr>
@@ -80,45 +76,37 @@
                                     <tbody>
                                         <?php 
                                     $sno = 1;
-                                    if(!empty($patients)){
-                                        foreach ($patients as $patient){
+                                    if(!empty($doctors)){
+                                        foreach ($doctors as $doctor){
                                             ?>
                                         <tr>
                                             <!-- sno  -->
                                             <th scope="row"> <?php echo $sno++ ?> </th>
                                             <!-- name  -->
-                                            <td> <?php echo  $patient['name'] ?>  </td>
-                                            <!-- Father name  -->
-                                            <td> <?php echo  $patient['father_name'] ?>  </td>
-                                            <!-- doctor name  -->
-                                            <td> <?php echo $patient['doctor_name'] ?> </td>
-                                            <!-- Doctor Fees  -->
-                                            <td> <?php echo  $patient['fee'] ?> </td>
-                                            <!-- Created By  -->
-                                            <td> <?php echo  $patient['created_by'] ?> </td>
+                                            <td> <?php echo  $doctor['name'] ?>  </td>
+                                            <!-- email  -->
+                                            <td> <?php echo $doctor['fee'] ?> </td>
                                             
-                                            <!-- status  -->
-                                            <td><span class="badge <?php echo ($patient['status'] == 1) ? "badge-primary" : "badge-secondary" ?>"><?php echo ($patient['status'] == 1) ? "Visit" : "Visited" ?></span></td>
+                                            
+
                                             <!-- edit button  -->
                                             <td>
                                                 <div class="btn-toolbar" role="toolbar"
                                                     aria-label="Toolbar with button groups">
                                                     <div class="btn-group mr-2" role="group" aria-label="First group">
-                                                        <form action="edit-patients.php?id=<?php echo $patient['id'] ?>" method="post">
-                                                            <!-- edit ID  -->
-                                                            <input type="hidden" name="action" value="edit_patient">
-                                                            
+                                                        <form action="edit-doctor.php?id=<?php echo $doctor['id'] ?>" method="post">
                                                             <button class="btn btn-primary btn-sm btn-info"type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
                                                         </form>
 
                                                         <!-- delete button  -->
                                                         <form id="delete_user_form" action="route.php" method="post">
-                                                            <input type="hidden" name="action" value="delete_patient">
-                                                            <input type="hidden" name="delete_serial_num"value="<?php echo $patient['id'] ?>">
+                                                            <input type="hidden" name="action" value="delete_doctor">
+                                                            <input type="hidden" name="delete_serial_num"value="<?php echo $doctor['id'] ?>">
                                                             <button class="delete btn btn-primary btn-sm btn-danger mx-1"type="submit"><i class="fa-solid fa-trash"></i></button>
                                                         </form>
                                                     </div>
                                                 </div>
+                                                
                                             </td>
                                         </tr>
                                         <?php }

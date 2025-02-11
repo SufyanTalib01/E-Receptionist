@@ -192,9 +192,6 @@ if(isset($_SESSION['form_data']['role'])){
 
                                 </div>
 
-                                <!-- submit -->
-                                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-
                                 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                                     <div class="btn-group mr-2" role="group" aria-label="First group">
                                         <button type="submit" class="btn btn-primary rounded-1 btn-sm">Submit</button>

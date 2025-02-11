@@ -146,6 +146,7 @@
             
                             if($flag){
                                 $_SESSION['message'] = 'User Added';
+                                unset($_SESSION['form_data']);
                                 header('location: users.php');
                             }else{
                                 if(isset($_SESSION['error'])){
@@ -166,6 +167,7 @@
                 }
             }else{
                 $_SESSION['message'] = $_SESSION['invalid_form_input'];
+                $_SESSION['form_data'] = $_POST;
                 header('location: add-user.php');
             }
             
@@ -308,10 +310,83 @@
                 $_SESSION['form_data'] = $_POST;
                 header('location: manage-profile.php');
             }
-        }
-        
-        
+        // DELETE DOCTORS 
+        }else if($action == 'delete_doctor'){
 
+            $deleteDoctor = $obj->db_delete_doctor($_POST);
+
+            if($deleteDoctor){
+                $_SESSION['message'] = 'deleted Successfully';
+                header('location: doctors.php');
+            }else{
+                header('location: doctors.php');
+            }
+        // ADD PATIENT
+        }else if($action == 'add_patient'){
+            $isPatientAdded = $obj->db_add_patient($_POST);
+            if($isPatientAdded){
+                $_SESSION['message'] = 'Patient Added';
+                header("location: patients.php");
+            }else{
+                $_SESSION['message'] = 'Invalid Credentials';
+                header("location: add-patients.php");
+            }
+        // DELETE PATIENT 
+        }else if($action == 'delete_patient'){
+            $deletePatient = $obj->db_delete_patient($_POST);
+
+            if($deletePatient){
+                $_SESSION['message'] = 'Patient deleted';
+                header('location: patients.php');
+            }else{
+                header('location: patients.php');
+            }
+        // EDIT PATIENT 
+        }else if($action == 'edit_patient'){
+            $isValid = $obj->db_form_validation($_POST);
+                if($isValid){
+                    $isPatientEdited = $obj->db_edit_patient($_POST);
+                if($isPatientEdited){
+                    $_SESSION['message'] = 'Patient Edited';
+                    header('location: patients.php');
+                }else{
+                    $_SESSION['message'] = 'Invalid Credentials';
+                    $_SESSION['form_data'] = $_POST;
+                    header('location: edit-patients.php?id='.$_POST['id']);
+                }
+                }else{
+                    $_SESSION['message'] = $_SESSION['invalid_form_input'];
+                    $_SESSION['form_data'] = $_POST;
+                    header('location: edit-patients.php?id='.$_POST['id']);
+                }
+        // ADD DOCTOR 
+        }else if($action == 'add_doctor'){
+            $isDoctorAdded = $obj->db_add_doctor($_POST);
+            if($isDoctorAdded){
+                $_SESSION['message'] = 'Doctor Added';
+                header('location: doctors.php');
+            }else{
+                $_SESSION['message'] = 'Invalid Credentials';
+                header('location: add-doctor.php');
+            }
+        // EDIT DOCTOR 
+        }else if($action == 'edit_doctor'){
+            $isValid = $obj->db_form_validation($_POST);
+            if($isValid){
+            $isDoctorEdited = $obj->db_edit_doctor($_POST);
+            if($isDoctorEdited){
+                $_SESSION['message'] = 'Doctor Edited';
+                header('location: doctors.php');
+            }else{
+                $_SESSION['message'] = 'Invalid Credentials';
+                header('location: add-doctor.php');
+            }
+            }else{
+                $_SESSION['message'] = $_SESSION['invalid_form_input'];
+                $_SESSION['form_data'] = $_POST;
+                header('location: edit-doctor.php?id='.$_POST['id']);
+            }
+        }
     }
 
     

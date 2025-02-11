@@ -51,19 +51,34 @@ class MyDB{
         }
         
     }
-    // GET PATIENTS TABLE DATA 
+    // GET PATIENTS and DOCTORS TABLE DATA 
     public function db_patients_table_data(){
         $sql = "SELECT patients. * , 
         patients.id AS patients_id,
         doctors.name AS doctor_name,
         doctors.fee
         FROM patients
-        JOIN doctors ON doctors.id = patients.doctor_id";
+        JOIN doctors ON doctors.id = patients.doctor_id WHERE patients.deleted_at IS NULL";
 
         $result =(mysqli_query($this->conn, $sql));
         if($result->num_rows > 0){
             while($row = mysqli_fetch_assoc($result)){
                 $data[] = $row;
+            }
+            return $data;
+        }
+        else{
+            return [];
+        }
+        
+    }
+    // GET DOCTOR TABLE DATA 
+    public function db_doctor_table_data(){
+        $sql = "SELECT * FROM doctors WHERE deleted_at IS NULL";
+        $result =(mysqli_query($this->conn, $sql));
+        if($result->num_rows > 0){
+            while($row = mysqli_fetch_assoc($result)){
+                $data[] = $row;   
             }
             return $data;
         }
@@ -95,18 +110,34 @@ class MyDB{
             return $data;
         }
 
-        $name = test_input($name);
-        $email = test_input($email);
+        if(isset($name)){
+            $name = test_input($name);
+        }
+        if(isset($email)){
+            $email = test_input($email);
+        }
+        if(isset($father_name)){
+            $fatherName = test_input($father_name);
+        }
+
         
 
         $invalidFormInput = "";
 
-        if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
-            $invalidFormInput = "Only letters and white space allowed in name.";
+        if(isset($name)){
+            if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
+                $invalidFormInput = "Only letters and white space allowed in name.";
+            }
         }
-
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $invalidFormInput = "Invalid email format.";
+        if(isset($fatherName)){
+            if (!preg_match("/^[a-zA-Z-' ]*$/",$fatherName)) {
+                $invalidFormInput = "Only letters and white space allowed in father name.";
+            }
+        }
+        if(isset($email)){
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $invalidFormInput = "Invalid email format.";
+            }
         }
 
         // if (!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/", $password)) {
@@ -663,11 +694,98 @@ class MyDB{
                 }
         }
     }
-    // -------------------MANAGE PROFILE END--------------- 
+    // -------------------MANAGE PROFILE END---------------
+    // DELETE Doctor
+    public function db_delete_doctor($records){
+        extract($records);
+        $sql = "UPDATE doctors SET deleted_at = CURRENT_TIMESTAMP WHERE id = $delete_serial_num";
+        $result = mysqli_query($this->conn , $sql);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    // DELETE PATIENT 
+    public function db_delete_patient($records){
+        extract($records);
+        $sql = "UPDATE patients SET deleted_at = CURRENT_TIMESTAMP WHERE id = $delete_serial_num";
+        $result = mysqli_query($this->conn , $sql);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    // ADD PATIENT 
+    public function db_add_patient($records){
+        extract($records);
+        $created_by = $_SESSION['name'];
 
+        $sql = "INSERT INTO `patients` (`name`, `father_name`, `doctor_id`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `status`) VALUES ('$name', '$father_name', '$select', NOW(), NOW(), NULL, '$created_by', '1');";
+        $result = mysqli_query($this->conn , $sql);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    // GET PATIENT DATA BY ID 
+    public function db_get_patients_data($records){
+        $sql = "SELECT * FROM patients WHERE id = $records";
+        $result =(mysqli_query($this->conn, $sql));
+        $num = mysqli_num_rows($result);
+        if($num > 0){
+            return mysqli_fetch_assoc($result);
+        }else{
+            return NULL;
+        }
+
+    }
+    // EDIT PATIENT DATA 
+    public function db_edit_patient($records){
+        extract($records);
+        $sql = "UPDATE `patients` SET `name` = '$name', `father_name` = '$father_name', `doctor_id` = '$select' , `updated_at` = NOW() WHERE `id` = '$id'";
+        $result = mysqli_query($this->conn , $sql);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    // ADD DOCTOR 
+    public function db_add_doctor($records){
+        extract($records);
+        $sql = "INSERT INTO `doctors` (`name`, `father_name`, `specialist`,  `fee` , `created_at`, `updated_at`) VALUES ('$name', '$father_name', '$specialist', '$fee' , NOW() , NOW())";
+        $result = mysqli_query($this->conn , $sql);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    // GET DATA DOCTOR TABLE USING ID 
+    public function db_doctor_data_by_id($records){
+        $sql = "SELECT * FROM doctors WHERE id = $records";
+        $result =(mysqli_query($this->conn, $sql));
+        $num = mysqli_num_rows($result);
+        if($num > 0){
+            return mysqli_fetch_assoc($result);
+        }else{
+            return NULL;
+        }
+    }
     
-
-
+    public function db_edit_doctor($records){
+        extract($records);
+        $sql = "UPDATE `doctors` SET `name` = '$name', `father_name` = '$father_name', `specialist` = '$specialist' , `fee` = '$fee' ,  `updated_at` = NOW() WHERE `id` = '$id'";
+        $result = mysqli_query($this->conn , $sql);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 
 $obj = new MyDB();

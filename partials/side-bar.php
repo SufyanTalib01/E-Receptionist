@@ -25,7 +25,7 @@
             </li>
             
 
-            <!-- DROP DOWM MENU  -->
+              <!-- DROP DOWM MENU  -->
              <!-- create user  -->
              
               <li class="nav-item">
@@ -55,6 +55,13 @@
                   </li>
                 </ul>
               </div>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/doctors.php">
+                <span class="menu-title">Doctors</span>
+                <i class="fa-solid fa-user-doctor menu-icon"></i>
+              </a>
             </li>
             
             
