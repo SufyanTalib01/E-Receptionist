@@ -6,13 +6,9 @@
     }else{
         header('location: unauthorized.php');
     }
-
-  $module = 'Add Patient';
-    
+  $module = 'Add Patient';  
   $doctors = $obj->db_doctor_table_data();
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,8 +38,6 @@
             <?php
               require_once('partials/page-header.php');  
             ?>
-
-                    
                     <!-- BEGIN :: BODY  -->
                     <div class="container">
                         <div class="card">
@@ -88,16 +82,13 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <!-- submit -->
-
                                 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                                     <div class="btn-group mr-2" role="group" aria-label="First group">
                                         <button type="submit" class="btn btn-primary rounded-1 btn-sm">Submit</button>
                                         <button type="button" onclick="window.history.back()" class="btn btn-secondary mx-2 rounded-1 btn-sm">Cancel</button>
                                     </div>
                                 </div>
-
                             </form>
                         </div>
                         <!-- END :: FORM -->
