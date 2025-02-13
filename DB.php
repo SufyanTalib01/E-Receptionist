@@ -722,7 +722,7 @@ class MyDB{
         extract($records);
         $created_by = $_SESSION['name'];
 
-        $sql = "INSERT INTO `patients` (`name`, `father_name`, `doctor_id`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `status`) VALUES ('$name', '$father_name', '$select', NOW(), NOW(), NULL, '$created_by', '1');";
+        $sql = "INSERT INTO `patients` (`name`, `father_name`, `age` , `doctor_id`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `status`) VALUES ('$name', '$father_name', '$age' ,  '$select', NOW(), NOW(), NULL, '$created_by', '1');";
         $result = mysqli_query($this->conn , $sql);
         if($result){
             return true;
@@ -775,7 +775,7 @@ class MyDB{
             return NULL;
         }
     }
-    
+    // Edit Doctor 
     public function db_edit_doctor($records){
         extract($records);
         $sql = "UPDATE `doctors` SET `name` = '$name', `father_name` = '$father_name', `specialist` = '$specialist' , `fee` = '$fee' ,  `updated_at` = NOW() WHERE `id` = '$id'";
@@ -784,6 +784,23 @@ class MyDB{
             return true;
         }else{
             return false;
+        }
+    }
+    // GET PATIENT AND DOCTOR DATA BY ID 
+    public function db_patient_doctor_data($records){
+        $sql = "SELECT patients. * , 
+        patients.id AS patients_id,
+        doctors.name AS doctor_name,
+        doctors.fee
+        FROM patients
+        JOIN doctors ON doctors.id = patients.doctor_id WHERE patients.id = $records";
+
+        $result =(mysqli_query($this->conn, $sql));
+        $num = mysqli_num_rows($result);
+        if($num > 0){
+            return mysqli_fetch_assoc($result);
+        }else{
+            return NULL;
         }
     }
 }

@@ -64,6 +64,14 @@
                                             <input required type="text" class="form-control" name="father_name" id="name" placeholder="John Doe">
                                         </div>
                                     </div>
+                                    <!-- Age  -->
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="name">Age<span class="text-danger">*</span></label>
+                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter age"></i>
+                                            <input required type="number" class="form-control" name="age" placeholder="30">
+                                        </div>
+                                    </div>
                                     <!-- SELECT ROLE  -->
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">

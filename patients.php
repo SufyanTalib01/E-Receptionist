@@ -90,6 +90,7 @@
                                             <td> <?php echo  $patient['name'] ?>  </td>
                                             <!-- Father name  -->
                                             <td> <?php echo  $patient['father_name'] ?>  </td>
+                                            
                                             <!-- doctor name  -->
                                             <td> <?php echo $patient['doctor_name'] ?> </td>
                                             <!-- Doctor Fees  -->
@@ -117,6 +118,15 @@
                                                             <input type="hidden" name="delete_serial_num"value="<?php echo $patient['id'] ?>">
                                                             <button class="delete btn btn-primary btn-sm btn-danger mx-1"type="submit"><i class="fa-solid fa-trash"></i></button>
                                                         </form>
+
+
+                                                        <!-- Print PDF  -->
+                                                        <form action="generate_pdf.php" method="post">
+                                                            <input type="hidden" value="<?php echo $patient['id'] ?>" name="id">
+                                                            <button class="btn btn-primary btn-sm btn-dark"type="submit"><i class="fa-solid fa-print"></i></button>
+                                                        </form>
+
+
                                                     </div>
                                                 </div>
                                             </td>
