@@ -47,14 +47,15 @@
                   <li class="nav-item">
                     <a class="nav-link" href="/users.php">List All</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/patients.php">Patients</a>
-                  </li>
-                  <li class="nav-item">
-                    <!-- <a class="nav-link" href="pages/ui-features/typography.html">Typography</a> -->
-                  </li>
                 </ul>
               </div>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/patients.php">
+                <span class="menu-title">Patients</span>
+                <i class="fa-solid fa-hospital-user menu-icon"></i>
+              </a>
             </li>
 
             <li class="nav-item">

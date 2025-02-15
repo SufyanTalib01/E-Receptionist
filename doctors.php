@@ -66,8 +66,8 @@
                                         <tr>
                                             <th width="5%" scope="col">#</th>
                                             <th scope="col">Doctor Name</th>
+                                            <th scope="col">Doctor Specialist</th>
                                             <th scope="col">Doctor fee</th>
-                                            
                                             <th  width="5%" scope="col">Action</th>
 
                                         </tr>
@@ -84,6 +84,8 @@
                                             <th scope="row"> <?php echo $sno++ ?> </th>
                                             <!-- name  -->
                                             <td> <?php echo  $doctor['name'] ?>  </td>
+                                            <!-- name  -->
+                                            <td> <?php echo  $doctor['specialist'] ?>  </td>
                                             <!-- email  -->
                                             <td> <?php echo $doctor['fee'] ?> </td>
                                             
