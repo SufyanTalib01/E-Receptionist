@@ -37,7 +37,7 @@ $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(0, 8, 'Helpline: +92 313 3502107', 0, 0, 'R'); // Right aligned
 
 $pdf->SetXY(50, 14);
-$pdf->Cell(0, 8, 'Email: sufyantalib125@gmail.com', 0, 0, 'R'); // Right aligned
+$pdf->Cell(0, 8, 'Email: sufyantalib125@gmail.com', 0, 0, 'R'); // Right alignedd
 
 
 $pdf->SetY(30);
