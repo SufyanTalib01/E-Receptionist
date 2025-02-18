@@ -9,71 +9,68 @@ class PDF extends FPDF {
     // Footer Function
     function Footer() {
         $this->SetY(-15); // Position 1.5 cm from bottom
-        $this->SetFont('Arial', 'I', 10);
+        $this->SetFont('Arial', 'I', 5);
         $this->SetTextColor(100, 100, 100);
-
-        // Add horizontal line
-        $this->Line(10, $this->GetY(), 200, $this->GetY());
-
-        // Add footer text (date + page number)
-        $this->Cell(0, 10, 'Generated on: ' . date('d-m-Y') . ' | Page ' , 0, 0, 'C');
-        
+        $this->Line(0, $this->GetY(), 58, $this->GetY()); // Line within page width
+        $this->Cell(0, 4, 'Near Rehmani Masjid Arshad Clinic', 0, 1, 'C');
+        $this->Cell(0, 0, 'Kareemabad, Mirpurkhas', 0, 1, 'C');
+        $this->Cell(0, 4, '031-33502107', 0, 1, 'C');
     }
 }
 
-// Create a new PDF instance
-$pdf = new PDF();
-$pdf->AddPage(); // Add a new page
-$pdf->SetFont('Arial', 'B', 16); // Set font
+// Create PDF with small receipt size
+$pdf = new PDF('P', 'mm', array(58, 90)); // Start with default height
+$pdf->AddPage();
+$pdf->SetFont('Arial', 'B', 10);
 
-// Logo
-$pdf->Image('C:/laragon/www/EReceptionist/assets/images/logo.png', 0, 0, 30);
-$pdf->Cell(0, 10, 'E-Receptionist Hospital', 0, 1, 'C'); 
+$pageWidth = $pdf->GetPageWidth();
+
+// Set the image width
+$imageWidth = 15;
+
+// Calculate the X-coordinate to center the image
+$x = ($pageWidth - $imageWidth) / 2;
+
+// Add the image at the calculated X-coordinate
+// $pdf->Image('C:/laragon/www/EReceptionist/assets/images/logo.png', $x, 0, $imageWidth);
+$pdf->Cell(0, 8, 'E-Receptionist Hospital', 0, 1, 'C'); // Centered Title
+$pdf->Cell(0, 4, 'Token No: ' . $getPatientData['id'] , 0, 1, 'C'); // Centered Title
+
+$pdf->Ln(2);
+
+// Patient Data
+$token_no = $getPatientData['id'];
+$patient_name = $getPatientData['name'];
+$doctor_name = $getPatientData['doctor_name'];
+$doctor_fee = $getPatientData['fee'];
+$date = date('Y-m-d');
+
+// **Margins for the table**
+$margin = 3; // Left-Right Margin
+$column_widths = [22, 30]; // Adjusted widths to fit properlyy
 
 
 
-$pdf->SetXY(50, 10);
-$pdf->SetFont('Arial', '', 10);
-$pdf->Cell(0, 8, 'Helpline: +92 313 3502107', 0, 0, 'R'); // Right aligned
+// Table Data
+$pdf->SetFont('Arial', '', 8);
+$pdf->SetX($margin);
+// Table Data without borders
+$pdf->Cell($column_widths[0], 6, 'Patient Name:', 0 , );
+$pdf->Cell($column_widths[1], 6, $patient_name, 0, 1);
+$pdf->SetX($margin);
+$pdf->Cell($column_widths[0], 6, 'Doctor', 0);
+$pdf->Cell($column_widths[1], 6, $doctor_name, 0, 1);
+$pdf->SetX($margin);
+$pdf->Cell($column_widths[0], 6, 'Fee', 0);
+$pdf->Cell($column_widths[1], 6, $doctor_fee, 0, 1);
+$pdf->SetX($margin);
+$pdf->Cell($column_widths[0], 6, 'Date', 0);
+$pdf->Cell($column_widths[1], 6, $date, 0, 1);
 
-$pdf->SetXY(50, 14);
-$pdf->Cell(0, 8, 'Email: sufyantalib125@gmail.com', 0, 0, 'R'); // Right aligneddd
+// Space before footer
+$pdf->Ln(5);
+$pdf->Cell(0, 2, "Please wait for your turn.", 0, 1, 'C');
 
-
-$pdf->SetY(30);
-
-$pdf->SetFont('Arial', 'B', 16); // Set font
-// Add a title
-$pdf->Cell(190, 10, 'Receipt', 1, 1, 'C');
-
-// Set font for patient details
-$pdf->SetFont('Arial', '', 12);
-
-// Patient ID
-$pdf->Cell(50, 10, 'Patient ID:', 1);
-$pdf->Cell(140, 10, $getPatientData['id'], 1, 1);
-// Name
-$pdf->Cell(50, 10, 'Patient Name:', 1);
-$pdf->Cell(140, 10, $getPatientData['name'], 1, 1);
-// Father Name
-$pdf->Cell(50, 10, 'Father Name:', 1);
-$pdf->Cell(140, 10, $getPatientData['father_name'], 1, 1);
-
-$pdf->Cell(50, 10, 'Age:', 1);
-$pdf->Cell(140, 10, '30', 1, 1);
-
-// Doctor
-$pdf->Cell(50, 10, 'Doctor:', 1);
-$pdf->Cell(140, 10, $getPatientData['doctor_name'], 1, 1);
-
-// Doctor Fee
-$pdf->Cell(50, 10, 'Fee:', 1);
-$pdf->Cell(140, 10, $getPatientData['fee'], 1, 1);
-
-// Receptionist
-$pdf->Cell(50, 10, 'Receptionist:', 1);
-$pdf->Cell(140, 10, $getPatientData['created_by'], 1, 1);
-
-// Output the PDF file for download
-$pdf->Output('patient_report.pdf', 'D'); // 'D' means download
+// Output PDF
+$pdf->Output();
 ?>
