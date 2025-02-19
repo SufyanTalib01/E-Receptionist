@@ -21,6 +21,14 @@
         let table = new DataTable('#myTable');
      </script>
 
+     <!-- <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                responsive: true
+            });
+        });
+    </script> -->
+
      <!-- FONT AWESOME  -->
      <script src="https://kit.fontawesome.com/b69ee90ce9.js" crossorigin="anonymous"></script>
 

@@ -2,7 +2,7 @@
 require_once('DB.php'); 
 require('fpdf/fpdf.php'); // Include the FPDF file
 
-$id = $_SESSION['recent_id'];
+$id = $_POST['id'];
 $getPatientData = $obj->db_patient_doctor_data($id);
 
 class PDF extends FPDF {
@@ -21,7 +21,7 @@ class PDF extends FPDF {
 // Create PDF with small receipt size
 $pdf = new PDF('P', 'mm', array(58, 90)); // Start with default height
 $pdf->AddPage();
-$pdf->SetFont('Arial', 'B', 10);
+$pdf->SetFont('Arial', 'B', 7);
 
 $pageWidth = $pdf->GetPageWidth();
 
@@ -33,6 +33,8 @@ $x = ($pageWidth - $imageWidth) / 2;
 
 // Add the image at the calculated X-coordinate
 // $pdf->Image('C:/laragon/www/EReceptionist/assets/images/logo.png', $x, 0, $imageWidth);
+$pdf->Cell(0, 1, '(Duplicate)', 0, 1, 'C'); // Centered Title
+$pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(0, 8, 'E-Receptionist Hospital', 0, 1, 'C'); // Centered Title
 $pdf->Cell(0, 4, 'Token No: ' . $getPatientData['id'] , 0, 1, 'C'); // Centered Title
 

@@ -327,6 +327,8 @@
             if($isPatientAdded){
                 $_SESSION['message'] = 'Patient Added';
                 header("location: patients.php");
+                header("location: generate_pdf.php");
+                exit;
             }else{
                 $_SESSION['message'] = 'Invalid Credentials';
                 header("location: add-patients.php");
@@ -385,6 +387,18 @@
                 $_SESSION['message'] = $_SESSION['invalid_form_input'];
                 $_SESSION['form_data'] = $_POST;
                 header('location: edit-doctor.php?id='.$_POST['id']);
+            }
+        }
+        // GENERATE REPORT 
+        else if($action == 'generate_report'){
+            $start_date = $_POST['start_date'];;
+            $end_date = $_POST['end_date'];;
+
+            if(strtotime($start_date) > strtotime($end_date)){
+                $_SESSION['message'] = 'Start Date must be earlier than End Date.';
+                header('location: export-data.php');
+            }else{
+                $hasGeneratedReport = $obj->db_generate_report($_POST);
             }
         }
     }

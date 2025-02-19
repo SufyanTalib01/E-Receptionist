@@ -56,7 +56,10 @@
                             <div class="card-header p-3">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span>List</span>
+                                    <div>
+                                    <a href="/export-data.php"><button class="btn btn-primary btn-sm">Export Data <i class="fa-solid fa-file-export"></i></button></a>
                                     <a href="/add-patient.php"><button class="btn btn-primary btn-sm">Add <i  class="fa-solid fa-plus fs-6"></i></button></a>
+                                    </div>
                                 </div>
                             </div>
 
@@ -121,7 +124,7 @@
 
 
                                                         <!-- Print PDF  -->
-                                                        <form action="generate_pdf.php" method="post">
+                                                        <form action="duplicate_pdf.php" method="post">
                                                             <input type="hidden" value="<?php echo $patient['id'] ?>" name="id">
                                                             <button class="btn btn-primary btn-sm btn-dark"type="submit"><i class="fa-solid fa-print"></i></button>
                                                         </form>
@@ -173,6 +176,8 @@
             }
         })
     });
+
+   
     </script>
 
 <?php 

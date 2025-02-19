@@ -63,7 +63,7 @@
                                     <thead>
                                         <tr>
                                             <th width="5%" scope="col">#</th>
-                                            <th scope="col">Full Name</th>
+                                            <th scope="col">Role Name</th>
                                             <th  width="5%" scope="col">Action</th>
                                         </tr>
                                     </thead>

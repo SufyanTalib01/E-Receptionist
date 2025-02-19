@@ -725,6 +725,7 @@ class MyDB{
         $sql = "INSERT INTO `patients` (`name`, `father_name`, `age` , `doctor_id`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `status`) VALUES ('$name', '$father_name', '$age' ,  '$select', NOW(), NOW(), NULL, '$created_by', '1');";
         $result = mysqli_query($this->conn , $sql);
         if($result){
+            $_SESSION['recent_id'] = mysqli_insert_id($this->conn);
             return true;
         }else{
             return false;
@@ -802,6 +803,11 @@ class MyDB{
         }else{
             return NULL;
         }
+    }
+    // GENERATE REPORT 
+    public function db_generate_report($records){
+        extract($records);
+        
     }
 }
 
