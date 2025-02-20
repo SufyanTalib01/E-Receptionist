@@ -57,7 +57,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span>List</span>
                                     <div>
-                                    <a href="/export-data.php"><button class="btn btn-primary btn-sm">Export Data <i class="fa-solid fa-file-export"></i></button></a>
+                                    <a href="/export-data.php"><button class="btn btn-primary btn-sm">Report <i class="fa-solid fa-file-export"></i></button></a>
                                     <a href="/add-patient.php"><button class="btn btn-primary btn-sm">Add <i  class="fa-solid fa-plus fs-6"></i></button></a>
                                     </div>
                                 </div>
@@ -73,7 +73,7 @@
                                             <th scope="col">Father Name</th>
                                             <th scope="col">Doctor Name</th>
                                             <th scope="col">Doctor Fees</th>
-                                            <th scope="col">Created By</th>
+                                            <th scope="col">Added By</th>
                                             <th scope="col">Status</th>
                                             <th  width="5%" scope="col">Action</th>
 

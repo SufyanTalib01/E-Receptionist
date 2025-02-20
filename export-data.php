@@ -6,9 +6,23 @@
     }else{
         header('location: unauthorized.php');
     }
-  $module = 'Report';  
-  $doctors = $obj->db_doctor_table_data();
+  $module = 'Generate Report'; 
+
+  $users = $obj->getUsers();
 ?>
+
+<?php 
+    if(isset($_SESSION['new_message'])){
+        $newMsg = $_SESSION['new_message'];
+        ?>
+        <script>
+            alert("<?php echo $newMsg ?>");
+        </script>
+        <?php
+        unset($_SESSION['new_message']);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,16 +59,14 @@
                                 Create Report
                             </div>
                             <!-- BEGIN :: FORM -->
-                            <form action="route.php" method="POST" class="m-4">
-                                <input type="hidden" class="form-control" name="action"
-                                    value="generate_report">
+                            <form action="total-report.php" method="POST" class="m-4">
                                 <div class="row">
                                     <!-- START DATE  -->
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             <label for="name">Start Date<span class="text-danger">*</span></label>
                                             <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="enter start date"></i>
-                                            <input required type="date" class="form-control" name="start_date" id="start_date" placeholder="John Doe">
+                                            <input required type="date" class="form-control" name="start_date" id="start_date" placeholder="John Doe" value="<?php echo isset($startDate) ? $startDate : '' ?>">
                                         </div>
                                     </div>
                                     <!-- END DATE  -->
@@ -62,10 +74,26 @@
                                         <div class="form-group">
                                             <label for="name">End Date<span class="text-danger">*</span></label>
                                             <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="enter end date"></i>
-                                            <input required type="date" class="form-control" name="end_date" placeholder="John Doe">
+                                            <input required type="date" class="form-control" name="end_date" placeholder="John Doe" value="<?php echo isset($endDate) ? $endDate : '' ?>">
                                         </div>
                                     </div>
-                                    
+                                    <!-- User List  -->
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="">By User<span class="text-danger">*</span></label>
+                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter roll"></i>
+                                            <!-- roles selected -->
+                                            <select required class="form-control form-control-sm" style="border-radius: 0" name="select">
+                                                <option selected value="all_users">All Users</option>
+                                                <?php if(!empty($users)){
+                                                    foreach ($users as $user){
+                                                    ?>
+                                                    <option value="<?php echo $user['name'] ?>" ><?php echo $user['name']?></option>
+                                                  <?php  }  
+                                                }?>
+                                            </select>
+                                        </div>
+                                    </div>
                                     
                                 </div>
                                 <!-- submit -->

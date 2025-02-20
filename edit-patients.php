@@ -18,6 +18,9 @@ if(isset($_SESSION['form_data']['name'])){
 if(isset($_SESSION['form_data']['father_name'])){
     $fatherName = $_SESSION['form_data']['father_name'];
 }
+if(isset($_SESSION['form_data']['age'])){
+    $age = $_SESSION['form_data']['age'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -107,6 +110,14 @@ if(isset($_SESSION['form_data']['father_name'])){
                                             <label for="name">Father/Guardian Name<span class="text-danger">*</span></label>
                                             <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter full name of father/Guardian"></i>
                                             <input required type="text" class="form-control" name="father_name" value="<?php echo isset($fatherName) ? $fatherName : $getPatientData['father_name'] ?>" placeholder="John Doe">
+                                        </div>
+                                    </div>
+                                    <!-- Age  -->
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="name">Age<span class="text-danger">*</span></label>
+                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter Age"></i>
+                                            <input required type="number" class="form-control" name="age" value="<?php echo isset($age) ? $age : $getPatientData['age'] ?>" placeholder="30">
                                         </div>
                                     </div>
                                     

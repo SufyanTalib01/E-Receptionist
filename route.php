@@ -391,14 +391,21 @@
         }
         // GENERATE REPORT 
         else if($action == 'generate_report'){
-            $start_date = $_POST['start_date'];;
-            $end_date = $_POST['end_date'];;
+            $start_date = $_POST['start_date'];
+            $end_date = $_POST['end_date'];
 
             if(strtotime($start_date) > strtotime($end_date)){
                 $_SESSION['message'] = 'Start Date must be earlier than End Date.';
                 header('location: export-data.php');
             }else{
-                $hasGeneratedReport = $obj->db_generate_report($_POST);
+                if($hasGeneratedReport){
+                    $_SESSION['message'] = 'Report Created';
+                    $_SESSION['form_data'] = $_POST;
+                    header('location: total-report.php');
+                }else{
+                    $_SESSION['message'] = 'Something went wrong';
+                    header('location: export-data.php');
+                }
             }
         }
     }

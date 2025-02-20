@@ -746,7 +746,7 @@ class MyDB{
     // EDIT PATIENT DATA 
     public function db_edit_patient($records){
         extract($records);
-        $sql = "UPDATE `patients` SET `name` = '$name', `father_name` = '$father_name', `doctor_id` = '$select' , `updated_at` = NOW() WHERE `id` = '$id'";
+        $sql = "UPDATE `patients` SET `name` = '$name', `father_name` = '$father_name', `age` = $age , `doctor_id` = '$select' , `updated_at` = NOW() WHERE `id` = '$id'";
         $result = mysqli_query($this->conn , $sql);
         if($result){
             return true;
@@ -805,9 +805,40 @@ class MyDB{
         }
     }
     // GENERATE REPORT 
-    public function db_generate_report($records){
-        extract($records);
-        
+    public function db_generate_report($startDate , $endDate , $select){
+        if($select == 'all_users'){
+            
+            $sql = "SELECT COUNT(patients.id) AS total_patients,
+            SUM(doctors.fee) AS total_amount
+            FROM patients
+            JOIN doctors ON doctors.id = patients.doctor_id
+            WHERE DATE(patients.created_at) BETWEEN '$startDate' AND '$endDate'";
+
+            $result = mysqli_query($this->conn , $sql);
+            $num = mysqli_num_rows($result);
+            if($num > 0){
+                return mysqli_fetch_assoc($result);
+            }else{
+                return NULL;
+            }
+        }else{
+            $sql = "SELECT COUNT(patients.id) AS total_patients,
+            SUM(doctors.fee) AS total_amount
+            FROM patients
+            JOIN doctors ON doctors.id = patients.doctor_id
+            WHERE DATE(patients.created_at) BETWEEN '$startDate' AND '$endDate'
+            AND
+            patients.created_by = '$select'
+            ";
+
+            $result = mysqli_query($this->conn , $sql);
+            $num = mysqli_num_rows($result);
+            if($num > 0){
+                return mysqli_fetch_assoc($result);
+            }else{
+                return NULL;
+            }
+        }
     }
 }
 
