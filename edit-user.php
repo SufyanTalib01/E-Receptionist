@@ -3,12 +3,18 @@
   
   $users = $obj->getUsers();
   $module = 'Edit';
+
+if(isset($_GET['id'])){
+}else{
+    header('location: users.php');
+}
   
   $id = $_GET['id'];
   $getDataById = $obj->db_get_data_by_id($id);
   $roles = $obj->db_getRoles();
-
 ?>
+
+
 
 <!-- RETAIN FORM DATAA -->
 <?php 

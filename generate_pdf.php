@@ -2,6 +2,13 @@
 require_once('DB.php'); 
 require('fpdf/fpdf.php'); // Include the FPDF file
 
+
+    if($_POST){
+    }else{
+        header('location: patients.php');
+    }
+
+
 $id = $_SESSION['recent_id'];
 $getPatientData = $obj->db_patient_doctor_data($id);
 

@@ -14,13 +14,12 @@
     }else{
         header('location: export-data.php');
     }
+?>
+<?php 
+    $hasData = $obj->db_generate_report($_POST);
+
     $startDate = $_POST['start_date'];
     $endDate = $_POST['end_date'];
-    $select = $_POST['select'];
-    $hasData = $obj->db_generate_report($startDate , $endDate , $select);
-?>
-
-<?php 
     if(strtotime($startDate) > strtotime($endDate)){
         $_SESSION['new_message'] = 'Start Date must be earlier than End Date.';
         header('location: export-data.php');
@@ -64,9 +63,11 @@
                                 Report
                             </div>
                             <!-- BEGIN :: FORM -->
-                            <form class="m-4">
-                               
+                            <form action="/report-pdf.php" method="POST" class="m-4">
                                 <div class="row">
+                                    <!-- Hidden data  -->
+                                     <input readonly type="text" value="<?php echo $_POST['select'] ?>" name="select">
+                                     <input readonly type="text" value="<?php echo $_POST['select_doctor'] ?>" name="select_doctor">
                                     <!-- START DATE  -->
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
@@ -96,7 +97,13 @@
                                         <div class="form-group">
                                             <label for="name">Total Amount</label>
                                             <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Total Amount"></i>
-                                            <input required readonly type="text" class="form-control" name="end_date" placeholder="" value="<?php echo isset($hasData) ? $hasData['total_amount'] : '0' ?>">
+                                            <input required readonly type="text" class="form-control" name="end_date" placeholder="" value="<?php echo (isset($hasData) && !empty($hasData['total_amount'])) ? $hasData['total_amount'] : '0' ?>">
+                                        </div>
+                                    </div>
+                                    <!-- GENERATE PDF -->
+                                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                        <div class="btn-group mr-2" role="group" aria-label="First group">
+                                        <button type="submit" class="btn btn-primary rounded-1 btn-sm">Generate Pdf</button>
                                         </div>
                                     </div>
                                 </div>

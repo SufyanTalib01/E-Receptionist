@@ -3,11 +3,16 @@
   
   $users = $obj->getUsers();
   $module = 'Edit Role';
+
+if(isset($_GET['id'])){
+}else{
+    header('location: list-role-permissions.php');
+}
   
   $id = $_GET['id'];
   $rolesDataById = $obj->db_get_roles_data_by_id($id);
   $rolesHasPermissionDataById = $obj->db_get_role_has_permission_data_by_id($id);
-  $roles = $obj->db_getRoles();
+//   $roles = $obj->db_getRoles();
 
   $permissions = $obj->getPermissions();
 

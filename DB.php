@@ -805,39 +805,63 @@ class MyDB{
         }
     }
     // GENERATE REPORT 
-    public function db_generate_report($startDate , $endDate , $select){
-        if($select == 'all_users'){
-            
-            $sql = "SELECT COUNT(patients.id) AS total_patients,
+    public function db_generate_report($records){
+        extract($records);
+        
+        $sql = "SELECT COUNT(patients.id) AS total_patients,
             SUM(doctors.fee) AS total_amount
             FROM patients
             JOIN doctors ON doctors.id = patients.doctor_id
-            WHERE DATE(patients.created_at) BETWEEN '$startDate' AND '$endDate'";
+            WHERE DATE(patients.created_at) BETWEEN '$start_date' AND '$end_date'";
 
-            $result = mysqli_query($this->conn , $sql);
-            $num = mysqli_num_rows($result);
-            if($num > 0){
-                return mysqli_fetch_assoc($result);
-            }else{
-                return NULL;
-            }
+        $conditions = [];
+
+        if($select !== 'all_users'){
+            $conditions[] = "patients.created_by = '$select'";
+        }
+        if($select_doctor !== 'all_doctors'){
+            $conditions[] = "patients.doctor_id = '$select_doctor'";
+        }
+        if(!empty($conditions)){
+            $sql .= ' AND ' . implode(' AND ' , $conditions);
+        }
+
+        $result = mysqli_query($this->conn , $sql);
+        $num = mysqli_num_rows($result);
+        if($num > 0){
+            return mysqli_fetch_assoc($result);
         }else{
-            $sql = "SELECT COUNT(patients.id) AS total_patients,
-            SUM(doctors.fee) AS total_amount
-            FROM patients
-            JOIN doctors ON doctors.id = patients.doctor_id
-            WHERE DATE(patients.created_at) BETWEEN '$startDate' AND '$endDate'
-            AND
-            patients.created_by = '$select'
-            ";
+            return NULL;
+        }
+    }
+    // REPORT PDF 
+    public function db_report_pdf($records){
+        extract($records);
+        
+        $sql = "SELECT patients.id AS patient_id, patients.name AS patient_name, patients.age, 
+        doctors.id AS doctor_id, doctors.name AS doctor_name, doctors.fee 
+        FROM patients 
+        JOIN doctors ON patients.doctor_id = doctors.id";
 
-            $result = mysqli_query($this->conn , $sql);
-            $num = mysqli_num_rows($result);
-            if($num > 0){
-                return mysqli_fetch_assoc($result);
-            }else{
-                return NULL;
-            }
+
+        $conditions = [];
+
+        if($select !== 'all_users'){
+            $conditions[] = "patients.created_by = '$select'";
+        }
+        if($select_doctor !== 'all_doctors'){
+            $conditions[] = "patients.doctor_id = '$select_doctor'";
+        }
+        if(!empty($conditions)){
+            $sql .= ' AND ' . implode(' AND ' , $conditions);
+        }
+
+        $result = mysqli_query($this->conn , $sql);
+        $num = mysqli_num_rows($result);
+        if($num > 0){
+            return mysqli_fetch_assoc($result);
+        }else{
+            return NULL;
         }
     }
 }

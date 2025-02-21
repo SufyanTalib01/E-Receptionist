@@ -3,6 +3,11 @@
   
   $users = $obj->getUsers();
   $module = 'Edit Patient';
+
+  if(isset($_GET['id'])){
+}else{
+    header('location: patients.php');
+}
   
   $id = $_GET['id'];
   $getPatientData = $obj->db_get_patients_data($id);

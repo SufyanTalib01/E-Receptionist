@@ -9,6 +9,7 @@
   $module = 'Generate Report'; 
 
   $users = $obj->getUsers();
+  $doctors = $obj->db_doctor_table_data();
 ?>
 
 <?php 
@@ -81,7 +82,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             <label for="">By User<span class="text-danger">*</span></label>
-                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter roll"></i>
+                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter user"></i>
                                             <!-- roles selected -->
                                             <select required class="form-control form-control-sm" style="border-radius: 0" name="select">
                                                 <option selected value="all_users">All Users</option>
@@ -89,6 +90,23 @@
                                                     foreach ($users as $user){
                                                     ?>
                                                     <option value="<?php echo $user['name'] ?>" ><?php echo $user['name']?></option>
+                                                  <?php  }  
+                                                }?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- Doctor List  -->
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="">By Doctor<span class="text-danger">*</span></label>
+                                            <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Please enter doctor"></i>
+                                            <!-- roles selected -->
+                                            <select required class="form-control form-control-sm" style="border-radius: 0" name="select_doctor">
+                                                <option selected value="all_doctors">All Doctors</option>
+                                                <?php if(!empty($doctors)){
+                                                    foreach ($doctors as $doctor){
+                                                    ?>
+                                                    <option value="<?php echo $doctor['id'] ?>" ><?php echo $doctor['name']?></option>
                                                   <?php  }  
                                                 }?>
                                             </select>
