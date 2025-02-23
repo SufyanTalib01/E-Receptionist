@@ -3,7 +3,7 @@ require_once('DB.php');
 require('fpdf/fpdf.php'); // Include the FPDF file
 
 
-    if($_POST){
+    if($_SESSION['recent_id']){
     }else{
         header('location: patients.php');
     }

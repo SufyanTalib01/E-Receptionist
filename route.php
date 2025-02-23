@@ -407,6 +407,19 @@
                     header('location: export-data.php');
                 }
             }
+        // GENERATE REPORT PDF OR EXCEL 
+        }else if($action = 'generate-pdf-excel'){
+            $generate = $_POST['generate'];
+            if($generate == 'pdf'){
+                $_SESSION['form_data'] = $_POST;
+                header('location: report-pdf.php');
+            }else if($generate == 'excel'){
+                $_SESSION['form_data'] = $_POST;
+                header('location: report-excelsheet.php');
+            }else{
+                $_SESSION['message'] = 'something went wrong';
+                header('location: export-data.php');
+            }
         }
     }
 

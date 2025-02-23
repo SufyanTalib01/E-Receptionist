@@ -838,7 +838,7 @@ class MyDB{
     public function db_report_pdf($records){
         extract($records);
         
-        $sql = "SELECT patients.id AS patient_id, patients.name AS patient_name, patients.age, 
+        $sql = "SELECT patients.id AS patient_id, patients.name AS patient_name, patients.age, patients.created_by,
         doctors.id AS doctor_id, doctors.name AS doctor_name, doctors.fee 
         FROM patients 
         JOIN doctors ON patients.doctor_id = doctors.id";
@@ -853,13 +853,16 @@ class MyDB{
             $conditions[] = "patients.doctor_id = '$select_doctor'";
         }
         if(!empty($conditions)){
-            $sql .= ' AND ' . implode(' AND ' , $conditions);
+            $sql .= ' WHERE ' . implode(' AND ' , $conditions);
         }
 
         $result = mysqli_query($this->conn , $sql);
         $num = mysqli_num_rows($result);
         if($num > 0){
-            return mysqli_fetch_assoc($result);
+            while($row = mysqli_fetch_assoc($result)){
+                $data[] = $row;
+            }
+            return $data;
         }else{
             return NULL;
         }

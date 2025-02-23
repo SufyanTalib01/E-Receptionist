@@ -63,11 +63,12 @@
                                 Report
                             </div>
                             <!-- BEGIN :: FORM -->
-                            <form action="/report-pdf.php" method="POST" class="m-4">
+                            <form action="/route.php" method="POST" class="m-4">
                                 <div class="row">
                                     <!-- Hidden data  -->
-                                     <input readonly type="text" value="<?php echo $_POST['select'] ?>" name="select">
-                                     <input readonly type="text" value="<?php echo $_POST['select_doctor'] ?>" name="select_doctor">
+                                     <input type="hidden" name="action" value="generate-pdf-excel">
+                                     <input readonly type="hidden" value="<?php echo $_POST['select'] ?>" name="select">
+                                     <input readonly type="hidden" value="<?php echo $_POST['select_doctor'] ?>" name="select_doctor">
                                     <!-- START DATE  -->
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
@@ -89,7 +90,7 @@
                                     <div class="form-group">
                                         <label for="name">Total Patients</label>
                                         <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Total Patients"></i>
-                                        <input required readonly type="text" class="form-control" name="end_date" placeholder="" value="<?php echo isset($hasData) ? $hasData['total_patients'] : '' ?>">
+                                        <input required readonly type="text" class="form-control" name="total_patients" placeholder="" value="<?php echo isset($hasData) ? $hasData['total_patients'] : '' ?>">
                                     </div>
                                     </div>
                                     <!-- TOTAL AMOUNT  -->
@@ -97,13 +98,14 @@
                                         <div class="form-group">
                                             <label for="name">Total Amount</label>
                                             <i class="fas fa-info-circle text-secondary" data-toggle="tooltip" data-placement="right" title="Total Amount"></i>
-                                            <input required readonly type="text" class="form-control" name="end_date" placeholder="" value="<?php echo (isset($hasData) && !empty($hasData['total_amount'])) ? $hasData['total_amount'] : '0' ?>">
+                                            <input required readonly type="text" class="form-control" name="total_amounts" placeholder="" value="<?php echo (isset($hasData) && !empty($hasData['total_amount'])) ? $hasData['total_amount'] : '0' ?>">
                                         </div>
                                     </div>
                                     <!-- GENERATE PDF -->
                                     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                                         <div class="btn-group mr-2" role="group" aria-label="First group">
-                                        <button type="submit" class="btn btn-primary rounded-1 btn-sm">Generate Pdf</button>
+                                        <button type="submit"  name = "generate" value="pdf" class="btn btn-primary rounded-1 btn-sm">Generate Pdf</button>
+                                        <button type="submit" name = "generate" value="excel" class="btn btn-primary rounded-1 btn-sm mx-2">Generate Excel Sheet</button>
                                         </div>
                                     </div>
                                 </div>
