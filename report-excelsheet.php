@@ -60,7 +60,7 @@ if (!empty($reportAllData)) {
     }
 }
 
-// Auto-size columns for better readabilityy
+// Auto-size columns for better readabilityyy
 foreach (range('A', 'E') as $col) {
     $sheet->getColumnDimension($col)->setAutoSize(true);
 }
