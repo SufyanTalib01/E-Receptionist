@@ -8,7 +8,7 @@ $reportAllData = $obj->db_report_pdf($formData);
 $startDate = isset($formData['start_date']) ? $formData['start_date'] : '';
 $endDate = isset($formData['end_date']) ? $formData['end_date'] : '';
 
-// $obj->debug($reportAllData);
+// $obj->debug($reportAllData);;
 
 // Create a new PDF document
 $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
