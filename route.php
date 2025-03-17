@@ -407,7 +407,7 @@
                     header('location: export-data.php');
                 }
             }
-        // GENERATE REPORT PDF OR EXCELL
+        // GENERATE REPORT PDF OR EXCEL
         }else if($action = 'generate-pdf-excel'){
             $generate = $_POST['generate'];
             if($generate == 'pdf'){
