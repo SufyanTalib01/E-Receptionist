@@ -93,7 +93,7 @@
                                         <input required readonly type="text" class="form-control" name="total_patients" placeholder="" value="<?php echo isset($hasData) ? $hasData['total_patients'] : '' ?>">
                                     </div>
                                     </div>
-                                    <!-- TOTAL AMOUNTT  -->
+                                    <!-- TOTAL AMOUNT  -->
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             <label for="name">Total Amount</label>
